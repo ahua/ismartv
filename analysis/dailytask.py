@@ -136,7 +136,10 @@ class DailyTask:
         for device in res:
             x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:d"])
             y = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
-            z = float(x.columns["a:d"].value)/float(y.columns["a:a"].value)
+            if not x or not y:
+                z = 0
+            else:    
+                z = float(x.columns["a:d"].value)/float(y.columns["a:a"].value)
             DailyTask.hbaseinterface.write(self.day_str + device, {"a:g": "%s" % round(z, 4)})
 
     # 开机率
