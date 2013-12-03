@@ -110,7 +110,7 @@ class DailyTask:
             key = self.day_str + device
             DailyTask.hbaseinterface.write(key, {"a:e": value})
 
-    # VOD户均时长
+    # VOD用户播放总时长
     @timed
     def _f(self):
         sql = """select sum(duration), device
@@ -122,42 +122,11 @@ class DailyTask:
         for li in res:
             value, device = li.split()
             key = self.day_str + device
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:d"])
-            z = int(value)/int(x.columns["a:d"].value)
             DailyTask.hbaseinterface.write(key, {"a:f": str(z)})
-
-    # VOD激活率
-    @timed
-    def _g(self):
-        sql = """select distinct device from daily_logs 
-                 where d = %s
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
-        for device in res:
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:d"])
-            y = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
-            if not x or not y:
-                z = 0
-            else:    
-                z = float(x.columns["a:d"].value)/float(y.columns["a:a"].value)
-            DailyTask.hbaseinterface.write(self.day_str + device, {"a:g": "%s" % round(z, 4)})
-
-    # 开机率
-    @timed
-    def _h(self):
-        sql = """select distinct device from daily_logs 
-                 where d = %s
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
-        for device in res:
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:c"])
-            y = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
-            z = float(x.columns["a:c"].value)/float(y.columns["a:a"].value)
-            DailyTask.hbaseinterface.write(self.day_str + device, {"a:h": "%s" % round(z, 4)})
 
     # 应用激活率
     @timed
-    def _i(self):
+    def _g(self):
         sql = """select count(distinct sn), device
                  from daily_logs where d = %s
                  and event = "app_start"
@@ -195,14 +164,12 @@ class DailyTask:
         for li in res:
             value, device = li.split()
             key = self.day_str + device
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:c"])
-            z = float(value) / float(x.columns["a:c"].value)
-            DailyTask.hbaseinterface.write(key, {"a:h": "%s" % round(z, 4)})
+            DailyTask.hbaseinterface.write(key, {"a:g": "%s" % value})
 
 
     # 智能激活率
     @timed
-    def _j(self):
+    def _h(self):
         sql = """select count(distinct sn), device
                  from daily_logs where d = %s
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
@@ -240,9 +207,7 @@ class DailyTask:
         for li in res:
             value, device = li.split()
             key = self.day_str + device
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:c"])
-            z = float(value) / float(x.columns["a:c"].value)
-            DailyTask.hbaseinterface.write(key, {"a:j": "%s" % round(z, 4)})
+            DailyTask.hbaseinterface.write(key, {"a:h": "%s" % value})
 
     def execute(self):
         self._a()

@@ -12,149 +12,51 @@ from HbaseInterface import HbaseInterface
 HOST = "hadoopmaster"
 ONE_DAY = datetime.timedelta(days=1)
 
-class DailyTask:
+class MonthlyTask:
     hiveinterface = HiveInterface(HOST)    
-    hbaseinterface = HbaseInterface(HOST, "9090","daily_result")
+    hbaseinterface = HbaseInterface(HOST, "9090","monthly_result")
 
+    # 自然月
     def __init__(self, day):
         self.day = day
-        self.day_str = day.strftime("%Y%m%d")
-        self.last_day = day - ONE_DAY
-        self.last_day_str = self.last_day.strftime("%Y%m%d")
-    
-    # 累计用户数
-    @timed
-    def _a(self):
-        sql = """select count(distinct sn), device 
-                 from daily_logs where d <= %s
-                 group by device
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
-        for li in res:
-            value, device = li.split()
-            key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:a": value})
-
-    # 新增用户数
-    @timed
-    def _b(self):
-        sql = """select distinct device from daily_logs 
-                 where d = %s
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
-        for device in res:
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
-            y = DailyTask.hbaseinterface.read(self.last_day_str + device, ["a:a"])
-            if x and y:
-                z = int(x.columns["a:a"].value) - int(y.columns["a:a"].value)
-            elif x and not y:
-                z = int(x.columns["a:a"].value)
-            elif not x and y:
-                z = 0
-            else:
-                z = 0
-            DailyTask.hbaseinterface.write(self.day_str + device, {"a:b": str(z)})
+        if self.day.day != 1:
+            raise Exception("MonthlyTask must be executed at 1th of month...")
+        self.endday = self.day - ONE_DAY
+        self.startday = self.endday.replace(day=1)
+        self.startday_str = self.startday.strftime("%Y%m%d")
+        self.endday_str = self.endday.strftime("%Y%m%d")
+        self.month_str = self.startday.strftime("%Y%m")
             
     # 活跃用户数
     @timed
-    def _c(self):
+    def _a(self):
         sql = """select count(distinct sn), device 
-                 from daily_logs where d = %s
+                 from daily_logs where d >= %s and d <= %s
                  group by device
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
+              """ % (self.startday_str, self.endday_str)
+        res = MonthlyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
-            key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:c": value})
+            key = self.month_str + device
+            MonthlyTask.hbaseinterface.write(key, {"a:a": value})
 
     # VOD用户数
     @timed
-    def _d(self):
+    def _b(self):
         sql = """select count(distinct sn), device
                  from daily_logs where d = %s
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
                  group by device
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
+              """ % (self.startday_str, self.endday_str)
+        res = MonthlyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
-            key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:d": value})
+            key = self.month_str + device
+            MonthlyTask.hbaseinterface.write(key, {"a:b": value})
 
-
-    # VOD播放次数
+    # 应用激活数
     @timed
-    def _e(self):
-        # device in ("K", "S"), event = "video_play_load"
-        sql = """select count(*), device
-                 from daily_logs where d = %s
-                 and event = "video_play_load"
-                 group by device
-              """ % self.day_str
-        res1 = DailyTask.hiveinterface.execute(sql)
-        for li in res1:
-            value, device = li.split()
-            key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:e": value})
-
-        # device in ("A"), event = "video_start"
-        sql = """select count(*), device
-                 from daily_logs where d = %s
-                 and event = "video_start"
-                 group by device
-              """ % self.day_str
-        res2 = DailyTask.hiveinterface.execute(sql)
-        for li in res2:
-            value, device = li.split()
-            key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:e": value})
-
-    # VOD户均时长
-    @timed
-    def _f(self):
-        sql = """select sum(duration), device
-                 from daily_logs where d = %s
-                 and event = "video_exit"
-                 group by device
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
-        for li in res:
-            value, device = li.split()
-            key = self.day_str + device
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:d"])
-            z = int(value)/int(x.columns["a:d"].value)
-            DailyTask.hbaseinterface.write(key, {"a:f": str(z)})
-
-    # VOD激活率
-    @timed
-    def _g(self):
-        sql = """select distinct device from daily_logs 
-                 where d = %s
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
-        for device in res:
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:d"])
-            y = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
-            z = float(x.columns["a:d"].value)/float(y.columns["a:a"].value)
-            DailyTask.hbaseinterface.write(self.day_str + device, {"a:g": "%s" % round(z, 4)})
-
-    # 开机率
-    @timed
-    def _h(self):
-        sql = """select distinct device from daily_logs 
-                 where d = %s
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
-        for device in res:
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:c"])
-            y = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
-            z = float(x.columns["a:c"].value)/float(y.columns["a:a"].value)
-            DailyTask.hbaseinterface.write(self.day_str + device, {"a:h": "%s" % round(z, 4)})
-
-    # 应用激活率
-    @timed
-    def _i(self):
+    def _c(self):
         sql = """select count(distinct sn), device
                  from daily_logs where d = %s
                  and event = "app_start"
@@ -187,19 +89,16 @@ class DailyTask:
                                  'com.chinatvpay',
                                  'com.lenovo.leos.pay')
                  group by device
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
+              """ % (self.startday_str, self.endday_str)
+        res = MonthlyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
-            key = self.day_str + device
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:c"])
-            z = float(value) / float(x.columns["a:c"].value)
-            DailyTask.hbaseinterface.write(key, {"a:h": "%s" % round(z, 4)})
+            key = self.month_str + device
+            MonthlyTask.hbaseinterface.write(key, {"a:c": "%s" % value})
 
-
-    # 智能激活率
+    # 智能激活数
     @timed
-    def _j(self):
+    def _d(self):
         sql = """select count(distinct sn), device
                  from daily_logs where d = %s
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
@@ -232,14 +131,49 @@ class DailyTask:
                                  'com.chinatvpay',
                                  'com.lenovo.leos.pay')
                  group by device
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
+              """ % (self.startday_str, self.endday_str)
+        res = MonthlyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
-            key = self.day_str + device
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:c"])
-            z = float(value) / float(x.columns["a:c"].value)
-            DailyTask.hbaseinterface.write(key, {"a:j": "%s" % round(z, 4)})
+            key = self.month_str + device
+            MonthlyTask.hbaseinterface.write(key, {"a:d": "%s" % value})
+
+    # 首次缓冲3秒内（含）次数
+    @timed
+    def _e(self):
+        sql = """select count(*), device 
+                 from daily_logs
+                 where event = "video_play_load" and duration <= 3
+                 and d >= %s and d <= %s
+                 group by device
+              """ % (self.startday_str, self.endday_str)
+        res = MonthlyTask.hiveinterface.execute(sql)
+        for li in res:
+            value, device = li.split()
+            key = self.month_str + device
+            MonthlyTask.hbaseinterface.write(key, {"a:e": "%s" % value})
+
+    # 每次播放卡顿2次内次数
+    @timed
+    def _f(self):
+        sql = """select device, sn, token, clip, count(*)
+                 from daily_logs 
+                 where d >= %s and d <= %s
+                 and event = "video_play_blockend"
+                 group by device, sn, token, clip
+              """ % (self.startday_str, self.endday_str)
+        res = MonthlyTask.hiveinterface.execute(sql)
+        dd = {}
+        for li in res:
+            device, _, _, c = li.split()
+            if int(c) < 2:
+                if dd.has_key(device):
+                    dd[device] += 1
+                else:
+                    dd[device] = 1
+        for device, value in dd.iteritems():
+            key = self.month_str + device
+            MonthlyTask.hbaseinterface.write(key, {"a:f": "%s" % value})
 
     def execute(self):
         self._a()
@@ -248,11 +182,6 @@ class DailyTask:
         self._d()
         self._e()
         self._f()
-        self._g()
-        self._h()
-        self._i()
-        self._j()
-
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
@@ -268,6 +197,6 @@ if __name__ == "__main__":
             startday = startday + ONE_DAY
     
     for day in daylist:
-        task = DailyTask(day)
+        task = MonthlyTask(day)
         task.execute()
                                            

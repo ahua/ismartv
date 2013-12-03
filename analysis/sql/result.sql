@@ -9,13 +9,11 @@ create table daily_result(
    c int comment '活跃用户数',
    d int comment 'VOD用户数',
    e int comment 'VOD播放次数',
-   f float comment 'VOD户均时长',
-   g float comment 'VOD激活率',
-   h float comment '开机率',
-   i float comment '应用激活率',
-   j float comment '智能激活率'
+   f float comment 'VOD用户播放总时长',
+   g float comment '应用激活率',
+   h float comment '智能激活率'
 ) stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
-WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,a:a,a:b,a:c,a:d,a:e,a:f,a:g,a:h,a:i,a:j")
+WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,a:a,a:b,a:c,a:d,a:e,a:f,a:g,a:h")
 TBLPROPERTIES ("hbase.table.name" = "daily_result");
 
 create table weekly_result(

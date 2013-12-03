@@ -14,7 +14,7 @@ ONE_DAY = datetime.timedelta(days=1)
 
 class WeeklyTask:
     hiveinterface = HiveInterface(HOST)    
-    hbaseinterface = HbaseInterface(HOST, "9090","daily_result")
+    hbaseinterface = HbaseInterface(HOST, "9090","weekly_result")
 
     # 周的定义：上周五0点-本周四24点
     def __init__(self, day):
@@ -27,8 +27,8 @@ class WeeklyTask:
 
         self.startday = self.day - 7 * ONE_DAY
         self.endday = self.day - ONE_DAY
-        self.start_s = self.startday.strftime("%Y%m%d")
-        self.end_s = self.endday.strftime("%Y%m%d")
+        self.startday_str = self.startday.strftime("%Y%m%d")
+        self.endday_str = self.endday.strftime("%Y%m%d")
 
     # 周活跃用户数
     @timed
@@ -36,7 +36,7 @@ class WeeklyTask:
         sql = """select count(distinct sn), device 
                  from daily_logs where d >= %s and d <= %s
                  group by device
-              """ % (self.start_s, self.end_s)
+              """ % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
@@ -50,29 +50,16 @@ class WeeklyTask:
                  from daily_logs where d >= %s and d <= %s
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
                  group by device
-              """ % (self.start_s, self.end_s)
+              """ % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
             key = self.day_str + device
             WeeklyTask.hbaseinterface.write(key, {"a:b": value})
 
-    # 周VOD激活率
+    # 周应用用户数
     @timed
     def _c(self):
-        sql = """select distinct device from daily_logs 
-                 where d = %s
-              """ % self.day_str
-        res = WeeklyTask.hiveinterface.execute(sql)
-        for device in res:
-            x = WeeklyTask.hbaseinterface.read(self.day_str + device, ["a:d"])
-            y = WeeklyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
-            z = float(x.columns["a:d"].value)/float(y.columns["a:a"].value)
-            WeeklyTask.hbaseinterface.write(self.day_str + device, {"a:c": "%s" % round(z, 4)})
-
-    # 周应用激活率
-    @timed
-    def _d(self):
         sql = """select count(distinct sn), device
                  from daily_logs where d >= %s and d <= %s
                  and event = "app_start"
@@ -105,18 +92,16 @@ class WeeklyTask:
                                  'com.chinatvpay',
                                  'com.lenovo.leos.pay')
                  group by device
-              """ % (self.start_s, self.end_s)
+              """ % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
             key = self.day_str + device
-            x = WeeklyTask.hbaseinterface.read(self.day_str + device, ["a:c"])
-            z = float(value) / float(x.columns["a:c"].value)
-            WeeklyTask.hbaseinterface.write(key, {"a:h": "%s" % round(z, 4)})
+            WeeklyTask.hbaseinterface.write(key, {"a:c": "%s" % value})
 
-    # 周智能激活率
+    # 周智能用户数
     @timed
-    def _e(self):
+    def _d(self):
         sql = """select count(distinct sn), device
                  from daily_logs where d >= %s and d <= %s
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
@@ -149,64 +134,18 @@ class WeeklyTask:
                                  'com.chinatvpay',
                                  'com.lenovo.leos.pay')
                  group by device
-              """ % (self.start_s, self.end_s)
+              """ % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
             key = self.day_str + device
-            x = WeeklyTask.hbaseinterface.read(self.day_str + device, ["a:c"])
-            z = float(value) / float(x.columns["a:c"].value)
-            WeeklyTask.hbaseinterface.write(key, {"a:j": "%s" % round(z, 4)})
-
-    # 日均活跃用户数
-    @timed
-    def _f(self):
-        pass
-
-    # 日均VOD用户数
-    @timed
-    def _g(self):
-        pass
-
-    # 日均VOD播放次数
-    @timed
-    def _h(self):
-        pass
-
-    # 日均户均时长
-    @timed
-    def _i(self):
-        pass
-
-    # 日均VOD激活率
-    @timed
-    def _j(self):
-        pass
-
-    # 日均应用激活率
-    @timed
-    def _k(self):
-        pass
-
-    # 日均智能激活率
-    @timed
-    def _l(self):
-        pass
-
+            WeeklyTask.hbaseinterface.write(key, {"a:j": "%s" % value})
 
     def execute(self):
         self._a()
         self._b()
         self._c()
         self._d()
-        self._e()
-        self._f()
-        self._g()
-        self._h()
-        self._i()
-        self._j()
-        self._k()
-        self._l()
 
 
 if __name__ == "__main__":
