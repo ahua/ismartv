@@ -10,7 +10,28 @@ INPUT_DIR = "/home/deploy/ismartv/log/A21/used"
 OUTPUT_DIR = "/home/deploy/ismartv/output/test"
 DELIMITER = ","
 
-DEVICE = "K91"
+SN_DEV_MAP = {
+    "TD01": ["S51", "42"],"TD02": ["S51", "47"],"TD03": ["S51", "55"],
+    "RD01": ["S61", "42"],"RD02": ["S61", "47"],"RD03": ["S61", "55"],
+    "UD01": ["S31", "39"],"UD02": ["S31", "50"],
+    "TD04": ["A21", "32"],"TD05": ["A21", "42"],
+    "TD06": ["A11", "32"],"TD07": ["A11", "42"],
+    "CD01": ["K82", "60"],
+    "CD02": ["LX750A", "46"],"CD03": ["LX750A", "52"],"CD04": ["LX750A", "60"],
+    "CD05": ["LX850A", "60"],"CD06": ["LX850A", "70"],"CD07": ["LX850A", "80"],
+    "CD08": ["K72", "60"],
+    "CD09": ["DS70A", "46"],"CD10": ["DS70A", "52"],"CD11": ["DS70A", "60"],
+    "CD12": ["DS755A", "46"],"CD13": ["DS755A", "52"],"CD14": ["DS755A", "60"]
+}
+
+def get_device_size(sn):
+    if type(sn)==str and sn.isalnum():
+        return ["K91","unknown"] if sn.islower() and len(sn) in [6,7,8] else SN_DEV_MAP.get(sn[0:4],["unknown","unknown"])
+    return ["unknown","unknown"]
+
+def get_device(sn):
+    return get_device_size(sn)[0]
+
 
 def from_splunk(filename):
     logfile = open(filename, "r")
@@ -37,9 +58,9 @@ def from_splunk(filename):
                     
             timestamp = time.mktime(r["time"].timetuple())
             day = r["time"].strftime("%Y%m%d")
-            _device = DEVICE
             _unique_key = "-"
             sn = r["sn"]
+            _device = get_device(sn)
             token= r["token"]
             ip = r["ip"]
             event = r["event"]
