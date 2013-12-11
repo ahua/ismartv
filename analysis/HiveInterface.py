@@ -38,7 +38,7 @@ class HiveInterface:
 
 
 if __name__ == '__main__':
-    client = HiveInterface("172.16.1.204")
+    client = HiveInterface("localhost")
 #    lines = client.execute("select * from daily_result")
     lines = client.execute("select count(1) from daily_logs")
     print lines

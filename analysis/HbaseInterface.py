@@ -45,7 +45,7 @@ class HbaseInterface:
 
             
 if __name__ == "__main__":
-    client = HbaseInterface("172.16.1.204","9090","daily_result")
+    client = HbaseInterface("localhost","9090","daily_result")
     key = "2013A22"
     d = {"a:a": "1",
          "a:b": "2",

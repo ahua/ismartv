@@ -1,5 +1,5 @@
 ADD JAR /usr/lib/hive/lib/zookeeper.jar;
-ADD JAR /usr/lib/hive/lib/hive-hbase-handler-0.10.0-cdh4.4.0.jar;
+ADD JAR /usr/lib/hive/lib/hive-hbase-handler-0.10.0-cdh4.5.0.jar;
 ADD JAR /usr/lib/hive/lib/guava-11.0.2.jar;
 
 create table daily_result(
