@@ -97,9 +97,9 @@ def load_to_hive(output_dir, date):
 
 
 if __name__ == "__main__":
-    INPUT_DIR = "/home/deploy/ismartv/log/"
-    OUTPUT_DIR = "/home/deploy/ismartv/output/"
-    USED_DIR = "/home/deploy/ismartv/used/"
+    INPUT_DIR =  "/home/deploy/vod/track/log"
+    OUTPUT_DIR = "/home/deploy/vod/track/output/"
+    USED_DIR =   "/home/deploy/vod/track/used/"
 
     filelist = get_filelist(INPUT_DIR)
     date = datetime.datetime.today().strftime("%Y%m%d%H")
