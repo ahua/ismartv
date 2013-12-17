@@ -6,11 +6,12 @@ create table if not exists daily_logs
    unique_key STRING comment 'unique log key',
    sn STRING comment 'unique device key',
    token string,
-   ip string,
    event string,
    duration int,
    clip int,
-   code string)
+   code string,
+   item int,
+   subitem int)
 partitioned by (parsets string)
 row format delimited fields terminated by ',';
 
