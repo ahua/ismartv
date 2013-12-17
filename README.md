@@ -1,4 +1,5 @@
 ismartv
 =======
 
-test.
+mysql root password ismartv
+

@@ -11,6 +11,9 @@ create table if not exists daily_logs
    duration int,
    clip int,
    code string)
+partitioned by (parsets string)
 row format delimited fields terminated by ',';
 
-load data local inpath '/home/deploy/ismartv/output/test/a21.1383042805.log' into table daily_logs;
+load data local inpath '/home/deploy/ismartv/output/test/a21.1383042805.log' 
+into table daily_logs partition(parsets='201312120420');
+

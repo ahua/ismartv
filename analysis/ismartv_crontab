@@ -1,0 +1,1 @@
+40 * * * * deploy python /home/deploy/src/ismartv/analysis/parse.py 2&>1 > /tmp/parse.log
