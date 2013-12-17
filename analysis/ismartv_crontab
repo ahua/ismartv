@@ -1,1 +1,4 @@
+PATH=/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/deploy/bin
+
 15 */1 * * * deploy bash /home/deploy/src/ismartv/analysis/parse.sh
+
