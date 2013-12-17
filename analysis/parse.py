@@ -7,10 +7,6 @@ import json
 import datetime
 import shutil
 
-INPUT_DIR = "/home/deploy/ismartv/log/"
-OUTPUT_DIR = "/home/deploy/ismartv/output/"
-USED_DIR = "/home/deploy/ismartv/used/"
-
 DELIMITER = ","
 
 EVENT_LIB = set(('system_off',
@@ -53,9 +49,9 @@ def is_right(event):
         return True
     return False
 
-def process(filename):
+def process(filename, output_dir):
     fin = open(filename, "r")
-    outpath = os.path.join(OUTPUT_DIR, os.path.basename(filename))
+    outpath = os.path.join(output_dir, os.path.basename(filename))
     if os.path.exists(outpath):
         print "%s exists..." % outpath
         return     
@@ -95,10 +91,18 @@ def process(filename):
 def get_filelist(dirname):
     return os.listdir(dirname)
 
+def load_to_hive(output_dir, date):
+    sql = """load data local inpath '%s' into table daily_logs partition(parsets='%s');""" % (output_dir, date)
+    os.system('''hive -e "%s"''' % sql)
+
+
 if __name__ == "__main__":
+    INPUT_DIR = "/home/deploy/ismartv/log/"
+    OUTPUT_DIR = "/home/deploy/ismartv/output/"
+    USED_DIR = "/home/deploy/ismartv/used/"
+
     filelist = get_filelist(INPUT_DIR)
-    date = datetime.datetime.today().strftime("%Y%m%d")
-   
+    date = datetime.datetime.today().strftime("%Y%m%d%H")
     OUTPUT_DIR = os.path.join(OUTPUT_DIR, date)
     USED_DIR = os.path.join(USED_DIR, date)
     if not os.path.exists(OUTPUT_DIR):
@@ -106,6 +110,8 @@ if __name__ == "__main__":
     if not os.path.exists(USED_DIR):
         os.mkdir(USED_DIR)
     for logfile in filelist:
-        process(os.path.join(INPUT_DIR, logfile))
+        process(os.path.join(INPUT_DIR, logfile), OUTPUT_DIR)
         shutil.move(os.path.join(INPUT_DIR, logfile), os.path.join(USED_DIR, logfile))
+
+    load_to_hive(OUTPUT_DIR, date)
 

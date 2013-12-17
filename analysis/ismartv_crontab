@@ -1,1 +1,1 @@
-40 * * * * deploy python /home/deploy/src/ismartv/analysis/parse.py 2&>1 > /tmp/parse.log
+40 */1 * * * deploy python /home/deploy/src/ismartv/analysis/parse.py > /tmp/parse-`date +%Y%m%d%H`.log 2>&1
