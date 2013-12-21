@@ -103,9 +103,14 @@ def get_filelist(dirname):
     return filter(modified_before, filelist)
 
 
-def load_to_hive(output_dir, date):
-    sql = """load data local inpath '%s' into table daily_logs partition(parsets='%s');""" % (output_dir, date)
-    os.system('''hive -e "%s"''' % sql)
+def load_to_hive(output_dir):
+    filelist = os.listdir(output_dir)
+    for filename in filelist:
+        path = os.path.join(output_dir, filename)
+        parsets = filename.split(".")[0]
+        sql = """load data local inpath '%s' into table daily_logs partition(parsets='%s');""" % (path, parsets)
+        print sql
+        os.system('''hive -e "%s"''' % sql)
 
 
 if __name__ == "__main__":
@@ -125,5 +130,5 @@ if __name__ == "__main__":
         process(os.path.join(INPUT_DIR, logfile), OUTPUT_DIR)
         shutil.move(os.path.join(INPUT_DIR, logfile), os.path.join(USED_DIR, logfile))
 
-    load_to_hive(OUTPUT_DIR, date)
+    load_to_hive(OUTPUT_DIR)
 
