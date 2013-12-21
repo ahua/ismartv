@@ -89,7 +89,15 @@ def process(filename, output_dir):
 
 
 def get_filelist(dirname):
-    return os.listdir(dirname)
+    filelist = os.listdir(dirname)
+    now = datetime.datetime.now()
+    SECONDS = 60 * 60
+    def modified_before(filepath):
+        mtime = datetime.datetime.fromtimestamp(os.stat(os.path.join(dirname, filepath)).st_mtime)
+        d = (now - mtime).total_seconds()
+        return d >= SECONDS
+    return filter(modified_before, filelist)
+
 
 def load_to_hive(output_dir, date):
     sql = """load data local inpath '%s' into table daily_logs partition(parsets='%s');""" % (output_dir, date)

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-mv /home/deploy/ismartv/used/*/*.log /home/deploy/ismartv/log
-rm /home/deploy/ismartv/output/*/*.log
+DIR=/home/deploy/vod/track
+
+mv $DIR/used/*/*.log $DIR/log
+rm $DIR/output/*/*.log
 
