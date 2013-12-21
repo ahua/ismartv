@@ -45,17 +45,15 @@ EVENT_LIB = set(('system_off',
  'video_play_pause'))
 
 def is_right(event):
+    return True
     if event in EVENT_LIB:
         return True
     return False
 
 def process(filename, output_dir):
+    OUT_DIC = {}
+    
     fin = open(filename, "r")
-    outpath = os.path.join(output_dir, os.path.basename(filename))
-    if os.path.exists(outpath):
-        print "%s exists..." % outpath
-        return     
-    fout = open(outpath, "w")
     for li in fin:
         try:
             r = eval(li.rstrip())
@@ -78,14 +76,20 @@ def process(filename, output_dir):
             subitem = r.get("subitem", -1)
             code = r.get("code", "-")
             vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, subitem]]
-            fout.write(DELIMITER.join(vals) + "\n")
+
+            outline = DELIMITER.join(vals) + "\n"
+            if not OUT_DIC.has_key(day):
+                OUT_DIC[day] = open(os.path.join(output_dir, day + ".log"), 'w')
+            OUT_DIC[day].write(outline)
         except Exception as e:
             print e
             continue
-    print "%s done..." % filename
-    fout.flush()
-    fout.close()
+    for fp in OUT_DIC.values():
+        fp.flush()
+        fp.close()
     fin.close()
+        
+    print "%s done..." % filename
 
 
 def get_filelist(dirname):
