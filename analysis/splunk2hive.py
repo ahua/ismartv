@@ -7,9 +7,40 @@ import json
 import datetime
 import shutil
 
-INPUT_DIR = "/home/deploy/ismartv/log/"
-OUTPUT_DIR = "/home/deploy/ismartv/output/"
-USED_DIR = "/home/deploy/ismartv/used/"
+EVENT_LIB = set(('system_off',
+ 'video_relate_out',
+ 'video_collect',
+ 'video_history',
+ 'video_search',
+ 'video_exit',
+ 'video_collect_in',
+ 'video_play_seek_blockend',
+ 'video_play_load',
+ 'video_score',
+ 'video_play_blockend',
+ 'app_start',
+ 'video_channel_in',
+ 'video_search_arrive',
+ 'video_category_out',
+ 'video_history_out',
+ 'launcher_vod_click',
+ 'video_play_start',
+ 'video_except',
+ 'video_comment',
+ 'system_on',
+ 'video_channel_out',
+ 'video_relate',
+ 'video_switch_stream',
+ 'video_category_in',
+ 'video_detail_in',
+ 'video_history_in',
+ 'video_relate_in',
+ 'video_play_seek',
+ 'video_play_continue',
+ 'video_collect_out',
+ 'video_start',
+ 'video_detail_out',
+ 'video_play_pause'))
 
 DELIMITER = ","
 
@@ -35,15 +66,18 @@ def get_device_size(sn):
 def get_device(sn):
     return get_device_size(sn)[0]
 
+def is_right(event):
+    return True
+    if event in EVENT_LIB:
+        return True
+    return False
 
-def from_splunk(filename):
-    logfile = open(filename, "r")
+
+def process(filename, output_dir):
+    fin = open(filename, "r")
     basename = os.path.basename(filename)
-    if os.path.exists("%s/%s" % (OUTPUT_DIR, basename)):
-        print "%s exists..." % basename
-        return     
-    outfile = open("%s/%s" % (OUTPUT_DIR, basename), "w")
-    for li in logfile:
+    fout = open("%s/%s" % (output_dir, basename), "w")
+    for li in fin:
         try:
             vs = li.split("\t")
             r = {}
@@ -54,55 +88,18 @@ def from_splunk(filename):
                 k = _t[:_i]
                 v = _t[_i+1:]
                 r[k] = v
-                
+            if not is_right(r["event"]):
+                continue
+
             if r["event"] == "video_exit":
                 if r["duration"] == "0" and r.has_key("to") and r["to"] == "next":
                     r["duration"] = r["position"]
                     
             timestamp = time.mktime(r["time"].timetuple())
             day = r["time"].strftime("%Y%m%d")
-            _unique_key = "-"
             sn = r["sn"]
             _device = get_device(sn)
-            token= r["token"]
-            event = r["event"]
-            duration = r.get("duration", -1)
-            clip = r.get("clip", -1)
-            code = r.get("code", "-")
-            
-            vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code]]
-            outfile.write(DELIMITER.join(vals) + "\n")
-        except Exception as e:
-            print li
-            continue
-        
-    print "%s done..." % basename
-    outfile.flush()
-    outfile.close()
-    logfile.close()
-
-
-def from_logfile(filename):
-    logfile = open(filename, "r")
-    basename = os.path.basename(filename)
-    if os.path.exists("%s/%s" % (OUTPUT_DIR, basename)):
-        print "%s exists..." % basename
-        return     
-    outfile = open("%s/%s" % (OUTPUT_DIR, basename), "w")
-    for li in logfile:
-        try:
-            r = eval(li.rstrip())
-            if not is_right(r["event"]):
-                continue
-            if r["event"] == "video_exit":
-                if r["duration"] == "0" and r["to"] == "next":
-                    r["duration"] = r["position"]                 
-                              
-            timestamp = time.mktime(r["time"].timetuple())
-            day = r["time"].strftime("%Y%m%d")
-            _device = "K91"
-            _unique_key = r["_unique_key"]
-            sn = r["sn"]
+            _unique_key = "-"
             token= r["token"]
             event = r["event"]
             duration = r.get("duration", -1)
@@ -111,24 +108,36 @@ def from_logfile(filename):
             subitem = r.get("subitem", -1)
             code = r.get("code", "-")
             vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, subitem]]
-            outfile.write(DELIMITER.join(vals) + "\n")
+
+            fout.write(DELIMITER.join(vals) + "\n")
         except Exception as e:
             print e
             continue
+        
     print "%s done..." % basename
-    outfile.flush()
-    outfile.close()
-    logfile.close()
+    fout.flush()
+    fout.close()
+    fin.close()
 
 def get_filelist(dirname):
     return os.listdir(dirname)
 
-def help():
-    msg = "$prog [INPUT_DIR [OUTPUT_DIR]]"
-    print msg
-
 if __name__ == "__main__":
-    filelist = get_filelist(DIRNAME)
+    INPUT_DIR =  "/host/history_data/history_data/K"
+    OUTPUT_DIR = "/host/history_data/history_data/K_OUT"
+
+    filelist = get_filelist(INPUT_DIR)
+    if not os.path.exists(OUTPUT_DIR):
+        os.mkdir(OUTPUT_DIR)
     for logfile in filelist:
-        process("%s/%s" % (dirname, logfile))
-        shutil.move(OS
+        process(os.path.join(INPUT_DIR, logfile), OUTPUT_DIR)
+
+
+    INPUT_DIR =  "/host/history_data/history_data/S"
+    OUTPUT_DIR = "/host/history_data/history_data/S_OUT"
+
+    filelist = get_filelist(INPUT_DIR)
+    if not os.path.exists(OUTPUT_DIR):
+        os.mkdir(OUTPUT_DIR)
+    for logfile in filelist:
+        process(os.path.join(INPUT_DIR, logfile), OUTPUT_DIR)
