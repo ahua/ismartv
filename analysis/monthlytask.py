@@ -44,7 +44,7 @@ class MonthlyTask:
     @timed
     def _b(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d = %s
+                 from daily_logs where d >= %s and d <= %s
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
                  group by device
               """ % (self.startday_str, self.endday_str)

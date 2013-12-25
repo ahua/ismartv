@@ -19,7 +19,7 @@ class WeeklyTask:
     # 周的定义：上周五0点-本周四24点
     def __init__(self, day):
         self.day = day
-        self.day_str = day.strtime("%Y%m%d")
+        self.day_str = day.strftime("%Y%m%d")
         self.week = day.strftime("%w")
         
         if self.week != '5':
