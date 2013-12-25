@@ -9,7 +9,7 @@ from HiveInterface import HiveInterface
 from HbaseInterface import HbaseInterface
 
 
-HOST = "hadoopmaster"
+HOST = "hadoopns410"
 ONE_DAY = datetime.timedelta(days=1)
 
 class MonthlyTask:
