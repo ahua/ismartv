@@ -120,6 +120,8 @@ def main():
     OUTPUT_DIR = "/home/deploy/vod/track/output/"
     USED_DIR =   "/home/deploy/vod/track/used/"
 
+    print "start at: %s" % datetime.datetime.now()
+
     filelist = get_filelist(INPUT_DIR)
     date = datetime.datetime.today().strftime("%Y%m%d%H")
     OUTPUT_DIR = os.path.join(OUTPUT_DIR, date)
@@ -133,6 +135,10 @@ def main():
         shutil.move(os.path.join(INPUT_DIR, logfile), os.path.join(USED_DIR, logfile))
 
     load_to_hive(OUTPUT_DIR)
+    
+    print "end at: %s" % datetime.datetime.now()
+    print "All Done..."
+
 
 def test():
     pass
