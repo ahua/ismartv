@@ -115,7 +115,6 @@ def load_to_hive(output_dir):
         print sql
         os.system('''hive -e "%s"''' % sql)
 
-
 def main():
     INPUT_DIR =  "/home/deploy/vod/track/log"
     OUTPUT_DIR = "/home/deploy/vod/track/output/"
@@ -133,7 +132,7 @@ def main():
         process(os.path.join(INPUT_DIR, logfile), OUTPUT_DIR)
         shutil.move(os.path.join(INPUT_DIR, logfile), os.path.join(USED_DIR, logfile))
 
-    load_to_hive(OUTPUT_D
+    load_to_hive(OUTPUT_DIR)
 
 def test():
     pass
