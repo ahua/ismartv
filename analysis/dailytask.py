@@ -122,7 +122,7 @@ class DailyTask:
         for li in res:
             value, device = li.split()
             key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:f": str(z)})
+            DailyTask.hbaseinterface.write(key, {"a:f": value})
 
     # 应用激活率
     @timed
@@ -218,9 +218,6 @@ class DailyTask:
         self._f()
         self._g()
         self._h()
-        self._i()
-        self._j()
-
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
