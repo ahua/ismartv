@@ -58,7 +58,7 @@ class MonthlyTask:
     @timed
     def _c(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d = %s
+                 from daily_logs where d >= %s and d <= %s
                  and event = "app_start"
                  and code not in  ("-",
                                  'com.lenovo.oobe',
@@ -100,7 +100,7 @@ class MonthlyTask:
     @timed
     def _d(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d = %s
+                 from daily_logs where d >= %s and d <= %s
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
                  and code not in ("-",
                                  'com.lenovo.oobe',
