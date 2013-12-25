@@ -17,6 +17,6 @@ create table if not exists daily_logs
 partitioned by (parsets string)
 row format delimited fields terminated by ',';
 
-load data local inpath '/home/deploy/ismartv/output/test/a21.1383042805.log' 
-into table daily_logs partition(parsets='201312120420');
+load data local inpath '/home/deploy/src/ismartv/analysis/log/2013122515/20131224.log' 
+into table daily_logs partition(parsets='20131224');
 
