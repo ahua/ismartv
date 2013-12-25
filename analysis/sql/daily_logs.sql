@@ -11,7 +11,9 @@ create table if not exists daily_logs
    clip int,
    code string,
    item int,
-   subitem int)
+   subitem int,
+   mediaip string,
+   cdn string)
 partitioned by (parsets string)
 row format delimited fields terminated by ',';
 

@@ -42,7 +42,8 @@ EVENT_LIB = set(('system_off',
  'video_collect_out',
  'video_start',
  'video_detail_out',
- 'video_play_pause'))
+ 'video_play_pause',
+ 'app_exit'))
 
 def is_right(event):
     return True
@@ -75,7 +76,9 @@ def process(filename, output_dir):
             item = r.get("item", -1)
             subitem = r.get("subitem", -1)
             code = r.get("code", "-")
-            vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, subitem]]
+            mediaip = r.get("mediaip", "-")
+            cdn = r.get("_cdn", "-")
+            vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, subitem, mediaip, cdn]]
 
             outline = DELIMITER.join(vals) + "\n"
             if not OUT_DIC.has_key(day):
@@ -113,7 +116,7 @@ def load_to_hive(output_dir):
         os.system('''hive -e "%s"''' % sql)
 
 
-if __name__ == "__main__":
+def main():
     INPUT_DIR =  "/home/deploy/vod/track/log"
     OUTPUT_DIR = "/home/deploy/vod/track/output/"
     USED_DIR =   "/home/deploy/vod/track/used/"
@@ -130,5 +133,11 @@ if __name__ == "__main__":
         process(os.path.join(INPUT_DIR, logfile), OUTPUT_DIR)
         shutil.move(os.path.join(INPUT_DIR, logfile), os.path.join(USED_DIR, logfile))
 
-    load_to_hive(OUTPUT_DIR)
+    load_to_hive(OUTPUT_D
+
+def test():
+    pass
+
+if __name__ == "__main__":
+    main()
 
