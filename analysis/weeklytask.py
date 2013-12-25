@@ -139,7 +139,7 @@ class WeeklyTask:
         for li in res:
             value, device = li.split()
             key = self.day_str + device
-            WeeklyTask.hbaseinterface.write(key, {"a:j": "%s" % value})
+            WeeklyTask.hbaseinterface.write(key, {"a:d": "%s" % value})
 
     def execute(self):
         self._a()
