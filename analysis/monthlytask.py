@@ -165,7 +165,7 @@ class MonthlyTask:
         res = MonthlyTask.hiveinterface.execute(sql)
         dd = {}
         for li in res:
-            device, _, _, c = li.split()
+            device, _, _, _, c = li.split()
             if int(c) < 2:
                 if dd.has_key(device):
                     dd[device] += 1
