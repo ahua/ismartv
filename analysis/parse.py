@@ -46,7 +46,6 @@ EVENT_LIB = set(('system_off',
  'app_exit'))
 
 def is_right(event):
-    return True
     if event in EVENT_LIB:
         return True
     return False
@@ -82,7 +81,7 @@ def process(filename, output_dir):
 
             outline = DELIMITER.join(vals) + "\n"
             if not OUT_DIC.has_key(day):
-                OUT_DIC[day] = open(os.path.join(output_dir, day + ".log"), 'w+')
+                OUT_DIC[day] = open(os.path.join(output_dir, day + ".log"), 'a')
             OUT_DIC[day].write(outline)
         except Exception as e:
             print e
