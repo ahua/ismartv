@@ -1,4 +1,7 @@
 PATH=/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/deploy/bin
 
-15 */1 * * * deploy bash /home/deploy/src/ismartv/analysis/parse.sh
-
+15 */3 * * * deploy bash /home/deploy/src/ismartv/analysis/parse.sh
+45 5  * * * deploy bash /home/deploy/src/ismartv/analysis/dailytask.sh
+15 8  * * 5 deploy bash /home/deploy/src/ismartv/analysis/weeklytask.sh
+15 10 1 * * deploy bash /home/deploy/src/ismartv/analysis/monthlytask.sh
+ 
