@@ -29,8 +29,6 @@ def process(filename, output_dir):
         print "not support file type."
         return 
 
-    return 
-
     for li in fin:
         try:
             r = eval(li.rstrip())
