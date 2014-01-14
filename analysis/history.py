@@ -71,7 +71,7 @@ def process(filename, output_dir):
 
 def get_filelist():
     filelist = []
-    with open("/tmp/s") as fp::
+    with open("/tmp/s") as fp:
         for li in fp:
             filename = li.rstrip()
             if filename.endswith(".gz") or filename.endswith(".bz2"):
