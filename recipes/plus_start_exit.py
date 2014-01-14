@@ -1,16 +1,18 @@
 #!/usr/bin/env python
+#coding:utf-8
 
 """
-
+由于设备固件的缺陷
+对于连续剧的连播，跳级时没有对应每集的video_exit和video_start事件上报
+只有连续的video_play_load（开始播放缓冲结束）事件
+因此需要对该类事件特征进行video_exit&video_start的补充
 """
 
-import httplib2
-import io
-import json
-import re
 import datetime
+import os
+import time
+import shutil
 import redis
-from redis import ConnectionError
 
 CONF = {
     "host": "localhost",
@@ -25,50 +27,67 @@ DOCS_KEY = "start_exit_docs"
 PLUSED_KEY = "sn_item_token"
 
 def save_to_redis(filename):
+    """
+    保存filename中每行到redis的sorted set中
+    """
     with open(filename) as fp:
         for li in fp:
             r = eval(li.rstrip())
-            timestamp = time.mktime(r["time"].timetuple())
+            timestamp = int(time.mktime(r["time"].timetuple()))
             RCLI.zadd(DOCS_KEY, li, timestamp)
 
 SECONDS = 24 * 60 * 60 
 def get_lines():
+    """
+    返回最近24小时的所有log
+    """
     timestamp = int(time.time())
-    RCLI.zremrangebyscore(DOCS_KEY, 0, tiemstamp - SECONDS)
+    RCLI.zremrangebyscore(DOCS_KEY, 0, timestamp - SECONDS)
     return RCLI.zrange(DOCS_KEY, 0, -1)
 
 def plus_exit_event(docs):
+    """
+    添加start和exit事件
+    """
     docs = sorted(docs, key=lambda k: k["time"])
-    if len(docs) == 0:
+    if len(docs) <= 2:
         return []
-    if docs[-1]["event"] != "video_exit":
+    if docs[-1]["event"] != "video_exit" or docs[0]["event"] != "video_start":
         return []
 
     k = "%s_%s_%s" % (docs[0]["sn"], docs[0]["item"], docs[0]["token"])
     RCLI.sadd(PLUSED_KEY, k)
-    
-    if len(docs) == 2:
-        return []
 
     res = []
     idx = len(docs) - 3
-    while idx >= 0 and docs[idx]["event"] == "video_load":
+    while idx >= 0 and docs[idx]["event"] == "video_play_load":
         t = docs[-1].copy()
-        t['plus'] = 1
-        t['duration'] = (docs[idx+1]["time"] - docs[idx]["time"]).total_seconds()
-        res.append(t.dumps())
+        t['_plus'] = 1
+        t['duration'] = (docs[idx+1]["time"] - docs[idx]["time"]).\
+            total_seconds()
+        res.append(str(t) + "\n")
+        idx = idx + 1
+    
+    idx = 2
+    while idx <= len(docs) - 1 and docs[idx]["event"] == "video_play_load":
+        t = docs[0].copy()
+        t["_plus"] = 1
+        t["time"] = docs[idx]["time"]
+        res.append(str(t) + "\n")
+        idx = idx + 1
     return res
 
-
-def process(filename, output_dir):
+def process(output_dir):
+    """
+    补全output目录下日志中所缺事件
+    """
     lines = get_lines()
-
     plused_keys = RCLI.smembers(PLUSED_KEY)
 
     d = {}
     for li in lines:
         r = eval(li.rstrip())
-        k = "%s_%s_%s" % (r["sn"] r["item"], r["token"])
+        k = "%s_%s_%s" % (r["sn"], r["item"], r["token"])
         if k in plused_keys:
             continue
         if k not in d:
@@ -78,26 +97,32 @@ def process(filename, output_dir):
 
     res = []
     for docs in d.values():
-       res.append(plus_exit_event(docs))
+        res = res + plus_exit_event(docs)
     
-    with open(os.path.join(output_dir, filename)) as fp:
+    filename = "%s.out" % datetime.datetime.now().strftime("%Y%m%d%H%M")
+    with open(os.path.join(output_dir, filename), "w") as fp:
         fp.writelines(res)
 
 
 def get_filelist(dirname):
+    """
+    返回这个目录下所有文件名
+    """
     filelist = os.listdir(dirname)
     return filelist
 
-
+INPUT_DIR = "/tmp/input"
+OUTPUT_DIR = "/tmp/output"
+USED_DIR = "/tmp/used"
 def main():
-    INPUT_DIR= "/tmp/test"
-    OUT_DIR = ""
-    USEDIR = ""
-    
+    """
+    main function
+    """
     filelist = get_filelist(INPUT_DIR) 
     for logfile in filelist:
         save_to_redis(logfile)
-        shutil.move(os.path.join(INPUT_DIR, logfile), os.path.join(USED_DIR, logfile))
+        shutil.move(os.path.join(INPUT_DIR, logfile),
+                    os.path.join(USED_DIR, logfile))
     process(OUTPUT_DIR)
 
 if __name__ == "__main__":
