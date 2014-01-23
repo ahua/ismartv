@@ -43,12 +43,12 @@ class HbaseInterface:
             return rowlist[0]
         return None
     
-   def read_all(self, prefix, columns):
+    def read_all(self, prefix, columns):
         scannerId = self.client.scannerOpenWithPrefix(self.tableName, prefix, columns, None)
         rowlist = self.client.scannerGet(scannerId)
         self.client.scannerClose(scannerId)
         return rowlist
-            
+   
 if __name__ == "__main__":
     client = HbaseInterface("localhost","9090","daily_result")
     key = "20131230"
