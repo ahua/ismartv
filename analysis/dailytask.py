@@ -22,6 +22,7 @@ class DailyTask:
         self.day_str = day.strftime("%Y%m%d")
         self.last_day = day - ONE_DAY
         self.last_day_str = self.last_day.strftime("%Y%m%d")
+        self.hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
     
     # 累计用户数
     @timed
@@ -31,6 +32,8 @@ class DailyTask:
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
         for li in res:
             value, device = li.split()
             key = self.day_str + device
