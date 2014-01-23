@@ -46,7 +46,7 @@ class HbaseInterface:
             
 if __name__ == "__main__":
     client = HbaseInterface("localhost","9090","daily_result")
-    key = "2013A22"
+    key = "20131230"
     d = {"a:a": "1",
          "a:b": "2",
          "a:c": "3",
@@ -57,7 +57,7 @@ if __name__ == "__main__":
          "a:h": "12",
          "a:i": "12",
          "a:j": "13"}
-    client.write(key, d)
-    r = client.read(key, ["a:a", "a:b", "a:c", "a:d", "a:e", "a:f", "a:g", "a:h", "a:i", "a:j"])
+    #client.write(key, d)
+    r = client.read(key, ["a:a", "a:b", "a:c", "a:d", "a:e"])
     if r:
         print r
