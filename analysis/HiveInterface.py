@@ -39,6 +39,7 @@ class HiveInterface:
 
 if __name__ == '__main__':
     client = HiveInterface("localhost")
+    client.execute("SET mapred.job.tracker=hadoopns410:8021")
 #    lines = client.execute("select * from daily_result")
     lines = client.execute("select count(1) from daily_logs")
     print lines

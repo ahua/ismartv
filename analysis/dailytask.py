@@ -15,6 +15,7 @@ ONE_DAY = datetime.timedelta(days=1)
 
 class DailyTask:
     hiveinterface = HiveInterface(HIVEHOST)    
+    hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
     hbaseinterface = HbaseInterface(HBASEHOST, "9090","daily_result")
 
     def __init__(self, day):
@@ -22,7 +23,7 @@ class DailyTask:
         self.day_str = day.strftime("%Y%m%d")
         self.last_day = day - ONE_DAY
         self.last_day_str = self.last_day.strftime("%Y%m%d")
-        self.hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
+        #self.hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
     
     # 累计用户数
     @timed
