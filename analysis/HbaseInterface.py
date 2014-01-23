@@ -42,7 +42,12 @@ class HbaseInterface:
         if len(rowlist) >= 1:
             return rowlist[0]
         return None
-
+    
+   def read_all(self, prefix, columns):
+        scannerId = self.client.scannerOpenWithPrefix(self.tableName, prefix, columns, None)
+        rowlist = self.client.scannerGet(scannerId)
+        self.client.scannerClose(scannerId)
+        return rowlist
             
 if __name__ == "__main__":
     client = HbaseInterface("localhost","9090","daily_result")
@@ -58,6 +63,14 @@ if __name__ == "__main__":
          "a:i": "12",
          "a:j": "13"}
     #client.write(key, d)
-    r = client.read(key, ["a:a", "a:b", "a:c", "a:d", "a:e"])
-    if r:
-        print r
+    #r = client.read(key, ["a:a", "a:b", "a:c", "a:d", "a:e"])
+    #if r:
+    #    print r
+    rowlist = client.read_all(key, ["a:a", "a:b", "a:c", "a:d", "a:e"])
+    for row in rowlist:
+        cols = row.columns
+        print r.row, 
+        for col, tcell in cols.iteritems():
+            print col, tcell.value,
+        print
+
