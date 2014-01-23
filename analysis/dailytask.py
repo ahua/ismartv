@@ -42,6 +42,8 @@ class DailyTask:
                  where d = %s
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
         for device in res:
             x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
             y = DailyTask.hbaseinterface.read(self.last_day_str + device, ["a:a"])
@@ -63,6 +65,8 @@ class DailyTask:
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
         for li in res:
             value, device = li.split()
             key = self.day_str + device
@@ -77,6 +81,8 @@ class DailyTask:
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
         for li in res:
             value, device = li.split()
             key = self.day_str + device
@@ -93,6 +99,8 @@ class DailyTask:
                  group by device
               """ % self.day_str
         res1 = DailyTask.hiveinterface.execute(sql)
+        if not res1:
+            res1 = []
         for li in res1:
             value, device = li.split()
             key = self.day_str + device
@@ -105,6 +113,8 @@ class DailyTask:
                  group by device
               """ % self.day_str
         res2 = DailyTask.hiveinterface.execute(sql)
+        if not res2:
+            res2 = []
         for li in res2:
             value, device = li.split()
             key = self.day_str + device
@@ -119,6 +129,8 @@ class DailyTask:
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
         for li in res:
             value, device = li.split()
             key = self.day_str + device
@@ -161,6 +173,8 @@ class DailyTask:
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
         for li in res:
             value, device = li.split()
             key = self.day_str + device
@@ -203,6 +217,8 @@ class DailyTask:
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
         for li in res:
             value, device = li.split()
             key = self.day_str + device
