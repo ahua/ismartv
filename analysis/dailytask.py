@@ -9,12 +9,13 @@ from HiveInterface import HiveInterface
 from HbaseInterface import HbaseInterface
 
 
-HOST = "hadoopns410"
+HIVEHOST = "hadoopsnn411"
+HBASEHOST = "hadoopns410"
 ONE_DAY = datetime.timedelta(days=1)
 
 class DailyTask:
-    hiveinterface = HiveInterface(HOST)    
-    hbaseinterface = HbaseInterface(HOST, "9090","daily_result")
+    hiveinterface = HiveInterface(HIVEHOST)    
+    hbaseinterface = HbaseInterface(HBASEHOST, "9090","daily_result")
 
     def __init__(self, day):
         self.day = day
