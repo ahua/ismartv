@@ -173,8 +173,7 @@ class DailyTask:
         sql = """select count(distinct sn), device
                  from daily_logs where d = %s
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
-                 and code not in ("-",
-                                 'com.lenovo.oobe',
+                 and code not in ('com.lenovo.oobe',
                                  'com.lenovo.dll.nebula.vod',
                                  'com.lenovo.nebula.packageinstaller',
                                  'com.lenovo.nebula.settings',
