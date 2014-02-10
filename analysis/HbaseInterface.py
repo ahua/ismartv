@@ -50,7 +50,7 @@ class HbaseInterface:
         return rowlist
    
 if __name__ == "__main__":
-    client = HbaseInterface("localhost","9090","daily_result")
+    client = HbaseInterface("hadoopns410","9090","daily_result")
     key = "20131230"
     d = {"a:a": "1",
          "a:b": "2",
