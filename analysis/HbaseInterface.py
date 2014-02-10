@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*- 
+import sys
 
 from thrift import Thrift
 from thrift.transport import TSocket
@@ -45,32 +47,55 @@ class HbaseInterface:
     
     def read_all(self, prefix, columns):
         scannerId = self.client.scannerOpenWithPrefix(self.tableName, prefix, columns, None)
-        rowlist = self.client.scannerGet(scannerId)
+        rowlist = self.client.scannerGetList(scannerId, 100)
         self.client.scannerClose(scannerId)
         return rowlist
-   
+
+
+
+HTML = """
+<html>
+<head></head>
+<body>
+<table border="1" cellspacing="0">
+ %s
+</table>
+</body>
+</html>
+"""
+
+TR = """
+<tr>
+  <td>%s</td>
+  <td>%s</td>
+  <td>%s</td>
+  <td>%s</td>
+  <td>%s</td>
+  <td>%s</td>
+  <td>%s</td>
+  <td>%s</td>
+  <td>%s</td>
+</tr>
+"""
+
 if __name__ == "__main__":
     client = HbaseInterface("localhost","9090","daily_result")
-    key = "20130102"
-    d = {"a:a": "1",
-         "a:b": "2",
-         "a:c": "3",
-         "a:d": "4",
-         "a:e": "8",
-         "a:f": "9",
-         "a:g": "10",
-         "a:h": "12",
-         "a:i": "12",
-         "a:j": "13"}
-    #client.write(key, d)
-    #r = client.read(key, ["a:a", "a:b", "a:c", "a:d", "a:e"])
-    #if r:
-    #    print r
-    rowlist = client.read_all(key, ["a:a", "a:b", "a:c", "a:d", "a:e", "a:f", "a:g", "a:h"])
+    key = "20140102"
+    if len(sys.argv) == 2:
+        key = sys.argv[1]
+
+    colkeys = ["a:a", "a:b", "a:c", "a:d", "a:e", "a:f", "a:g", "a:h"]
+    rowlist = client.read_all(key, colkeys)
+    s = TR % ('日期设备', '累计用户', '新增用户', '活跃用户', 'VOD用户',\
+                  'VOD播放次数', 'VOD播放总时长', '应用激活用户', '智能激活用户')
     for r in rowlist:
         cols = r.columns
-        print r.row, 
-        for col, tcell in cols.iteritems():
-            print col, tcell.value,
-        print
+        t = [r.row]
+        for k in colkeys:
+            if k in cols:
+                t.append(cols[k].value)
+            else:
+                t.append(None)
+        s += TR % tuple(t)
+    print HTML % s
 
