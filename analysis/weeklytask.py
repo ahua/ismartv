@@ -8,13 +8,14 @@ from decorators import timed
 from HiveInterface import HiveInterface
 from HbaseInterface import HbaseInterface
 
-
-HOST = "hadoopns410"
+HIVEHOST = "hadoopsnn411"
+HBASEHOST = "hadoopns410"
 ONE_DAY = datetime.timedelta(days=1)
 
 class WeeklyTask:
-    hiveinterface = HiveInterface(HOST)    
-    hbaseinterface = HbaseInterface(HOST, "9090","weekly_result")
+    hiveinterface = HiveInterface(HIVEHOST)
+    hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
+    hbaseinterface = HbaseInterface(HBASEHOST, "9090", "weekly_result")
 
     # 周的定义：上周五0点-本周四24点
     def __init__(self, day):
@@ -34,7 +35,7 @@ class WeeklyTask:
     @timed
     def _a(self):
         sql = """select count(distinct sn), device 
-                 from daily_logs where d >= %s and d <= %s
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  group by device
               """ % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
@@ -47,7 +48,7 @@ class WeeklyTask:
     @timed
     def _b(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d >= %s and d <= %s
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
                  group by device
               """ % (self.startday_str, self.endday_str)
@@ -61,7 +62,7 @@ class WeeklyTask:
     @timed
     def _c(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d >= %s and d <= %s
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  and event = "app_start"
                  and code not in  ("-",
                                  'com.lenovo.oobe',
@@ -103,10 +104,9 @@ class WeeklyTask:
     @timed
     def _d(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d >= %s and d <= %s
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
-                 and code not in ("-",
-                                 'com.lenovo.oobe',
+                 and code not in ('com.lenovo.oobe',
                                  'com.lenovo.dll.nebula.vod',
                                  'com.lenovo.nebula.packageinstaller',
                                  'com.lenovo.nebula.settings',

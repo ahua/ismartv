@@ -8,12 +8,13 @@ from decorators import timed
 from HiveInterface import HiveInterface
 from HbaseInterface import HbaseInterface
 
-
-HOST = "hadoopns410"
+HIVEHOST = "hadoopsnn411"
+HBASEHOST = "hadoopns410"
 ONE_DAY = datetime.timedelta(days=1)
 
 class MonthlyTask:
-    hiveinterface = HiveInterface(HOST)    
+    hiveinterface = HiveInterface(HIVEHOST)    
+    hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
     hbaseinterface = HbaseInterface(HOST, "9090","monthly_result")
 
     # 自然月
@@ -31,7 +32,7 @@ class MonthlyTask:
     @timed
     def _a(self):
         sql = """select count(distinct sn), device 
-                 from daily_logs where d >= %s and d <= %s
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  group by device
               """ % (self.startday_str, self.endday_str)
         res = MonthlyTask.hiveinterface.execute(sql)
@@ -44,7 +45,7 @@ class MonthlyTask:
     @timed
     def _b(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d >= %s and d <= %s
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
                  group by device
               """ % (self.startday_str, self.endday_str)
@@ -58,7 +59,7 @@ class MonthlyTask:
     @timed
     def _c(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d >= %s and d <= %s
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  and event = "app_start"
                  and code not in  ("-",
                                  'com.lenovo.oobe',
@@ -100,10 +101,9 @@ class MonthlyTask:
     @timed
     def _d(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where d >= %s and d <= %s
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
-                 and code not in ("-",
-                                 'com.lenovo.oobe',
+                 and code not in ('com.lenovo.oobe',
                                  'com.lenovo.dll.nebula.vod',
                                  'com.lenovo.nebula.packageinstaller',
                                  'com.lenovo.nebula.settings',
@@ -144,7 +144,7 @@ class MonthlyTask:
         sql = """select count(*), device 
                  from daily_logs
                  where event = "video_play_load" and duration <= 3
-                 and d >= %s and d <= %s
+                 and parsets >= '%s' and parsets <= '%s'
                  group by device
               """ % (self.startday_str, self.endday_str)
         res = MonthlyTask.hiveinterface.execute(sql)
@@ -158,7 +158,7 @@ class MonthlyTask:
     def _f(self):
         sql = """select device, sn, token, clip, count(*)
                  from daily_logs 
-                 where d >= %s and d <= %s
+                 where parsets >= '%s' and parsets <= '%s'
                  and event = "video_play_blockend"
                  group by device, sn, token, clip
               """ % (self.startday_str, self.endday_str)
