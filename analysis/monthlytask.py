@@ -15,7 +15,7 @@ ONE_DAY = datetime.timedelta(days=1)
 class MonthlyTask:
     hiveinterface = HiveInterface(HIVEHOST)    
     hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
-    hbaseinterface = HbaseInterface(HOST, "9090","monthly_result")
+    hbaseinterface = HbaseInterface(HBASEHOST, "9090","monthly_result")
 
     # 自然月
     def __init__(self, day):
