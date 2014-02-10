@@ -51,7 +51,7 @@ class HbaseInterface:
    
 if __name__ == "__main__":
     client = HbaseInterface("localhost","9090","daily_result")
-    key = "20131230"
+    key = "20130102"
     d = {"a:a": "1",
          "a:b": "2",
          "a:c": "3",
@@ -66,9 +66,9 @@ if __name__ == "__main__":
     #r = client.read(key, ["a:a", "a:b", "a:c", "a:d", "a:e"])
     #if r:
     #    print r
-    rowlist = client.read_all(key, ["a:a", "a:b", "a:c", "a:d", "a:e"])
-    for row in rowlist:
-        cols = row.columns
+    rowlist = client.read_all(key, ["a:a", "a:b", "a:c", "a:d", "a:e", "a:f", "a:g", "a:h"])
+    for r in rowlist:
+        cols = r.columns
         print r.row, 
         for col, tcell in cols.iteritems():
             print col, tcell.value,
