@@ -156,21 +156,26 @@ class MonthlyTask:
     # 每次播放卡顿2次内次数
     @timed
     def _f(self):
-        sql = """select device, sn, token, clip, count(*)
+        sql = """drop table if exists device_video_play_tmp"""
+        MonthlyTask.hiveinterface.execute(sql)
+        sql = """create table device_video_play_tmp
+                 as
+                 select device, sn, token, clip, count(*)
                  from daily_logs 
                  where parsets >= '%s' and parsets <= '%s'
                  and event = "video_play_blockend"
-                 group by device, sn, token, clip
+                 group by device, sn, token, clip having count(*) > 1
               """ % (self.startday_str, self.endday_str)
+        MonthlyTask.hiveinterface.execute(sql)
+        sql = """select device, count(*)
+                 from device_video_play_tmp
+                 group by device
+              """
         res = MonthlyTask.hiveinterface.execute(sql)
         dd = {}
         for li in res:
-            device, _, _, _, c = li.split()
-            if int(c) < 2:
-                if dd.has_key(device):
-                    dd[device] += 1
-                else:
-                    dd[device] = 1
+            device, c = li.split()
+            dd[device] = int(c)
         for device, value in dd.iteritems():
             key = self.month_str + device
             MonthlyTask.hbaseinterface.write(key, {"a:f": "%s" % value})
