@@ -80,7 +80,7 @@ def get_daily_data(date, devices='ALL'):
         device = r.row[8:]
         d[device] = {}
         for k in colkeys:
-            d[device][k] = float(r.columns.get(k, {"value":"0"}).value)
+            d[device][k] = float(r.columns[k].value) if k in r.columns else 0
             
     sn_total = math.fsum([d[dev]["a:a"] for dev in device_list])
     sn_new = math.fsum([d[dev]["a:b"] for dev in device_list])
