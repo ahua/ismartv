@@ -97,8 +97,8 @@ def get_daily_data(date, devices='ALL'):
             "sn_active": sn_active,          # 活跃用户
             "sn_vod_load": sn_vod_load,      # VOD用户数
             "dr_per_sn": dr_per_sn,          # VOD户均时长
-            "load_per_active": load_per_active   # 激活率(VOD)
-            "active_per_total": active_per_total # 开机率(VOD)
+            "load_per_active": load_per_active,   # 激活率(VOD)
+            "active_per_total": active_per_total  # 开机率(VOD)
             }
 
 def get_weekly_data(date, device='ALL'):
