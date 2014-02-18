@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*- 
 import sys
+import math 
 
 from thrift import Thrift
 from thrift.transport import TSocket
@@ -15,6 +16,7 @@ class NotFoundTable(Exception):
         self.value = value
     def __str__(self):
         return repr(self.value)
+
 
 class HbaseInterface:
     def __init__(self, address, port, table):
@@ -52,24 +54,61 @@ class HbaseInterface:
         return rowlist
 
 
-def get_daily_data(date, device='ALL'):
-    client = HbaseInterface("localhost","9090","daily_result")    
+def get_device_list(devices):
+    devices = devices.upper()
+    if devices == "ALL":
+        return ['S31', 'S51', 'S61', 
+                'K91',
+                'A11', 'A21',
+                'K72', 'K82',
+                'DS70A',
+                'LX750A', 'LX755A', 'LX850A']
+    return devices.split(",")
+
+HBASE_ADDR = "10.0.4.10"
+
+def get_daily_data(date, devices='ALL'):
+    device_list = get_device_list(devices)
+
+    client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
     colkeys = ["a:a", "a:b", "a:c", "a:d", "a:e", "a:f", "a:g", "a:h"]
     rowlist = client.read_all(date, colkeys)
     s = ('日期设备', '累计用户', '新增用户', '活跃用户', 'VOD用户',\
              'VOD播放次数', 'VOD播放总时长', '应用激活用户', '智能激活用户')
+    d = {}
     for r in rowlist:
-        print r
-
+        device = r.row[8:]
+        d[device] = {}
+        for k in colkeys:
+            d[device][k] = float(r.columns.get(k, {"value":"0"}).value)
+            
+    sn_total = math.fsum([d[dev]["a:a"] for dev in device_list])
+    sn_new = math.fsum([d[dev]["a:b"] for dev in device_list])
+    sn_active = math.fsum([d[dev]["a:c"] for dev in device_list])
+    sn_vod_load = math.fsum([d[dev]["a:d"] for dev in device_list])
+    dr_per_sn = math.fsum([d[dev]["a:f"] for dev in device_list]) / sn_vod_load\
+        if sn_vod_load > 0 else 0
+    load_per_active = sn_vod_load / sn_active if sn_active > 0 else 0
+    active_per_total = sn_active / sn_total if sn_total > 0 else 0
+    
+    return {"time": date,
+            "sn_total": sn_total,            # 累计用户
+            "sn_new": sn_new,                # 新增用户
+            "sn_active": sn_active,          # 活跃用户
+            "sn_vod_load": sn_vod_load,      # VOD用户数
+            "dr_per_sn": dr_per_sn,          # VOD户均时长
+            "load_per_active": load_per_active   # 激活率(VOD)
+            "active_per_total": active_per_total # 开机率(VOD)
+            }
 
 def get_weekly_data(date, device='ALL'):
-    client = HbaseInterface("localhost","9090","daily_result")    
+    client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
     colkeys = ["a:a", "a:b", "a:c", "a:d"]
     rowlist = client.read_all(date, colkeys)
     s = ('日期设备', '活跃用户', 'VOD用户', '应用激活用户', '智能激活用户')
 
 def get_monthly_data(date, device='ALL'):
-    client = HbaseInterface("localhost","9090","daily_result")    
+    client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
     colkeys = ["a:a", "a:b", "a:c", "a:d", "a:e", "a:f"]
     rowlist = client.read_all(date, colkeys)
     s = ('日期设备', '活跃用户', 'VOD用户','应用激活用户', \
