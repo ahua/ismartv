@@ -49,13 +49,18 @@ def process(filename):
 
 
 def get_filelist():
-    return None
-
+    res = []
+    with open("/tmp/filelist.txt") as fp:
+        for li in fp:
+            logfile = li.rstrip()
+            if os.path.exists(logfile):
+                res.append(logfile)
+    return res
 
 def main():
-    filelist = get_filelist(INPUT_DIR)
+    filelist = get_filelist()
     for logfile in filelist:
-        process(os.path.join(INPUT_DIR, logfile))
+        process(logfile)
 
     print "end at: %s" % datetime.datetime.now()
     print "All Done..."
