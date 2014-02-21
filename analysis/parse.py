@@ -62,7 +62,9 @@ def process(filename, output_dir):
             if r["event"] == "video_exit":
                 if r["duration"] == "0" and r["to"] == "next":
                     r["duration"] = r["position"]                 
-                              
+                if float(r["duration"]) >= 100000:
+                    r["duration"] = r["position"]
+
             timestamp = time.mktime(r["time"].timetuple())
             day = r["time"].strftime("%Y%m%d")
             _device = r["_device"]
