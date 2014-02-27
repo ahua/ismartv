@@ -3,6 +3,7 @@
 
 import sys
 import math 
+import datetime
 
 from thrift import Thrift
 from thrift.transport import TSocket
@@ -11,6 +12,8 @@ from thrift.protocol import TBinaryProtocol
 
 from hbase import Hbase
 from hbase.ttypes import *
+
+HBASE_ADDR = "hadoopns410"
 
 class NotFoundTable(Exception):
     def __init__(self, value):
@@ -77,11 +80,13 @@ if __name__ == "__main__":
     else:
         startday = datetime.datetime.strptime(sys.argv[1], "%Y%m%d")
         endday = datetime.datetime.strptime(sys.argv[2], "%Y%m%d")
-        daylist = []
+        while startday <= endday:
+            daylist.append(startday)
+            startday = startday + ONE_DAY
 
     reslist = []
     for date in daylist:
-        reslist.append(get_daily_data(date))
+        reslist.append(get_daily_data(date.strftime("%Y%m%d")))
     print '日期,联网用户总数,应用活跃用户,game活跃用户'
     for res in reslist:
         print "%s,%s,%s,%s" % res["date"], res["a:c"], res["a:g"], res["a:i"]
