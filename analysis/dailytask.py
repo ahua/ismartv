@@ -8,6 +8,8 @@ from decorators import timed
 from HiveInterface import HiveInterface
 from HbaseInterface import HbaseInterface
 
+import dailysql
+
 
 HIVEHOST = "hadoopsnn411"
 HBASEHOST = "hadoopns410"
@@ -144,39 +146,7 @@ class DailyTask:
     # 应用激活率
     @timed
     def _g(self):
-        sql = """select count(distinct sn), device
-                 from daily_logs where parsets = '%s'
-                 and event = "app_start"
-                 and code not in  ("-",
-                                 'com.lenovo.oobe',
-                                 'com.lenovo.dll.nebula.vod',
-                                 'com.lenovo.nebula.packageinstaller',
-                                 'com.lenovo.nebula.settings',
-                                 'com.lenovo.nebula.app',
-                                 'com.lenovo.nebula.recovery',
-                                 'com.lenovo.dll.nebula.launcher',
-                                 'com.lenovo.nebula.local.player.video',
-                                 'com.lenovo.nebula.local.player.music',
-                                 'com.lenovo.vod.player',
-                                 'com.android.settings',
-                                 'com.lenovo.leos.pushengine',
-                                 'com.android.systeminfo',
-                                 'com.lenovo.ChangeServerAddress',
-                                 'wnc.w806.engineermode',
-                                 'com.lenovo.tv.freudsettings',
-                                 'com.lenovo.service',
-                                 'com.lenovo.leyun',
-                                 'com.lenovo.nebula.Launcher',
-                                 'com.baidu.input.oem',
-                                 'com.lenovo.nebula.local.player.image',
-                                 'com.lenovo.dc',
-                                 'com.android.quicksearchbox',
-                                 'com.iflytek.speechservice',
-                                 'com.lenovo.nebula.weibo',
-                                 'com.chinatvpay',
-                                 'com.lenovo.leos.pay')
-                 group by device
-              """ % self.day_str
+        sql = dailysql.sql_g_format % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
         if not res:
             res = []
@@ -189,38 +159,7 @@ class DailyTask:
     # 智能激活率
     @timed
     def _h(self):
-        sql = """select count(distinct sn), device
-                 from daily_logs where parsets = '%s'
-                 and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
-                 and code not in ('com.lenovo.oobe',
-                                 'com.lenovo.dll.nebula.vod',
-                                 'com.lenovo.nebula.packageinstaller',
-                                 'com.lenovo.nebula.settings',
-                                 'com.lenovo.nebula.app',
-                                 'com.lenovo.nebula.recovery',
-                                 'com.lenovo.dll.nebula.launcher',
-                                 'com.lenovo.nebula.local.player.video',
-                                 'com.lenovo.nebula.local.player.music',
-                                 'com.lenovo.vod.player',
-                                 'com.android.settings',
-                                 'com.lenovo.leos.pushengine',
-                                 'com.android.systeminfo',
-                                 'com.lenovo.ChangeServerAddress',
-                                 'wnc.w806.engineermode',
-                                 'com.lenovo.tv.freudsettings',
-                                 'com.lenovo.service',
-                                 'com.lenovo.leyun',
-                                 'com.lenovo.nebula.Launcher',
-                                 'com.baidu.input.oem',
-                                 'com.lenovo.nebula.local.player.image',
-                                 'com.lenovo.dc',
-                                 'com.android.quicksearchbox',
-                                 'com.iflytek.speechservice',
-                                 'com.lenovo.nebula.weibo',
-                                 'com.chinatvpay',
-                                 'com.lenovo.leos.pay')
-                 group by device
-              """ % self.day_str
+        sql = dailysql.sql_h_format % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
         if not res:
             res = []
@@ -228,6 +167,18 @@ class DailyTask:
             value, device = li.split()
             key = self.day_str + device
             DailyTask.hbaseinterface.write(key, {"a:h": "%s" % value})
+
+    @timed
+    def _i(self):
+        sql = dailysql.sql_i_format % self.day_str
+        res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
+        for li in res:
+            value, device = li.split()
+            key = self.day_str + device
+            DailyTask.hbaseinterface.write(key, {"a:i": "%s" % value})
+
 
     def execute(self):
         self._a()
