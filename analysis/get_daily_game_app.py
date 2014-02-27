@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-
 # -*- coding: utf-8 -*- 
+
 import sys
 import math 
 
@@ -59,7 +59,7 @@ def get_daily_data(date):
     client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
     colkeys = ["a:c", "a:g", "a:i"]
     rowlist = client.read_all(date, colkeys)
-    s = ('联网用户总数', '应用活跃用户', 'game活跃用户')
+    s = ('联网用户总数','应用活跃用户','game活跃用户')
     res = {"date": date,
            "a:c": 0,
            "a:g": 0,
