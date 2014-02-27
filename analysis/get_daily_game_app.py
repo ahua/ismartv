@@ -69,10 +69,11 @@ def get_daily_data(date):
            "a:i": 0}
     for r in rowlist:
         for k in colkeys:
-            res[k] += float(r.columns[k].value) if k in r.columns else 0
+            res[k] += int(r.columns[k].value) if k in r.columns else 0
     return res
-
+ONE_DAY = datetime.timedelta(days=1)
 if __name__ == "__main__":
+    daylist = []
     if len(sys.argv) == 1:
         daylist = [datetime.datetime.now() - datetime.timedelta(days=1)]
     elif len(sys.argv) == 2:
@@ -89,5 +90,5 @@ if __name__ == "__main__":
         reslist.append(get_daily_data(date.strftime("%Y%m%d")))
     print '日期,联网用户总数,应用活跃用户,game活跃用户'
     for res in reslist:
-        print "%s,%s,%s,%s" % res["date"], res["a:c"], res["a:g"], res["a:i"]
+        print "%s,%s,%s,%s" % (res["date"], res["a:c"], res["a:g"], res["a:i"])
 
