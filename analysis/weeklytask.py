@@ -81,6 +81,7 @@ class WeeklyTask:
             WeeklyTask.hbaseinterface.write(key, {"a:d": "%s" % value})
 
     # app 用户数
+    @timed
     def _e(self):
         sql = weeklysql.sql_e_format % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
@@ -92,6 +93,7 @@ class WeeklyTask:
             fp.writelines(lines)
     
     # game app 用户数
+    @timed
     def _f(self):
         sql = weeklysql.sql_f_format % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
