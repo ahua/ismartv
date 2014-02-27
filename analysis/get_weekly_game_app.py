@@ -30,10 +30,10 @@ def get_top10(date, dirname):
     return d
 
 
-def display_top50(d):
+def display_top(d, n=50):
     nd = sorted(d.items(), key=lambda x:x[1], reverse=True)
-    for i in range(0, len(nd)):
-        print nd[i]
+    for i in range(0, min(n, len(nd))):
+        print "%s,%s" % (nd[i][0], nd[i][1])
     
 
 def display_newline():
@@ -48,10 +48,17 @@ if __name__ == "__main__":
     gameappdir = "/home/deploy/src/ismartv/analysis/result/gameapp"
 
     d = get_top50(date, appdir)
-    display_top50(d)
+    display_top(d)
     
     display_newline()
 
     d = get_top50(date, gameappdir)
-    display_top50(d)
+    display_top(d)
 
+    d = get_top10(date, appdir)
+    display_top(d, 10)
+    
+    d = get_top109date, gameappdir)
+    display_top(d, 10)
+
+    
