@@ -189,6 +189,7 @@ class DailyTask:
         self._f()
         self._g()
         self._h()
+        self._i()
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:

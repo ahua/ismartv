@@ -8,6 +8,8 @@ from decorators import timed
 from HiveInterface import HiveInterface
 from HbaseInterface import HbaseInterface
 
+import weeklysql
+
 HIVEHOST = "hadoopsnn411"
 HBASEHOST = "hadoopns410"
 ONE_DAY = datetime.timedelta(days=1)
@@ -61,39 +63,7 @@ class WeeklyTask:
     # 周应用用户数
     @timed
     def _c(self):
-        sql = """select count(distinct sn), device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
-                 and event = "app_start"
-                 and code not in  ("-",
-                                 'com.lenovo.oobe',
-                                 'com.lenovo.dll.nebula.vod',
-                                 'com.lenovo.nebula.packageinstaller',
-                                 'com.lenovo.nebula.settings',
-                                 'com.lenovo.nebula.app',
-                                 'com.lenovo.nebula.recovery',
-                                 'com.lenovo.dll.nebula.launcher',
-                                 'com.lenovo.nebula.local.player.video',
-                                 'com.lenovo.nebula.local.player.music',
-                                 'com.lenovo.vod.player',
-                                 'com.android.settings',
-                                 'com.lenovo.leos.pushengine',
-                                 'com.android.systeminfo',
-                                 'com.lenovo.ChangeServerAddress',
-                                 'wnc.w806.engineermode',
-                                 'com.lenovo.tv.freudsettings',
-                                 'com.lenovo.service',
-                                 'com.lenovo.leyun',
-                                 'com.lenovo.nebula.Launcher',
-                                 'com.baidu.input.oem',
-                                 'com.lenovo.nebula.local.player.image',
-                                 'com.lenovo.dc',
-                                 'com.android.quicksearchbox',
-                                 'com.iflytek.speechservice',
-                                 'com.lenovo.nebula.weibo',
-                                 'com.chinatvpay',
-                                 'com.lenovo.leos.pay')
-                 group by device
-              """ % (self.startday_str, self.endday_str)
+        sql = weeklysql.sql_c_format % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
@@ -103,49 +73,42 @@ class WeeklyTask:
     # 周智能用户数
     @timed
     def _d(self):
-        sql = """select count(distinct sn), device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
-                 and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
-                 and code not in ('com.lenovo.oobe',
-                                 'com.lenovo.dll.nebula.vod',
-                                 'com.lenovo.nebula.packageinstaller',
-                                 'com.lenovo.nebula.settings',
-                                 'com.lenovo.nebula.app',
-                                 'com.lenovo.nebula.recovery',
-                                 'com.lenovo.dll.nebula.launcher',
-                                 'com.lenovo.nebula.local.player.video',
-                                 'com.lenovo.nebula.local.player.music',
-                                 'com.lenovo.vod.player',
-                                 'com.android.settings',
-                                 'com.lenovo.leos.pushengine',
-                                 'com.android.systeminfo',
-                                 'com.lenovo.ChangeServerAddress',
-                                 'wnc.w806.engineermode',
-                                 'com.lenovo.tv.freudsettings',
-                                 'com.lenovo.service',
-                                 'com.lenovo.leyun',
-                                 'com.lenovo.nebula.Launcher',
-                                 'com.baidu.input.oem',
-                                 'com.lenovo.nebula.local.player.image',
-                                 'com.lenovo.dc',
-                                 'com.android.quicksearchbox',
-                                 'com.iflytek.speechservice',
-                                 'com.lenovo.nebula.weibo',
-                                 'com.chinatvpay',
-                                 'com.lenovo.leos.pay')
-                 group by device
-              """ % (self.startday_str, self.endday_str)
+        sql = weeklysql.sql_d_format % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
         for li in res:
             value, device = li.split()
             key = self.day_str + device
             WeeklyTask.hbaseinterface.write(key, {"a:d": "%s" % value})
 
+    # app 用户数
+    def _e(self):
+        sql = weeklysql.sql_e_format % (self.startday_str, self.endday_str)
+        res = WeeklyTask.hiveinterface.execute(sql)
+        lines = []
+        for li in res:
+            value, code = li.split()
+            lines.append("%s,%s,%s\n" % (self.day_str, code, value))
+        with open("./result/app/%s.txt" % self.day_str, "w") as fp:
+            fp.writelines(lines)
+    
+    # game app 用户数
+    def _f(self):
+        sql = weeklysql.sql_f_format % (self.startday_str, self.endday_str)
+        res = WeeklyTask.hiveinterface.execute(sql)
+        lines = []                 
+        for li in res:
+            value, code = li.split()
+            lines.append("%s,%s,%s\n" % (self.day_str, code, value))
+        with open("./result/gameapp/%s.txt" % self.day_str, "w") as fp:
+            fp.writelines(lines)
+
     def execute(self):
         self._a()
         self._b()
         self._c()
         self._d()
+        self._e()
+        self._f()
 
 
 if __name__ == "__main__":

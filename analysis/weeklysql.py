@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
-# app count
-sql_g_format = """select count(distinct sn), device
-         from daily_logs where parsets = '%s'
-         and event = "app_start"
-         and code not in  ("-",
+sql_c_format = """select count(distinct sn), device
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 and event = "app_start"
+                 and code not in  ("-",
 "com.android.browser",
 "com.android.camera",
 "com.android.oobeshell",
@@ -66,15 +65,15 @@ sql_g_format = """select count(distinct sn), device
 "lenovo.ideatv.tvshow",
 "tv.ismar.daiup",
 "tv.ismar.speedtester")
-
                  group by device
-              """
+              """ 
 
-# smartv
-sql_h_format = """select count(distinct sn), device
-                 from daily_logs where parsets = '%s'
+
+sql_d_format = """select count(distinct sn), device
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
-                 and code not in ("com.android.browser",
+                 and code not in (
+"com.android.browser",
 "com.android.camera",
 "com.android.oobeshell",
 "com.android.providers.downloads.ui",
@@ -138,13 +137,79 @@ sql_h_format = """select count(distinct sn), device
                  group by device
               """
 
+sql_e_format = """select count(distinct sn), code 
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 and event in ("app_start")
+                 and code not in (
+"com.android.browser",
+"com.android.camera",
+"com.android.oobeshell",
+"com.android.providers.downloads.ui",
+"com.android.providers.SettingWeatherCity",
+"com.android.quicksearchbox",
+"com.android.quicksearchbox.benchmarks",
+"com.android.systeminfo",
+"com.lenovo.androidbox",
+"com.lenovo.anyshare",
+"com.lenovo.dc",
+"com.lenovo.diskcode",
+"com.lenovo.dll.nebula.launcher",
+"com.lenovo.dll.nebula.rechargecenter",
+"com.lenovo.dll.nebula.vod",
+"com.lenovo.dll.nebula.vod.service",
+"com.lenovo.fota",
+"com.lenovo.leos.devicediscover",
+"com.lenovo.leos.filebrowser",
+"com.lenovo.leos.pushengine",
+"com.lenovo.magic4stv",
+"com.lenovo.magicime",
+"com.lenovo.mediaselectdialog",
+"com.lenovo.messagerCenter",
+"com.lenovo.midh.dh.search",
+"com.lenovo.nebula2.epg.client",
+"com.lenovo.nebula.app",
+"com.lenovo.nebula.local.player.image",
+"com.lenovo.nebula.local.player.music",
+"com.lenovo.nebula.local.player.video",
+"com.lenovo.nebula.packageinstaller",
+"com.lenovo.nebula.settings",
+"com.lenovo.nebula.tvwall",
+"com.lenovo.nebula.weibo",
+"com.lenovo.normal.tv",
+"com.lenovo.nova.service",
+"com.lenovo.nova.settings",
+"com.lenovo.oobe",
+"com.lenovo.presentation",
+"com.lenovo.rcintroduction",
+"com.lenovo.skin.settings",
+"com.lenovo.smartdemo",
+"com.lenovo.stv",
+"com.lenovo.test.upnp.controllpoint",
+"com.lenovo.tv.appstore",
+"com.lenovo.tv.epg",
+"com.lenovo.tv.factory.engineermenu",
+"com.lenovo.tv.factory.factorycommand",
+"com.lenovo.tv.factory.factoryirprocess",
+"com.lenovo.tv.factory.factorymenu",
+"com.lenovo.tv.factory.factoryservice",
+"com.lenovo.tv.factory.rwsn",
+"com.lenovo.tv.freudsettings",
+"com.lenovo.tv.stb",
+"com.lenovo.widget",
+"com.lenovo.widgetscontainer",
+"com.marvell.tvtest",
+"com.philips.uwand",
+"lenovo.ideatv.tvshow",
+"tv.ismar.daiup",
+"tv.ismar.speedtester")
+                  group by code
+"""
 
 
-sql_i_format = """
-select count(distinct sn), device
-from daily_logs where parsets = '%s'
-and event in ("app_start")
-and code in (
+sql_f_format = """select count(distinct sn), code
+                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 and event in ("app_start")
+                 and code in (
 "a5game.fruit_dianxin_5a",
 "acan.yueqiu.migongtafang2",
 "air.A17vee.d9.kart",
@@ -1489,5 +1554,5 @@ and code in (
 "zl.Louis.FitItQuick",
 "zl.Louis.PushRedBlock",
 "zy.g20130619174140")
-group by device
-"""
+                 group by code
+              """
