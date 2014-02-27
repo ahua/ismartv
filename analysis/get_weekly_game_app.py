@@ -14,19 +14,16 @@ def get_top50(date, dirname):
 
 def get_top10(date, dirname):
     day0 = datetime.datetime.strptime(sys.argv[1], "%Y%m%d")
-    day1 = day0 - dateitme.timedelta(days=7)
+    day1 = day0 - datetime.timedelta(days=7)
     
-    f0 = os.path.join(dirname, "%s.txt" % day0.strfitme("%Y%m%d"))
-    f1 = os.path.join(dirname, "%s.txt" % day1.strfitme("%Y%m%d"))
-    
-    d0 = get_top50(f0, dirname)
-    d1 = get_top50(f1, dirname)
+    d0 = get_top50(date, dirname)
+    d1 = get_top50(day1.strftime("%Y%m%d"), dirname)
     
     d = {}
     for k in d0:
         a = d0[k]
         b = d1.get(k, 0)
-        d[k] = a/b if b != 0 else 0
+        d[k] = a*1.0/b if b != 0 else 0
     return d
 
 
@@ -58,7 +55,6 @@ if __name__ == "__main__":
     d = get_top10(date, appdir)
     display_top(d, 10)
     
-    d = get_top109date, gameappdir)
+    d = get_top10(date, gameappdir)
     display_top(d, 10)
 
-    
