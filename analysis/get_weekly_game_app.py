@@ -27,7 +27,7 @@ def get_top10(date, dirname):
         d[k] = a*1.0/b if b != 0 else 0
     return d
 
-def get_code_name(code):
+def get_code_name(code2):
     d = {}
     fp0 = "./files/0226_name_code.txt"
     with open(fp0) as fp:
@@ -40,7 +40,7 @@ def get_code_name(code):
         for li in fp:
             code, name = li.rstrip().split(",")
             d[code] = name
-    return d.get(code, "-")
+    return d.get(code2, "-")
 
 
 def display_top(d, n=50):
