@@ -81,7 +81,7 @@ if __name__ == "__main__":
     
     display_newline()
 
-    print "本周活跃用户数增长最快的应用top10；"
+    print "本周活跃用户数增长最快的游戏top10；"
     print "id,code,tiltle,count"
     d = get_top10(date, gameappdir)
     display_top(d, 10)
