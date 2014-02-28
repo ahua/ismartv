@@ -29,13 +29,13 @@ def get_top10(date, dirname):
 
 def get_code_name(code):
     d = {}
-    fp0 = "./file/0226_name_code.txt"
+    fp0 = "./files/0226_name_code.txt"
     with open(fp0) as fp:
         for li in fp:
             name, code = li.rstrip().split(",")
             d[code] = name
     
-    fp1 = "./file/code_name.txt"
+    fp1 = "./files/code_name.txt"
     with open(fp1) as fp:
         for li in fp:
             code, name = li.rstrip().split(",")
