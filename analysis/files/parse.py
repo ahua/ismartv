@@ -16,7 +16,7 @@ def is_right(event):
         return True
     return False
 
-def process(filename, output_dir):    
+def process(filename):    
     fin = open(filename, "r")
     for li in fin:
         try:
