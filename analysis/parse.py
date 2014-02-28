@@ -54,7 +54,8 @@ def process(filename, output_dir):
             code = r.get("code", "-")
             mediaip = r.get("mediaip", "-")
             cdn = r.get("_cdn", "-")
-            vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, subitem, mediaip, cdn]]
+            isplus = r.get("_plus", -1)
+            vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, subitem, mediaip, cdn, isplus]]
 
             outline = DELIMITER.join(vals) + "\n"
             if not OUT_DIC.has_key(day):
