@@ -115,7 +115,7 @@ class WeeklyTask:
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        daylist = [datetime.datetime.now() - datetime.timedelta(days=1)]
+        daylist = [datetime.datetime.now()]
     elif len(sys.argv) == 2:
         daylist = [datetime.datetime.strptime(sys.argv[1], "%Y%m%d")]
     else:
