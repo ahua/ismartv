@@ -25,7 +25,7 @@ def process(filename):
                 continue
             code = r.get("code", "-")
             title = r.get("title", "-")
-            print "%s,%s" % (code, title)
+            print "%s,%s" % (code, title.replace(",", " "))
         except Exception as e:
             #print e
             continue
