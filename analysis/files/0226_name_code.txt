@@ -1,0 +1,1649 @@
+应用名称,应用包名
+永恒勇士ETERNITYWARRIORS,com.glu.android.warriors
+劳拉：光之守卫者,com.squareenix.laracroft
+全面回忆-第一章,com.gcmmtp.trecallep1
+僵尸爱吃鸡,com.zombies.jump
+3D过山车【高清版】,com.digitalchocolat.rollnyfull
+铅笔射手,com.gx.shooterdk
+丽莉的冒险 3D  Lilli Adventures 3D,com.WaldschratStudios.LilliAdventures3D
+罪恶都市,com.funzio.crimecity
+基因实验室,com.frontstudios.genelabs
+划线篮球1.2.7,com.iopixel.basketball2
+森林跑跑熊,com.jb.spikeBear
+太空司令,com.h9kdroid.astrocommander
+冰河世纪1.2,devil.iceage.activity
+板球国际商会,com.javaground.g1.icc_t20_2010
+飞机领航员,uk.co.bigfungames.android.flightfrenzy.lite2
+有何不同(儿童)1.4.1,com.remarkable.whatsdifferentfull
+钢铁蠕虫1.0.2,com.the10tons.ironworm.free
+极致桌球1.0.2,com.friendlymonster.totalpool
+骷髅士兵塔防V1.0.4,com.sas.NecroDefence
+大嘴蛙1.0.0,air.com.iclockwork.frogmunchcn
+泄愤小游戏:图钉男人v1.4,uk.co.cwd.pinman
+贪婪的海兽1.0.0,burplingsfull.reznic.net
+滑翔纸飞机1.6,com.boolbalabs.paperjetfull
+原始破冰者V1.16,com.entwicklerx.icecrush
+迷你宠物1.2.0,com.miniclip.animalshelter
+僵尸满屋  Zombie Lane,com.dchoc
+物理平衡  Chalk Caps,com.chalk.caps
+异形入侵汉化版,com.gamefang.game.Aliens
+僵尸快打  Zombie Flick,com.fullfat.android.zombieflick
+3D纽约过山车,com.digitalchocolate.rollnyfull
+视觉轨道1.0,com.galakau.veloxfull
+自行车暴走1.0.2,com.spicysoft.charisodx
+海底总动员,dk.tactile.sealteam1
+机器帝国,net.hexage.robotek.hd
+水果大逃亡1.4.2,com.fruitroll.game.top.best.free
+宝石矿工21.0.11,au.com.phil.mine2
+死亡蠕虫,com.playcreek.DeathWorm
+姜饼猛冲1.7,jp.co.a_tm.ginger.android.full
+复仇者,com.avenger
+倾斜赛车1.2,com.zz.thumbracing
+微型格斗  Minibash,org.minibash.minibash
+The Reem,com.khaeon.thereem
+机器帝国,net.hexage.robotek.hd
+极限摩托,com.occamy.android.motoxmayhem1
+机器人奔袭高清版 Roboto HD,com.FFE.Roboto
+浑水摸鱼,com.finger2finger.games.deepseafishing
+忍者秋千,jp.k063amuk.NinjaSwing
+降临R（免费版）,game.adventLite
+怪兽王国 | Monster Life,com.gameloft.android.GAND.GloftMKHP
+?明珠传奇?,com.pearlinpalm
+孔明传,com.snailgba.kongmingzhuan
+哈利波特与阿兹卡班的囚徒,com.snailgba.halibote_azikaban
+名将决,com.sq.sanguo
+山海奇缘,com.nox.shanhai
+野人大作战,com.activ8.mywilddefense
+中国娃娃主题乐园  Pucca Theme Park,com.incrediblestudio.themepark
+霸业三国,net.zy.sg
+极品飞车游戏拼图,com.lightheadgames.nfsgamespuzzle
+银河防御战2(中文版)   Defense of Galaxy 2,com.hotpod.dog2c
+机场城市,com.gameinsight.airport
+轨道火车汉化版,com.tgb.bg.tmt
+阻止恶魔   No Demons Allowed,com.bulletlike.nodemonsallowed
+水果恶魔,com.feelingtouch.fruit
+晶石保卫战2 Tower Raiders 2 GOLD,com.gianormousgames.towerraiders2
+地牢猎手2,com.gameloft.TV.GAND.GloftD2HP
+海盗塔防  River Pirates Free,com.entwicklerx.riverpiratesfree
+艾莫洛斯战争,com.emrosswar.cht
+Roboto,com.fenixfire.roboto
+甜点天堂  SweetyHeaven,com.moaibot.sweetyheaven
+终极塔防EX    Tower Defense EX,com.com2us.towerdefense.normal.freemium.samsungapps.global.android.common
+德军进攻   Kraut Attack - Defense,com.Virtual_Cosmonauts.KrautAttack
+掌上三国,com.tapsg
+英雄使命,com.upon.heroes
+星球大战塔防 Star Wars Tower Defense 1.0.1,com.catstudio.starwars
+Birds on a wire,com.herocraft.games.birdsonwire
+空挡接龙,com.rao.loveyy.solitaire
+赢话费斗地主,com.mykj.game.ddz
+空挡接龙,com.rao.loveyy.solitaire
+空挡接龙,com.rao.loveyy.solitaire
+空挡接龙,com.rao.loveyy.solitaire
+空挡接龙,com.rao.loveyy.solitaire
+空挡接龙,com.rao.loveyy.solitaire
+三国杀online HD,com.bf.sgs.lenovo.hd
+空挡接龙,com.rao.loveyy.solitaire
+二人麻将,com.axiaoao.iptvmj
+Go Free,uk.co.aifactory.gofree
+Checkers Free,uk.co.aifactory.checkersfree
+Pyramid,com.softick.android.pyramid
+klondike,com.softick.android.solitaire.klondike
+Galaga Special Edition,com.namcobandaigames.galagase
+泡沫战士 Foam Fighters,com.wowwee.foamfighters
+流星战机 Rat Fishing,com.dotemu.neogeo.blazstar
+古堡恶灵,com.jiamin.monk
+军队防御,com.titan.armybigdefenser
+离子赛车之终极漂移,com.sgn.ion_racers
+兔子射手圣诞版汉化版,com.bestcoolfungamesfreegameappcreation.bunnyshooterxmas
+Blue Skies Lite,com.gamejie.BlueSkiesLite
+我的纸飞机,com.wavecade.mypaperplane_x_lite
+反恐警报 Alert terrorist,org.fankong
+变身国王疯狂赛跑,air.MorphKing.TV
+ThePiratesTreasure3,air.D9.ThePiratesTreasure3
+碰碰卡丁车,air.A17vee.d9.kart
+平衡绳索,com.tfhd.d9.balancerope
+眼保健操,com.app.xjiajiaEyeGym
+趣味高尔夫,com.app.xjiajiaGolf
+轻松棒球,com.app.xjiajiaBaseball
+趣味走钢丝,com.app.xjiajiaTightRope
+百米赛跑,com.app.xjiajiaOlympic
+趣味飞镖体验版,com.app.xjiajiaDart
+趣味飞镖,com.app.xjiajiaDartOfficial
+轻松保龄球,com.app.xjiajiaBowling
+轻松羽毛球,com.app.xjiajiaBadminton
+轻松网球,com.app.xjiajiaTennis
+AIWI,com.aibelive.aiwi
+可爱弓箭手（需安装AIWI）,com.Aibelive.CuteArcher
+3D赛船高清版,com.guoandroid.boat
+离子赛车之火箭喷射,com.sgn.ionracergame
+Touch Racing Nitro,com.bravogamestudios.kiidjudjjjjfhhs
+2012欧洲杯,com.uplayonline.mystrikersoccereuro
+国际斯诺克2.0,uk.co.bigheadgames.Snooker
+美国职业保龄球 PBA Bowling 2,com.concretesoftware.pba2_mcg
+终极越野摩托车,com.gamayun.ultimatemotocrossfree
+离子赛车,com.sgn.ionracer
+狂野飙车6-火线追击,com.gameloft.android.DOCOMO.GloftA6DO
+飙车,com.creativemobile.dragracingbe
+疯狂躲避赛车  Switch,com.playboxgames.pbswitch
+欧洲杯2012完美版,com.buzzwordsoft.eurov2012
+摩尔卡丁车【热】,com.taomee.molekart
+Arc3D足球,game.arc3dsoccer
+疯狂走私艇 Shine Runner,com.vectorunit.green
+触摸赛车 Touch Racing Nitro,com.bravogamestudios.touchracingnitro
+全国足球联赛24小时运动直播,com.gi.nfl.main
+NBA Livesports24,com.gi.nba.main
+牧场物语_矿石镇的伙伴（女孩篇）,com.snailgba.muchangwuyu_girl
+牧场物语_矿石镇的伙伴（男孩篇）,com.snailgba.muchangwuyu_nanhaipian
+一键偷花,qq.rose
+水果积木,com.yhz.fruits
+驱蚊,irdc.ex10_08.dianle.shao
+时尚女魔头,com.teamlava.fashionstory
+外星宠物（Furdiburb - Lite）,com.sheado.lite.pet
+摩托车大奖赛儿童版,com.gi.motoGPKids.main
+终极找茬,com.defoe.game2
+大家来找茬,com.defoe.game1
+美眉找茬,com.defoe.game4
+妹子找茬,com.defoe.game
+宝宝学自然现象,com.sinyee.babybus.season
+宝宝童谣,com.sinyee.babybus.song
+宝宝童谣2,com.sinyee.babybus.songII
+海底泡泡大战,com.rao.love.yy.bubblewar
+米娜的炸弹HD版,com.xuanku.fire
+宝宝乐器,com.sinyee.babybus.songIV
+宝宝学交通工具,com.sinyee.babybus.cars
+神奇的木偶,com.sinyee.babybus.bodyII
+宝宝行为认知,com.sinyee.babybus.behaviour
+宝宝学ABC,com.sinyee.babybus.abc
+妹子找茬(可爱版),com.defoe.game5
+采荷叶,com.steven
+极限停车 (豪华版),com.azugame.parkingCar
+宝宝学形状,com.sinyee.education.shape
+宝宝学日用品,com.sinyee.babybus.dailycommodities
+姜饼大逃亡正式版,jp.co.a_tm.gingerz.androids.fulls
+美眉找茬,com.defoe.game4
+终极找茬,com.defoe.game2
+大家来找茬,com.defoe.game1
+海底泡泡大战,com.rao.love.yy.bubblewar
+海底泡泡大战,com.rao.love.yy.bubblewar
+足球迷宫,com.jusonistudios.mmaze
+美眉找茬,com.defoe.game4
+七月二十六日BG文,org.geometerplus.zlibrary.weread2012072704
+海底泡泡大战,com.rao.love.yy.bubblewar
+终极找茬,com.defoe.game2
+大家来找茬,com.defoe.game1
+QQ头像连连看,dafengqixi.llk_clean
+悍将传世,com.sdw.legend
+海底泡泡大战,com.rao.love.yy.bubblewar
+桥梁专家,com.gx.ConstructionBridge
+奇幻齿轮自己版,com.lazy8studios.cogsgame
+海底泡泡大战,com.rao.love.yy.bubblewar
+JJ斗地主,cn.jj
+海底泡泡大战,com.rao.love.yy.bubblewar
+小心有鬼,com.zhanglei.Haunted
+海底泡泡大战,com.rao.love.yy.bubblewar
+疯狂的熊猫  CrazyPanda,com.aonesoft.game
+接鸡蛋AMRv6,com.gwsoft.chickenshift.cn
+蔬菜水果切切切,ffgames.veggieblade.free
+鸟人  Birdman Rally,com.feelingtouch.FlyMan
+哆啦A梦钓鱼2  Doraemon Fishing 2,com.pttsolutioninc.game.DoraemonFishing2
+百万大学堂  Million School,com.hardworking.millionschool
+兔子大冒险,com.eyelead.bunnymaze
+摩艾图腾 MoaiTotem,com.moaibot.moaitotem
+捕食鱼,com.droidhen.game.fishpredator
+果园大丰收啦,org.guoyuan
+布卡高清版  Buka HD,net.hexage.buka.hd
+捕鱼之星,com.mqkk.tom.pkbyzx
+别惹小鸡,com.mir.soundwavtd.tv
+光学解锁  Sampo Lock,sampolock.gen
+Angry Birds,com.rovio.angrybirds
+山楂树之恋大找茬,net.ff.findit_szszl
+椰子沙滩,com.coco.sunwater
+魔法猎人,com.gamefang.devilhunter
+超级猴子球2樱花版 Super Monkey Ball 2: Sakura Ed,com.ooi.android.smb2
+Bunny Maze 3D,com.eyelead.bunnymazetv
+愤怒的小鸟之里约大冒险 Angry Birds Rio,com.rovio.angrybirdsrio
+小刺猬托尔 Thor The Hedgehog,com.glovik.thor
+宝石迷阵2,com.trans.bejeweled2
+幻幻球,com.trans.peggle
+斯诺克训练营,air.cn.iduoduo.cuesports
+我的世界  Minecraft Pro Full,com.pxstudios.minecraftprofull
+愤怒的小鸟太空版,com.rovio.angrybirdsspace.ads
+Angry Birds,com.rovio.angrybirds
+诞老人的村庄 Santa's Village,com.makingfun.santasvillage
+泡泡球 Bubble Ball,com.naygames.bubbleball
+大家来找茬美女篇  Find Differences,cn.easymobi.game.finddifferences
+水果滚滚 FruitRoll,com.fruitroll.game.top.best.free
+躲避障碍 Avoider,com.avoider.paid
+極致拼圖 第683期,com.skyd.bestpuzzle.n683
+极致拼图 第684期,com.skyd.bestpuzzle.n684
+极致拼图 第681期,com.skyd.bestpuzzle.n681
+极致拼图 第680期,com.skyd.bestpuzzle.n680
+极致拼图 第679期,com.skyd.bestpuzzle.n679
+极致拼图 第678期,com.skyd.bestpuzzle.n678
+极致拼图 第677期,com.skyd.bestpuzzle.n677
+极致拼图 第676期,com.skyd.bestpuzzle.n676
+极致拼图 第675期,com.skyd.bestpuzzle.n675
+极致拼图 第674期,com.skyd.bestpuzzle.n674
+极致拼图 第673期,com.skyd.bestpuzzle.n673
+极致拼图 第672期,com.skyd.bestpuzzle.n672
+极致拼图 第671期,com.skyd.bestpuzzle.n671
+极致拼图 第670期,com.skyd.bestpuzzle.n670
+极致拼图 第669期,com.skyd.bestpuzzle.n669
+极致拼图 第668期,com.skyd.bestpuzzle.n668
+极致拼图 第667期,com.skyd.bestpuzzle.n667
+极致拼图 第666期,com.skyd.bestpuzzle.n666
+极致拼图 第665期,com.skyd.bestpuzzle.n665
+极致拼图 第664期,com.skyd.bestpuzzle.n664
+火箭黄鼠狼 Rocket Weasel,com.freezetag.rocketweasel
+百战天虫  Worms,com.ea.worms_full_azn
+極致拼圖 第653期,com.skyd.bestpuzzle.n653
+極致拼圖 第652期,com.skyd.bestpuzzle.n652
+極致拼圖 第651期,com.skyd.bestpuzzle.n651
+極致拼圖 第650期,com.skyd.bestpuzzle.n650
+極致拼圖 第649期,com.skyd.bestpuzzle.n649
+極致拼圖 第648期,com.skyd.bestpuzzle.n648
+極致拼圖 第647期,com.skyd.bestpuzzle.n647
+極致拼圖 第646期,com.skyd.bestpuzzle.n646
+極致拼圖 第645期,com.skyd.bestpuzzle.n645
+極致拼圖 第644期,com.skyd.bestpuzzle.n644
+极致拼图 第663期,com.skyd.bestpuzzle.n663
+极致拼图 第662期,com.skyd.bestpuzzle.n662
+极致拼图 第661期,com.skyd.bestpuzzle.n661
+极致拼图 第660期,com.skyd.bestpuzzle.n660
+极致拼图 第659期,com.skyd.bestpuzzle.n659
+极致拼图 第658期,com.skyd.bestpuzzle.n658
+极致拼图 第657期,com.skyd.bestpuzzle.n657
+极致拼图 第656期,com.skyd.bestpuzzle.n656
+极致拼图 第655期,com.skyd.bestpuzzle.n655
+极致拼图 第654期,com.skyd.bestpuzzle.n654
+魔法王国,com.herocraft.game.kingdom
+极速逃生-密室 Free,speed.escape.universal.free
+精灵咒语  Totemo HD,net.hexage.totemo.hd
+超级卡片记忆,com.ttmobiletech.android.game.bera.lee.worldflags
+猴子闯关 Jungle Ruins HD Lite,jp.co.haibis.android.jungleruinslite
+Backgammon Free,uk.co.aifactory.backgammonfree
+躲闪Android1.5,com.zhanghuisns.dodge
+应用名称,应用包名
+忍者小小鸟,com.frank.ninjabird
+蔬菜传奇 Vegetable Legend,com.wangjunyou.Vegetable_Legend
+杀手：僵尸之城2 - 起源,com.glu.ckzombies2
+鳄鱼快跑,com.zhang.pidan.runnershighs
+超级大卡车,com.fishmen.toptruckfree
+Vegetable Legend,com.wangjunyou.Vegetable_Legend
+掘墓人 | Grave Digger,halloween.loopController.free
+兔兔快跑,com.game.gameobstructrun
+一把片刀闯天涯 | Dante Zomventure,com.boxitsoftcasual.dantezomventure
+僵尸快跑,yoyo.zom
+奶奶逃脱辐射城,com.aceviral.agrr1
+龙虎之拳,com.azyouxi.quanwangt
+宝藏猎人,com.divmob.treasurehunter
+猫狗大战,com.gamefactory.catvsdogfree1
+弹弹堂疯狂火炮,com.etgame.tom.pkgodofwar1
+神秘星球最后之战,com.timel.game.finalbattle
+跳跳墙,net.sunflat.android.papiwall
+悠嘻猴宠物岛,com.NPlus3D.YociArcher
+兔兔快跑,com.game.gameobstructrun
+悠嘻猴宠物岛,com.NPlus3D.YociArcher
+兔兔快跑,com.game.gameobstructrun
+超炫别动队 | Team Awesome,com.ezone.TeamAwesome
+Angry Boyfriend,com.angry.boyfriend
+暗影枪神THD,com.madfingergames.shadowgun_thd
+?忍者龙剑传?,com.androidemu.harverenlong
+?圆桌武士?,com.androidemu.harveyuanzhuows
+?侍魂?,com.androidemu.harveshihun
+?龙王?,com.androidemu.harvelongwang
+?洛克人Ⅲ?,com.androidemu.harveluokeren3
+?恐龙战队?,com.androidemu.harvekonglzd
+?超级街头霸王Ⅱ?,com.androidemu.harvespjb2
+?冒险岛4?,com.androidemu.harvemaoxiandao4
+?双截龙3?,com.androidemu.harveshuangjl3
+?双截龙1?,com.androidemu.harveshuangjl1
+?冒险岛2?,com.androidemu.harvemaoxiandao2
+地下城英雄-暗黑王朝,com.zy.tom.pkdxcyx
+?洛克人Ⅱ?,com.androidemu.harveluokeren2
+?电精?,com.androidemu.harvedianjing
+?忍者神龟Ⅳ?,com.androidemu.harverenzhesg4
+?双截龙2?,com.androidemu.harveshuangjl2
+?快打旋风3?,com.androidemu.harvekuaida3
+?快打旋风1?,com.androidemu.harvekuaida1
+?冒险岛1?,com.androidemu.harvemaoxiandao1
+罪恶都市 | Crime City,com.funzio.crimecity
+江南Style劲舞团,dance.style.lite.hd
+小小传奇-狂战士 | TinyLegends - Crazy Knight,com.trinitigame.android.tlck
+跑跑跳2,leo.jumphigh.runnershigh
+正义联盟 | Justice League:EFD,com.cjenm.justiceleague_google
+地牢猎手2,com.gameloft.TVS52.GAND.GloftD2HP
+泡泡忍者,com.game.bubblesninja
+星球大战之超级英雄回归,com.kuguo.starwar.google
+迷你英雄,com.trinitigame.comsniper
+波斯王子经典版 | Prince of Persia Classic,org.ubisoft.premium.POPClassic
+失落灵魂之夜 | Soulless Night,com.Nets.Soulless_Night
+斯巴达：战神,com.kuguo.SponsorPay.game
+瞎子忍者跑酷,com.EggBones.BlindNinja
+热血格斗 Further Beyond Fighting,com.PJSCoding.FBF
+直升机空战 C.H.A.O.S,com.skyjetinter.chaoslite
+血之荣耀官方中文版 | BLOOD & GLORY NR,com.glu.gladiator_cn
+战斗机器人 | Battle Robots!,jp.colopl.fighting_en
+欢乐对对碰,com.sinyee.babybus.match
+极速逃生-密室,speed.escape.universal.free
+明朝这些年,com.aiyou.mczxn
+口袋英雄,air.com.imop.game.heroapk
+?杀神?-3D万人精品,com.pip.android.ss
+嗜血狂龙,com.bringmore.DeeathWorm
+帝国塔防II[季节版],gts.td2.am.full.cnlx
+4人佣兵团 | Guns 4 Hire,com.rebellion.guns4hire
+幻想精灵,cn.mobage.g13000204
+?杀神?,com.pip.ss
+?杀神-春节好礼,com.pip.android.ss
+三国大富翁,com.koogame.RichGL
+幻想精灵,cn.mobage.g13000204
+名将决,com.sq.sanguo
+轩辕剑?,shaft.CCCCACCY
+忍者天下,cn.mobage.g12000108
+幻想精灵,cn.mobage.g13000204
+上古世界,org.mf.sgwd
+猫狗大战 | Cat War,com.westriversw.CatWar
+行尸走肉:活死人之地,air.amc.deadreckoning
+极限的躲球,cn.zyj.Game1
+英雄角斗场,com.m3java.braveheart
+?杀神?,com.pip.ss
+帝国塔防II,gts.td2.am.full.cnlx
+幻想精灵,cn.mobage.g13000204
+帝王.三国经典版,com.gamebox.kinglx
+帝王.三国PAD,com.gamebox.kinglx.pad
+帝王.三国高清版,com.gamebox.kinglxHD
+星际塔防,com.imohoo.StarTD
+英雄战魂（原名：战魂OL）,com.g2us.armedwarriors
+?明珠轩辕?,shaft.CCCCACCY
+黄金军团 | OutFight Gold,com.panoramik.outfightgold
+乱世天下,com.renren.and10101
+名将决,com.sq.sanguo
+银河创世录,com.noumena.android.galaxy2cn
+画个火柴人,com.hitcents.stickmanepic
+九英雄大战僵尸党,com.ninefactory.nineheroesen
+斯巴达复仇者战争,com.kuguo.google.sparta2.game
+?重装机兵Ⅱ?,com.androidemu.harvesfcmm2
+?火焰纹章-圣战系谱?,com.androidemu.harvewzshengzh
+?吞食天地?,com.androidemu.harvetunshi
+?火焰纹章-纹章外传?,com.androidemu.harvewenzhangwz
+?火焰纹章-多拉基亚776?,com.androidemu.harvehuowen776
+?最终幻想Ⅴ?,com.androidemu.harvezuizhong5
+?勇者斗恶龙Ⅲ?,com.androidemu.harvedragon3
+?火焰纹章-纹章之谜?,com.androidemu.harvehuowenwzzm
+屌丝的幸福生活,com.hangwei.zcsh
+松饼骑士,com.mobilegame.muffinknight
+狂野之血（含数据包）,com.gameloft.android.ANMP.GloftWBHM
+名将决,com.sq.sanguo
+名将决,com.sq.sanguo
+三国大富翁,com.koogame.RichGL
+轩辕剑-天之痕外传(末日版),shaft.CCCCACCY
+保卫钓鱼岛,com.zqgame.defenddiaoyuislands
+企鹅飞飞,com.topfreegames.peeenguinfree2
+文明复兴,com.glee.knight.glee
+帝王.三国PAD,com.gamebox.king.pad
+全面战争：幕府将军 | Total War Battles,com.sega.twbshogun
+钉子户大战拆迁队,com.rainbow.DingAD2
+指尖三国,air.com.imop.game.sg3android
+麻將探險之旅HD,com.lvjiaxi.mj
+博雅广东麻将,com.boyaa.gdmj
+经典纸牌,com.beer.solitaire
+空当接龙,com.beer.freecell
+泡妞大玩家,com.lamamobile.winneriapppay
+罗马努斯2,com.populusromanus.britannia_free
+二人麻将,com.axiaoao.iptvmj2
+水果王中王,com.green.world.fruit.wangzhongwang
+赢话费斗地主,com.mykj.game.ddz
+趣味麻将,com.picktech.game.mjworld.mainchen
+赢话费斗地主,com.mykj.game.ddz
+火柴开门,com.handjoys.Mat
+愤怒的小鸟太空版,com.rovio.angrybirdsspace.ads
+致命伤害,com.wanjiantao.mayhero
+二战指挥官,com.gamebuild.littlesoldiers
+太空侵略者:异形战争,com.happybluefin.galaxyinvader
+金牌狙击手,ru.coder1cv8.snniperfull
+射击俱乐部 2：狙击,ru.shootingman.snipersim
+空中霸王 | Sky Gamblers: Rise of Glory,com.namcobandaigames.riseofglory
+阻止机器人,com.mini.protector
+线上小小鸟,com.g.birdsonwire
+空战,com.rainbow.Plane
+手枪,com.gama.handgun
+致命枪手,com.cjyouxi.mayhero
+致命枪火,com.minicliphr.mayhero
+海洋后卫,com.tgb.md2
+左轮枪,com.gama.revolverpro
+飞机领航,uk.co.bigfungames.android.flightfrenzy.kkggfhfhgk2j1604k
+超级突击队 | UberStrike: The FPS,com.cmune.uberstrike.android
+空中指挥官 | Turret Commander,com.kylinworks.AirShooter
+星际守护者4 | Star Defender 4,awem.libsdl.app.sd4
+野人射击,com.afegames.wildarchery
+被解放的迪亚戈 | Django’s Bounty Hunter 1800,air.com.weinsteincompany.bountyHunter1800
+方块人塔防 | Cubemen,com.threesprockets.cubemen
+枪打小鸟,com.funnygames.shootbirds
+扔飞刀,net.cabinet.dartsthrow
+合金装备:外天堂 | Metal Gear: Outer Heaven,com.Davidamado.MetalGearfangame
+射击俱乐部 2,ru.minicliphr.snipersim
+致命枪火 HD,com.miniclip.mayhem
+愤怒的小鸟太空版,com.rovio.angrybirdsspace.ads
+万圣节大战,com.lieco.HalloweenShoot
+战地英雄,com.cvte.game.bfhero
+?雷电?,com.androidemu.harveleidian
+?沙罗曼蛇3?,com.androidemu.harveshaluoms3
+?赤色要塞?,com.androidemu.harvechise
+?中东战争?,com.androidemu.harvezhongdong
+?超时空要塞?,com.androidemu.harvechaoskys
+?坦克大战?,com.androidemu.harvetanke
+BasketStar,marusoft.Basket
+牛仔与忍者大战外星人,com.deadmushroom.gpn.cowboy
+致命伤害,com.minicliphr.mayhem
+弹壳：地狱佳丽,com.glu.bombshells
+CF Defense,com.of3d.cfs
+玩具守卫者HD,manastone.game.herotd_google
+乌兹冲锋枪,com.gama.uzigun
+爆米花,com.game.popcorn
+拳击之王,com.aibelive.kingofboxing
+AIWI水上摩托艇,com.Aibelive.JetSki
+3D疯狂平衡球,com.Aibelive.CrazyBall
+AIWI,com.aibelive.aiwi
+打兔子,air.xiaobaitu
+热血100米,com.app.xjiajiaOlympicSSeries
+可爱弓箭手,com.Aibelive.CuteArchers
+AIWI(S系列专版),com.aibelive.aiwis
+轻松网球,com.app.xjiajiaTennisSSeries
+轻松羽毛球,com.app.xjiajiaBadmintonSSeries
+眼保健操,com.app.xjiajiaEyeGymSSeries
+保龄球,com.app.xjiajiaBowlingSSeries
+死亡战车 | Earn to Die,com.notdoppler.earntodie
+FIFA足球经理,html5.game.wrapper
+摩托车表演赛专业版,com.topfreegames.bikeraceproworld
+吉米灌篮 | Jimmy Slam Dunk,mominis.Generic_Android.Jimmy_Slam_Dunk
+极限摩托,com.greenworld.jixianmotos
+滑翔火柴人,com.cjyouxi.WingsuitStickman.lite
+高速骑士 | Highway Rider,com.batteryacid.highwayrider
+Virtual Table Tennis 3D,com.appgames.vtt3d
+休闲篮球,com.street.basketallgame
+超级越野车 Top Truck,com.ranmenkang.toptruckfree
+重磅越野车 Top Truck,com.ranmenk.toptruckfree
+特技摩托【加速版】,com.androidgame.stickstuntbikerlite
+特技摩托车,com.mobilegame.stickstuntbikerlite
+乌托邦跑酷,com.wuhuacong.Grudger
+直线奔跑2,com.chensibo.LineRunner2
+生死时速,com.polarbit.rthunder2plaay
+姜饼大逃亡【官方正式版】,jp.co.wanxiaoyon.gingerz.androids.fulls
+特技摩托车 | Stick Stunt Biker,com.djinnworks.stickstuntbikerlite
+重力疯狂赛车 | Gravity Racing Madness,de.wendytech.grm
+3D尖峰滑雪,com.com2us.cjinyouxi.android.common
+农场拖拉机：技能竞赛,com.catmoonproductions.skillscompetition
+流动足球 | Fluid Football,com.chromativity.fluidfootball
+街头特技自行车 | BMX Street Stunt,com.plus.bmx
+大黄蜂竞速,org.fudog.wf_frees2
+极品飞车：最高通缉NFS Most Wanted,com.ea.games.nfs13_na
+滑雪挑战赛13 | Ski Challenge 13,com.greentube.sc13.paid
+超级骑手,com.galapagossoft.kkjsdnfjnfjbjdfbgjdfbgdf
+极限骑手,com.galapagossoft.kkasdcjanjhjbsdhvgdf
+极限摩托车手,com.galapagossoft.kkknsjdnbhbvhfdvfgb
+超级摩托赛车手,com.gamayun.superbikersfree1
+经典九球大师赛,billiardsnew.app
+国际摩联格伦披治大赛2012,com.vividgames.speedwaygp2012
+极限摩托3D apla,com.galapagossoft.trial1
+?灌篮高手?,com.androidemu.harveguanlangs
+极品飞车：最高通缉 | Need for Speed Most Wanted,com.ea.games.nfs13_na
+滑板派对 | Mike V: Skateboard Party HD,com.ratrodstudio.mikevskateparty
+疯狂漂移2 | Drift Mania Championship 2,com.ratrodstudio.driftmania2
+狂野飙车6-火线追击,com.gameloft.android.DOCOMO.GloftA6DOs52
+Blood and Glory,com.glu.gladiator_premium
+狂野飙车6-火线追击,com.gameloft.android.DOCOMO.GloftA6DOs52
+死亡拉力赛 Death Rally,com.remedy.DeathRallyFREE
+Basketball,com.basket.basket
+小鸟的愤怒官方版,com.herocraft.game.birdsonwireoz
+跑酷,com.blyts.parkourlite.activitieschen
+疯狂原始人,com.rovio.croods
+智力酷跑,org.greenworld.traintilesgles.three
+悠嘻猴宠物岛,com.NPlus3D.YociArcherTV
+悠嘻猴宠物岛,com.NPlus3D.YociArcher
+贪婪的卡卡龙,com.softboy.runnershigh
+小龙飞吧,com.mklife.fly1
+捏蚂蚁,com.game.antgame
+大嘴贪吃鳄鱼,com.ezjoynetwork.crocorunnerplus
+疯狂农场,com.herocraft.game.farmfrenzy.freemium
+推箱子 3D,net.kivano.sokobangarden
+名胜建造师之泰坦尼克 Monument Builders: Titanic,com.littleworlds.MonumentBuildersTitanic
+爱心大挑战,li.aixindatiaozhan
+水果一刀切,li.shuiguoyidaoqie
+旋转方块,com.chinmike.bloxorz
+钻石连连看,cn.seven.llk
+火车指挥员2,com.thevoxelagents.TrainConductor2wys
+扫雷经典版,com.kejia.mine
+愤怒的小鸟里约大冒险官方版 Angry Birds Rio,com.rovio.angrybirdsrio
+愤怒的小鸟里约大冒险官方版 Angry Birds Rio,com.rovio.angrybirdsrio
+攻城英雄,com.miniclip.siegeheroskynet
+灵异房间,com.mpisoft.kkkdasfjn002934df
+超级大卡车,com.minicliphr.toptruck_ch
+愤怒的女朋友 | Angry Girlfriend,com.ihate.myboyfriend
+桌球高手,com.kb.kkoowehjjkhkjkdds32k
+疯狂锤击,com.ranmenkg.whackmania
+疯狂锤击,com.wangxiaoyong.whackmania
+连连看,com.tmstudio.tmlink91
+奥尔顿塔过山车 | The Smiler,com.altontowers.thesmiler
+天狼蜘蛛,com.katzapps.kkdfsdjfngjdfngfhfg2392kkko
+疯狂锤击 | Whack Mania,com.bravogamestudios.whackmania
+室内寻宝,com.cjyouxi.Findobjects
+空中爱国者,com.southwindsgames.miniac
+模拟骰子Dice,com.teazel
+滑翔火柴人,com.minicliphr.WingsuitStickman.lite
+兔子射手,org.fs.fred.bunnyshoot
+室内寻宝,com.minicliphr.Findobjects
+卡通疯狂赛车,com.minicliphr.turbosi
+战场之狼,com.minicliphram.operationwow
+战争之狼,com.minicliphr.operationwow
+超级玛丽,com.flyfish.supermario
+新黄金矿工,com.flyfish.newgoldminer
+西瓜反弹 | Melon Bounce,com.hs.android.games.melonbounce
+宝宝童谣之DJ,com.sinyee.babybus.dj
+起源交响曲,kemco.wws.sooxx
+酒吧迷情,com.imohoo.bar
+矢量跑酷 | Vector,com.nekki.vector
+极品涡轮竞速,com.minicliphr.turbo
+火柴人竞速滑雪,com.minicliphr.StickmanSkiRacer
+喂我石油 | Feed Me Oil,com.chillingo.feedmeoilfree.android.aja
+乌托邦跑酷,com.minicliphr.Grudger
+扫雷经典版,com.kejia.mine
+愤怒的小鸟星球大战,com.rovio.angrybirdsstarwars.ads.iap
+扫雷经典版,com.kejia.mine
+直线奔跑 2,com.minicliphr.LineRunner2
+小鸟对对碰,com.yourqituan.game.birdsonwireoz
+仓鼠攻略,com.t3.Beset_JJ
+内裤收藏家,com.ifree.Pants
+童话迷踪,air.com.android.games.pnfs
+监狱逃亡解密 官网版,com.herocraft.game.jailrunpuzzle
+小东西长久远  Little Things Forever,com.klicktock.littlethings2
+顶级越野车,com.fishman.toptruckfree
+太空小鸟,com.rovio.angrybirdsspace.premi
+磁铁世界,com.ooworkshop.magnetworld
+暗影跑者 | Run In Crowd,com.ursinepaw.runincrowd
+蛋蛋君,cn.maxray.game.libgdx
+魔泡精灵,com.nf.mpjl
+喵星人大战,jp.cjyouxi.battlecat
+桥梁构造者 | Bridge Constructor,com.headupgames.bridgeconstructor
+连连看,com.tmstudio.tmlink91
+AngryGran2,com.aceviral.ag2
+秘鲁大冒险：火车危机,com.minicliphr.tadeojones
+喵星人大战,jp.minicliphs.battlecat
+拯救罗比 | Rescue Roby,com.missingames.rescueroby
+铁人,com.memoriki.robo
+新黄金矿工,com.flyfish.newgoldminer
+超级玛丽,com.flyfish.supermario
+粘粘世界 3,com.minicliphr.worldofgoofull
+玩具守卫者HD,manastone.game.herotd_google
+海鸟吃鱼 | Seabirds,com.shamrockgames.seabirds
+重力迷宫  Maze!,fr.opena.maze
+企鹅大冒险 | South Surfers,com.moongames.southsurfers110
+玩具守卫者HD,manastone.game.herotd_google
+愤怒的小鸟：星球大战高清版 | Angry Birds Star Wars HD,com.rovio.angrybirdsstarwars.ads.iap
+愤怒的小鸟冬季版 | Angry Birds Seasons,com.rovio.angrybirdsseasons
+哇擦 | Waa Cha!,com.bigbunkerstudio.waachafree
+乐高消防员 | City Fire Hose Frenzy,air.com.lego.city.firehosefrenzy
+捕鱼之星,com.mqkk.tom.pkbyzx
+扫雷经典版,com.kejia.mine
+看动物学数字,com.klap.countonme
+太空小鸟,com.game.angrybird
+超级跑酷猴 | Super Monkey Run,com.geimo.supermonkeyrun
+秘鲁大冒险：火车危机,com.uplayonline.tadeojonespro
+险境逃脱 | PITFALL!,com.activision.pitfall
+超级玛丽,com.flyfish.supermario
+巧克力大战,game.jbox2d.warofchocolate
+缤纷圣诞找不同,org.vv.find.difference.christmas
+扫雷经典版,com.kejia.mine
+灵异房间,com.mpisoft.kkkksadcjnfjsdbfjsbfgdf
+超级飞天兔,BOB.GAME.SUPERRABBIT
+神魔录,com.sml91
+七彩魔石迷阵,org.cocos2dx.kksjdnfsdjbbhdfdfdb
+恐怖庄园探险记,com.firemaplegames.games.kkkjcdnjbsdhbvdfvbg
+狗狗历险记,com.hg.kkksdncjsdnhdbfvfv
+数字连线,de.tiltgames.connectixx1
+ 巧克力人,com.chocolate.chob1
+掘金大师 ,com.cmyksoft.drillmaster1
+方块世界,com.blaschke.blockworld
+黑暗旅行 | Contre Jour,com.chillingo.contrejour.android.rowgplay
+QQ麻将,com.tencent.qqgame.qqmjwvga
+小猫钓鱼,com.afegames.gofishing
+魔法方糖,com.Idol
+博雅四川麻将,com.boyaa.scmj.tv
+功夫兔子 | Kung Fu Rabbit,com.bulkypix.KFR
+拯救机器人 | Railbot,com.armorgames.railbotgame
+猴子祖玛,com.zumagames.crazymonkey
+毛毛球祖玛,com.freegames.marbleblast
+经典桌球,com.cottonflame.poolpro
+干掉同事,net.cabinet.killofficejerk2
+狂殴同事,net.cabinet.killofficejerk
+疯狂车库,com.freegames.crazygarage
+青蛙祖玛,com.afegames.lostfrog
+水果连连看,com.afegames.fruitconnect
+水果对对碰,com.loner.fruitclear
+探宝传说,com.bf.tbcs
+快乐打地鼠,com.defoe.dadishu
+捕鱼达人2,org.cocos2dx.FishingJoy2LeTv
+暗黑守墓神,com.minicliphrgame.zombielands
+惊恐走私犯,com.minicliphr.FunkySmugglers
+地狱狂奔 | Run Like Hell,com.masscreation.rlh
+落石大作战,com.clements.gdx.manvsrocks
+小小直升机,com.clements.gdx.copter
+炮手,com.CaffeinatedTech.CannoneerFree
+捉鬼冒险,com.Alawar.MasyanasTabloidAdventures
+神马猴子,com.fof.km.activity
+像素扭曲,com.noodlecake.vantage
+?超级玛丽Ⅳ?,com.androidemu.harvemario4
+牛仔杰德 | Cowboy Jed,com.ximad.cowboyjed
+幸运水果机,com.CherryMasterSlot
+?水管玛丽?,com.androidemu.harvesgmario
+?炸弹人?,com.androidemu.harvezhadanren
+发泄少年,com.huifeng.faxieshaonian
+欢乐弹跳人 | Jumpy FREE,com.jumpylite.engine
+风景油画找不同,org.vv.find.difference.oilpainting
+海底泡泡大战,com.rao.love.yy.bubblewar
+CrashGo,com.sjx.net.crashgo.activity
+神秘房间找不同,org.vv.find.difference.mysteryroom
+海底泡泡大战,com.rao.love.yy.bubblewar
+快跑，潘小达,com.t3.game.adpanda1
+捕鱼之星,com.mqkk.tom.pkbyzx
+秋天童话找不同,org.vv.find.difference.autumntale
+幸福公寓找不同,org.vv.find.difference.happyhouse
+发射小火箭【高清版】,com.minicliphr.starttherocket
+聪明兔,ma.lenghan.main
+魔法方糖,com.Idol
+海底泡泡大战,com.rao.love.yy.bubblewar
+Bunny Maze 3D,com.eyelead.bunnymazek91
+动感超人,com.com2us.superactionhero5.normal.freefull.google.cn.android.common
+拯救白领,com.hotgames.shooter.ling
+3國小豬 腦力王,com.piggy.wisdom00
+宝宝学交通工具,com.sinyee.babybus.cars
+Baby?learns?Household?goods,com.sinyee.babybus.householdgoods
+祖玛神射手,com.rainman.bonnyballs
+Roboto,com.fenixfire.roboto.k91
+海底泡泡大战,com.rao.love.yy.bubblewar
+忍者精英,com.example.renzhe
+火龙之怒2高级版 | Snappy Dragons 2 Premium,com.extensivestudios.snappydragons2premium
+海底泡泡大战,com.rao.love.yy.bubblewar
+密室逃脱 | Roombreak : Escape Now,com.gameday.RoombreakADGlobal
+小水母找妈妈 | Tiny JellyFish,com.nicekhj1.tinyjellyfish
+BabyTouch!,androidappls.site.com.google.sites.babytouch.smartebook
+宝石迷阵2,com.trans.bejeweled2.market
+幻幻球,com.trans.peggle.market
+一飞冲天,com.solverlabs.tinybird
+宝宝找不同 喜洋洋,org.vv.find.difference.xiyy
+One Shot 魔力黑板檫,BOB.GAME.ONESHOTEN
+蜡笔之星,com.ghohst.CrayonStar
+火车指挥员2,com.thevoxelagents.TrainConductor2Lite
+海底泡泡大战,com.rao.love.yy.bubblewar
+铺铁轨,org.test.traintilesgles
+蓝精灵的村庄 | Smurfs' Village,com.capcom.smurfsandroid
+美眉找茬,com.defoe.game10
+Balance Box,com.frank.balance.box
+智力方块,com.fangkuaimover
+疯狂牧羊人,com.taoyangHD
+宝宝找不同迪斯尼,org.vv.find.disney
+海底泡泡大战,com.rao.love.yy.bubblewar
+愤怒的老奶奶2,com.gamelin.ag2
+宝宝找不同朵拉版,org.vv.find.difference.dora
+钻石对对碰,com.andow01.siondream.freegemas
+猪猪找茬3,com.defoe.game9
+猪猪找茬2,com.defoe.game8
+经典方块,com.fangkuaimover
+猪猪找茬1,com.defoe.game7
+Balance Box,com.frank.balance.box
+方块搬运工,com.boxmover
+连连看,com.fuqiangstudio.game.linkup
+海底泡泡大战,com.rao.love.yy.bubblewar
+水果连连看,com.sinyee.babybus.pair
+宝宝找数字,com.sinyee.babybus.findnumber
+风之精灵 Spirits,com.spacesofplay.spirits
+方块搬运工,com.boxmover
+宝宝来找茬,com.sinyee.babybus.findCha
+宝宝学水果,com.sinyee.fruit.activity
+乐动舞指,com.ledong.musicbox
+乐动舞指,com.ledong.musicbox
+随心所乐,com.UI
+乐动舞指,com.ledong.musicbox
+应用名称,应用包名
+Mad Truck 2,com.tophotapp.madtruck2
+过桥拆河1.0,cn.easymobi.entertainment.crossapp_0
+劫你妹,com.wx.tkwan3
+噩梦跑酷 | Nightmare Runner,com.cookiebit.NRunner
+重力小子,com.miniclip.ggskynet
+狂砍水果,com.ak.crazycut
+恐惧之魂,net.gree.android.pf.greeapp57201a
+暴走战争（汉化）,com.lemondoo.ragewarsfree
+愤怒的捣蛋猪,com.youshi.mm.angrypink3
+丛林有情猪,com.youshi.mm.angrypink2
+海贼王：梦想之旅,yct.ghzw
+越跑越HIGH,com.kspd.runnershigh
+合金弹头XX,yct.ghjdtxx
+武士大战僵尸,com.glu.samuzombie_glucndx
+豆豆跳跃,com.jasmine.crazyjumpergles
+战西游,com.kuyue.zxydn5
+战西游(豪华礼包),com.kuyue.zxydn5
+弹弓赛车,com.appgames.com.crescentmoongames.slingshotracing
+火影忍者冒险,com.bubblesoft.naruto
+火柴人狂奔2,com.djinnworks.LineRunner2.free
+瑞克快跑,com.ruikekuaipo
+洛克人Xover,jp.co.capcom.android.rockmanxovercn
+刺猬索尼克 | Sonic The Hedgehog,com.sega.sonic1
+100个任务,com.mpisoft.spymissions
+领域奔跑者,com.divmob.fieldrunner
+魔能：方碑之巫,com.paradoxplaza.imagicka
+疼痛之旅 | This Could Hurt Free,com.chillingo.thiscouldhurtfree.android.row
+狂怒的火柴人2 | Anger of Stick 2,com.miniclip.angerofstick2
+过山车3D,com.appgames.rollnyfull
+猴子拳击  Monkey Boxing,com.crescentmoongames.monkeyboxing
+疯狂斗鼹鼠,com.bravogamestudios.whackmaniaamazon
+枪之荣耀二战版,com.yodo1.gunsandglory2
+海盗宝藏3,air.Treasure3
+忍者跑酷,superhl.ninjarush.mainactivity
+符武宗,df.android.at.darkwar.fwz.qpay.qpay
+街机球赛,tw.inaugurated.taumiex
+3D飞镖,jp.ren.shade.DGunsSPokooo
+DNF:地下城与勇士,com.Nexon.DunfightENGF1
+舰艇战斗群,com.BaneGames.BattleGroup.skynet.cm
+真.龙之谷,jjx.game.main.act.xiaolong
+笨鸟先飞,com.jnkingdom.birdcanflyerwys
+神奇五侠大狂奔,com.zouniwys
+火柴人滑雪,com.djinnworks.StickmanSkiRacer.freewys
+口袋英雄,cn.miq.pocketheros
+蜡笔小新防御,com.mrgames.jjanguplusg
+超级战争,com.noumena.android.TinyFortcn
+美味巧克力消消看,com.fox.tgllk.sikai
+开心彩虹五子连珠,com.fox.happyline.sikai
+暴揍僵尸,pandaVSzombie.mopoke.activity
+万游助手,parsec.appexpert
+莽荒OL,com.interestphone.android.mh.sm
+幻想仙游,com.mnje.xxsyox
+史诗塔防2 - 风之魔咒,com.dreamstudio.epicdefense2mm
+小三国,com.blessjoy.wargame
+神女控（1.7.1 更新）,com.nubee.valkyriecrusade
+夺回罐头HD,com.fox.tougz.sk
+萌将传奇,com.joygame.loong.meng.cmge
+逆流(元宝版),com.kuyue.zxqitian5
+逍遥诀,com.xianjiol.xianji.forZhiDian
+城堡争霸中文版,com.igg.castleclash_tw
+仙战,air.com.lingyu.zzxlmobile.sijia
+口袋英雄,cn.miq.pocketheros
+胶囊太空站 | Rymdkapsel,com.grapefrukt.games.rymdkapsel1
+江湖英雄传,com.ly.a09.main
+仙剑Q侠传,cn.com.miq.qsuiko
+小三国,com.blessjoy.wargame
+蜀山传奇,com.kingnet.ssl
+这就是战争,com.utgame.thisiswar.lenovo
+万游助手,parsec.appexpert
+纵横天下,com.mango.sanguo15.douwan.cmge
+魔能守卫,cn.touchmagic.game.magicalguard
+天诛,air.cn.Tianzhu.tz51
+天诛OL（无兄弟 不网游）,air.xingdatz
+霸三国,com.app.lszb
+魔兽三国,com.tuomi.longzhan.cmge
+小三国,com.blessjoy.wargame
+?明珠三国?,com.pip.CCAAGB06
+小三国,com.blessjoy.wargame
+天降奇兵（穿越版）,com.kuyue.zxqitian
+小三国,com.blessjoy.wargame
+?杀神?,com.pip.android.ss
+?杀神?,com.pip.ss
+降魔神话（点开就怀孕）,air.com.qlwx.xmsh.cmge.c1wan
+小三国,com.blessjoy.wargame
+帝王.三国经典版,com.gamebox.kinglx
+纵横天下,com.mango.sanguo15.douwan.cmge
+涂鸦嘟嘟鱼,com.freedomrecyle.doodlefish
+魔兽三国,com.tuomi.longzhan.cmge
+牛仔杰德,com.jedgames.cowboyjedgofree
+岛屿战争,com.ppy.daoyuzhanzheng
+轩辕剑,shaft.CCCCACCY
+喵星人大战汉化版,jp.co.ponos.battlecats
+乐高星球大战之尤达传,com.lego.starwars.theyodachronicles
+龙战三国,com.tuomi.longzhan.cmge
+?明珠三国?,com.pip.CCAAGB06
+侠缘风云,com.lakoo.xyfy
+超级战舰,com.byril.battleship
+明朝时代2,com.aiyou.mczxn
+巴比伦兄弟(IOS移植汉化),com.cosmos.babyloniantwins
+?杀神-新资料片,com.pip.android.ss
+狂斩三国,com.koogame.SangoSlayer
+英雄守卫2（史上最强塔防游戏）,com.paladin.defencehero2
+坚守阵地(汉化版),com.subatomicstudios
+毁灭：瓦多尼亚救世主(汉化),com.minoraxis.googlemarket.exitiumandroid
+超级英雄 | Supreme Heroes,air.com.ea.superherocity_row
+石器时代OL,com.gamebean.stoneageol.hd
+明朝这些年,com.aiyou.mczxn
+千城破,air.com.renren.igames.mjcq855006245
+三国志之风云天下,com.mango.sanguo15.douwan.cmge
+杀神,com.pip.android.ss
+2020：我的国家 | 2020: My Country,com.gameinsight.mycountry2020
+乱世天下（HD）,com.renren.and10102
+枪之荣耀二战版 Guns'n'Glory WW2,com.hg.gunsandglory2free
+细胞星球 Cell Planet,cellplanet.apk
+明朝这些年,com.aiyou.mczxn
+石器时代OL,com.gamebean.stoneageol.hd
+猛将无双,com.koramgame.play.mengjiangchs
+拯救花园 | Garden Rescue,com.bigfishgames.gardenrescuegooglefull
+龙战三国OL,com.tuomi.longzhan.cmge
+银河创世录,com.noumena.android.galaxy2cn
+明朝这些年,com.aiyou.mczxn
+QQ欢乐麻将,com.qqgame.happymj
+就要赚钱,com.lishugame.du
+填大坑（掌联）,com.sz.games.tiandakeng
+血战麻将,yb_game.BloodyBattleMahjong
+酒吧扑克,com.orangegame.poker
+斗地主赢话费欢乐版,com.dshine.mtFightLand
+QQ欢乐升级,com.tencent.qqgame.qqhlupwvga
+血听麻将,yb_game.YBMJ
+大众斗地主,yb_game.DZDouDiZhu
+神来麻将,com.g.slmahjong.china
+神来麻将,com.g.slmahjong.china
+跑得快（掌联）,com.sz.games.paodekuai
+摇你妹,com.orangegame.dice
+开心老虎机豪华版,com.easicube.slotmachine.deluxe.cn
+摇你妹,com.orangegame.dice
+麻将探险之旅,com.lvjiaxi.mj.ld
+麻将探险之旅HD,com.lvjiaxi.mj
+空当接龙,com.odesys.freecell.ads
+紫金岛三打哈,game.com.zjdsdh
+跑得快（掌联）,com.sz.games.paodekuai
+紫金岛三打哈,game.com.zjdsdh
+填大坑（掌联）,com.sz.games.tiandakeng
+跑得快（掌联）,com.sz.games.paodekuai
+真人斗地主（金豆天天送）,com.mas.wawagame.jjlord3TH
+指尖三国,air.com.game.sg3android
+扑克九九,com.puke99
+麻将探险之旅HD,com.lvjiaxi.mj
+麻将探险之旅,com.lvjiaxi.mj.ld
+sandaha,game.com
+贵阳捉鸡麻将,engtst.mgm.mjgy
+麻将探险之旅HD,com.lvjiaxi.mj
+紫金岛跑胡子Pad版,com.runbeard_pad
+快乐斗地主,com.coolplay.ddz.cmge
+真人斗地主（金豆天天送）,com.mas.wawagame.jjlord3TH
+填大坑（掌联）,com.sz.games.tiandakeng
+泸州鬼麻将,engtst.mgm.mjlz
+指尖三国(新),air.com.game.sg3android
+贵阳捉鸡麻将,engtst.mgm.mjgy
+泸州鬼麻将,engtst.mgm.mjlz
+成都定张麻将,engtst.mgm.mjcd
+快乐斗地主,com.coolplay.ddz.cmge
+博雅广东麻将,com.boyaa.gdmj
+综艺明星象棋,com.kikiplay.KikiChineseChess
+愤怒的小鸟太空版,com.rovio.angrybirdsspace.ads
+方块塔防 | Block Defender,com.lunagames.blockdefender
+CS枪神2013,com.monster.game23
+关键任务：特警行动 | Critical Missions：SWAT,com.studioonmars.csportable_paid
+最后的防线HD,com.dafeimobile.tldhd
+小森林战役,com.xishi.forestwar
+暗影之枪免验证直装版（通用）,com.madfingergames.shadowgun_amz
+坦克向前冲,com.flyfish.TankWar
+愤怒之翼：海军突袭,com.zxwingsoffuryfreeff
+超级突击队 | UberStrike: The FPS,com.cmune.uberstrike.android
+霓虹银河之战,ffgames.neonwave.free
+CS穿越火线-使命召唤,com.xuanku.SiKaiCsChuanYueShiMing
+飞鸟突袭,com.droidhermes.birdattack
+疯狂大猩猩,com.srinigames.crazygorilla.lite
+打野鸡,com.gibbedgames.turkeyseason
+迷你英雄 并肩作战修改版,com.trinitigame.android.comds
+熊猫大侠,com.corntree.PandaHeroes
+熊猫大侠HD,com.corntree.PandaHeroesHD
+玩具轰炸机 | Toy Bomber,com.Membranos.toybomber
+射杀僵尸 | Zombie Kill of the Week,com.panicartstudios.zkotw
+田园打鸟 ShootTheBirds,pl.idreams.Birds
+破飞机的旅程 Scrap Hunt,com.antonhultdin.scraphunt
+3D射箭 2,cn.tenone.archery.mm
+战争机器,air.com.zhihuasi.warmachine
+沙漠大战 | Desert 51,com.theCoreFactory.Desert51
+反恐突击队 Gun Strike,com.paladin.GunStrike
+AIWI游戏大厅(A21专版),com.aibelive.aiwia
+可爱弓箭手（A21专版）,com.Aibelive.CuteArchera
+运动加加,com.app.xjiajia
+魔幻羽球(A21专版),com.Aibelive.Badmintona
+黄蜂防御,cc.capable.bumbledore
+指厕所,com.edong.lenovo.rushToTheToilet
+Happy Truck,com.tophotapp.happytruck
+街头篮球-1秒必杀,com.fox.basketball.sk
+Asphalt5,com.gameloft.android.GAND.GloftAsphalt5.asphalt5
+3D终极狂飙3,com.sxiaoao.car3d3
+香港赛马,cn.orange.horseracing
+山地越野赛车,com.mountain.offroadracing
+Happy Truck,com.tophotapp.happytruck
+真实停车3D | RealParking3D,com.clius.realparking3d
+赛车大战僵尸,zy.g20130619174140
+台球帝国,org.tinghood.TpsForMobile
+乒乓球联赛3D-II,cn.tenone.ttl.mm
+特技摩托车2 | Stick Stunt Biker 2,com.djinnworks.StickStuntBiker2.free
+3D美女桌球,com.kb.Caaarrom3DFull
+乒乓球联赛3D-II,cn.tenone.ttl.mm
+桌上足球,com.ludusstudio.jagga
+专业斯诺克2012 | Pro Snooker 2012,com.iwaredesigns.prosnooker2012
+丛林撞球 Jungle Smash,hitel.net.JungleSmash
+超级火柴人高尔夫2 Super Stickman Golf 2,com.noodlecake.ssg2
+3D桌球专业版,com.kb.Carrom3DFull
+速度与激情6 直装版,com.kabam.ff6android
+超音速飞行 3D(汉化版),net.osaris.turbofly
+极限传说,com.jxcsmu.jxcsmucpc
+指尖赛车2 | Draw Race 2,com.chillingo.drawrace2gplay.android.row
+亡命威龙 Smash Heat,com.hutchgames.smashcopsheat
+跑酷功夫熊猫,com.philzhu.www.parkourcdvrwys
+尘埃：越野赛车 | Dust: Offroad Racing,com.catmoonproductions.dust
+3D极限摩托,com.appgames.trial
+Bumblebee Race,org.warned.wf_inap
+口袋战争,com.noumena.android.m1
+口袋战争,com.noumena.android.m1
+石器时代OL,com.gamebean.stoneageol.hd
+糖果女孩大派对,game.tiaogirl_ido
+神殿护卫,air.com.zhihuasi.templeguard
+天天玩消除,com.bindinglogo.iwan
+秋千游戏3(SwingGame3rd),jp.kuma360.blanco3
+淘气猫咪战斗团(Naughty Kitties),com.cis.nk
+颜色星球,com.coop_ox.colorstarfix_0
+三国妖仙,com.mnje.westyou
+修仙传,com.mnje.westtravel
+3D觸控俄羅斯方塊,com.beyondinfinity.tetrocratefix_0
+儿童拼图,com.appgamess.ertongpintu
+嘭嘭嘭!!气球,com.xianhu.ppqiqiuAdapp_0
+黑暗的故事: 午夜杀手,com.mpisoft.dark_stories.midnight_killer_yyh
+砖块拆除II,air.com.web4games.bricksbreakingiiapp_0
+捣蛋猪高清版 | Bad Piggies HD,com.rovio.BadPiggiesHD
+爱音乐,com.test.music
+天下第一帮,com.wx.tkwan2
+噗嗵(Bloop - Tabletop Finger Frenzy),com.noodlecake.bloop
+泡泡巫女传说(Bubble Witch Saga),com.midasplayer.apps.bubblewitch
+終極跑酷,com.droidhermes.xscapeapp_0
+幸运大转盘,com.orangegame.roulette
+宝宝拼图-交通工具1.4,com.sg.android.childpuzzle.vehicleapp_0
+水果忍者：穿靴子的猫,com.halfbrick.fruitninjapib
+你好外星人,com.wubaoming.HelloET
+西红柿历险记,com.ye.tomato
+攻城英雄,com.miniclip.siegeheroskynet
+宝石迷情,zdtx.game.diamon
+怪物射手,com.gamelion.MonsterShooter
+十三张（掌联）,com.sz.games.shisanzhang
+疯狂丢熊猫,com.miniclip.pandaskynet
+蹦蹦鼠,com.munkadoo.bouncymousecm
+宠物狗护理店,com.chongwugouhulidian
+滴滴和弦 | Dropchord,com.doublefine.rad
+南方公园：百万富翁大挑战,com.realarcade.SP3
+愤怒的小鸟里约大冒险官方版 Angry Birds Rio,com.rovio.angrybirdsrio
+黑暗沼泽庄园（汉化）,com.inertiasoftware.darkmoorpaid
+弹丸轮舞吧 汉化版,co.p.spike.alter
+谁动了我的奶酪,net.noobware.cheeseplease
+救救我 | Rescue Me - The Adventures,com.pocketscientists.rescueme0
+终极数独,com.rt.acrosudokufree
+捕鱼大亨,com.kingnet.fishtycoonLeDou
+碰你妹,com.bluebird.mnllc
+水果忍者,com.halfbrick.fruitninja
+滚吧水果,org.cocos2dx.KickBug
+推出红方块,zl.Louis.PushRedBlock
+叠方块,zl.Louis.FitItQuick
+蜡笔方块,zl.Louis.CrayonBox
+水果老虎机,com.orange.slotmachine
+超级炸弹鱼,com.benzul.fishing
+猎杀飞鸟,com.shootthebirds
+植物大战僵尸无尽版,com.popcap.pvzthird
+动友大富翁,com.appgamess.dydfw
+趣味猜球,com.cn.android.gavin.findball
+十三张（掌联）,com.sz.games.shisanzhang
+拉厕纸,com.amewong.dtp
+拼图企鹅,com.yodesoft.yopuzzlePenguinsapp
+乐高城市救援队 | LEGO City Rapid Rescue,air.com.lego.city.rapidrescue
+钉子户大战拆迁队,air.com.miragine.NailHouseholdapp
+爆炸小鸟对对碰,air.com.newcpu2103.newcate
+Angry Birds,com.rovio.angrybirds
+百厕逃脱,com.cybergate.toilets
+水果老虎机,com.orange.slotmachine
+水果老虎机(赢话费),com.gf.laohuji
+找茬萌翻天,com.zhaochamengfantian
+迷城宝藏,com.t3.gameJewelJJ
+魔鬼的烦恼,com.ursinepaw.evilintrouble
+Divide,air.com.benyhe.DivideFree
+CutAndSlice,air.com.benyhe.CutandSliceFree
+迪士尼游戏,cn.cloudfox.station.game
+游戏大厅,com.andlisoft.station.game
+饥饿鱼,cn.tenone.HungryFish
+像素突袭,com.Negrin.PixelRaid1_0
+火柴人跳楼,com.djinnworks.StickmanBaseJumper.lite_0
+米奇小顽皮,com.disney.wheremymickey
+口袋侦探,com.creativefactory
+鸡的战争,chickenwars.fagstudio.Eng_0
+沼泽塔防,com.jasmine.monsterdefensegles
+愤怒的小鸟:星球大战,com.rovio.angrybirdsstarwars.ads.iap
+卢克看星星,air.com.alpaca.luke_0
+方块物语,com.appgames.fkwy
+冰河世纪雪中奔跑,com.runner.game.kskdksdkmdfgfbfghn
+赢话费水果十字消,com.ly.a12.lenovo
+猜你妹,cn.hz.d9.zqdn.main
+十三张（掌联）,com.sz.games.shisanzhang
+喂养蜘蛛,com.blyts.greedyspiders.free
+泡泡龙赢话费,com.orangegame.puzzle
+黄金矿工3,com.orangegame.goldenminer
+水果老虎机,com.orange.slotmachine
+我的钢琴,com.appgames.com.bti.myPiano
+坏小鱼,com.tapthatapp.badfishies
+特快列车,com.tekuailieche
+插槽泰坦,com.chacaotaitan
+公寓塔防,com.gongyutafang
+飞翔的小球,com.snowforge.flyingbob
+小鲨鱼拔牙齿,com.shake.dentist
+迷城宝藏,com.t3.gameJewelJJ
+弹你妹,air.tannimei
+旋转泡泡龙,com.appgames.com.snowcold.game.beans
+爆破杰克 | Dynamite Jack,com.galcon.dynamitejack
+水滴解密之记忆 | Quell Memento,com.fallentreegames.amazon.quellmemento
+饥饿鱼,cn.tenone.HungryFish
+炫光吃豆人,com.diolatzis.neon
+僵尸爱吃鸡,com.appgames.com.dfasf.zombies.jump
+黄金矿工3,com.orangegame.goldenminer
+黑暗中的埃米莉,com.emillyindarkness
+水果老虎机,com.orange.slotmachine
+飞天企鹅2,com.topfreegames.penguinfree2
+小小杰克,com.panthora.tinyjack.lite
+玩具总动员：粉碎计划 | Toy Story: Smash It,com.disney.ToyStorySmashIt.goo
+航空牧场?????????,uk.co.bigfungames.android.flightfrenzy
+绵羊特工 Agent Sheep,com.AgentSheep.BeepGames
+水果老虎机,com.orange.slotmachine
+饥饿鱼,cn.tenone.HungryFish
+七巧板,com.arent.myfirsttangrams
+喷嚏泡泡,com.retrodreamer.Sneezies
+踢老板2 Kick the Boss 2,com.gamehivecorp.kicktheboss2r
+超级蠕虫大战圣诞老人2 | Super Mega Worm Vs Santa 2,com.deceasedpixel.smwxmas2
+愤怒的小鸟万圣节版 | Angry Birds Seasons,com.rovio.angrybirdsseasons
+忍者扔飞镖 | Ninja Throw,com.chillingo.ninjathrow.android.rowgplay
+糖果赛车,de.tiltgames.candyracer_full
+弹跳毛球汉化版,com.kiddgames.poppingfluffy
+弹性世界汉化版,com.elasticworld.full
+猜水容量汉化版,com.chuslab.WaterCapacity
+十三张（掌联）,com.sz.games.shisanzhang
+飞跃死城,com.chopperkhan.escapefromthedead_yyh
+机器人大战 | Mecha-Mecha Panic!,com.gameclosurelabs.mechamechapanic
+愤怒的老奶奶之逃离辐射城,com.aceviral.agrr
+海盗宝藏3（最佳人气金苹果奖）,air.Treasure3
+泡泡龙赢话费,com.orangegame.puzzle
+滑翔鼠 | Squirrel Gliding,com.sakana.runner
+飞行指挥官??????????(汉化版),com.camelgames.flightdirector
+黄金矿工3,com.orangegame.goldenminer
+三重镇,com.spryfox.tripletown
+黄金矿工3,com.orangegame.goldenminer
+僵尸爱吃鸡,com.dfasf.zombies.jump
+水果老虎机,com.orange.slotmachine
+愤怒的小鸟之朋友,com.rovio.angrybirdsfriends
+啊哈先生,jp.co.ponos.mraahh
+捕鱼之星,com.mqkk.tom.pkbyzx
+创世纪：通天塔3D | Babel Rising 3D,com.mando.babelrising3d
+超级滚球,com.dfafds.tothelatest.football
+炮打飞鸟,fowler.fengyuxx.menu
+QQ牧场,air.com.tencent.qqpasture
+纸上赛车（汉化版）,com.itbenefit.android.paperracing
+秘洞寻宝2,com.matrix.hexasweeper
+真心话大冒险,com.yjm.tbwys
+超级泡龙龙,org.mafeiyasoftohcg.crazybubblejulm
+迪迪大冒险 | Didi's Adventure,org.PanicArts.DidisAdventureNormalLite
+堵车故事 | Yolocaust: A Love Story,com.greenlavastudios.yolocaust
+星空月下 | Star Sky,com.jmj.starsky
+bloxorz,air.so.phonegame.bloxorz
+保护我心 | Fist Face Fight,com.nocanwin.fistface
+渐变挑战 | Blendoku,com.lonelyfew.blendoku
+超级玛丽,com.flyfish.supermario
+怪物射手,com.gamelion.MonsterShooter
+阻止金三胖  Stop Kim!,com.bengigi.stopkim
+兔小强,org.cocos2dx.rabbitjumpwys
+帕特森的发明2 | Pettson's Inventions 2,se.filimundus.pi2
+Entanglement,org.clmobile.Entanglement
+捕鱼达人,org.cocos2dx.FishGameTV
+我的纸飞机3 My Paper Plane 3,com.wavecade.mypaperplaneplanet
+轨道建设X Construct,de.ren.hms.xconstructionfull
+剑仙传奇,com.xunyou.game.activity.saile
+综艺7PK,com.kikiplay.my7PK
+大黄蜂防御,jp.capable.bumbledore
+综艺水果盘,com.kikiplay.mySlots
+综艺小玛莉,com.kikiplay.myMario
+综艺5PK,com.kikiplay.my5PK
+植物大战僵尸TV对战版,com.trans.pvz
+QQ农场,air.com.tencent.qqfarmios
+细胞星球 高清版 | Cell Planet HD Edition,cellplanethd.apk
+逃离实验室 | Spunk and Moxie,com.chocoho.spunk
+疯狂丢熊猫,com.miniclip.pandaskynet
+水果忍者,com.halfbrick.fruitninja
+寻找喵星人,com.air.bolengu
+PBA Bowling Spare Challenge,de.earthif.pba2_demobuynow
+PBA Bowling Spare Challenge,cc.threats.pba2_demobuynow
+我的钢琴,com.bti.myPianowys
+Super Sphere,com.tothelatest.football
+Super Sphere,de.alsosaid.football
+Bumblebee Race,cc.tothelatest.wf_inap
+愤怒的小鸟季节版 | Angry Birds Seasons,com.rovio.angrybirdsseasons
+TOUCH,com.perfectworld.tv
+乐动达人,com.redatoms.games.beatmasterpad
+決奏 | Khaos,com.funkit.khaosfull
+应用名称,应用包名
+葡萄游戏厅,com.putaolab.ptgame
+傲视天地,com.phonewoods.astd.fgw
+合金弹头,com.assaultertw
+霸三国_英雄联盟2,com.app.lszb.mm
+葡萄游戏厅,com.putaolab.ptgame
+超音速飞行3D,cn.osaris.turboflyh
+天天爱冒险,com.ttapk.runnerk
+英雄王座（王者）,com.huoys.wzzhyxwz
+亡灵杀手,com.nhncorp.skundeadck
+3D暴力摩托-狂野飙车,com.sxiaoao.moto3dOnline
+飞跃死城,com.feiyuesiche
+钓鱼冠军,com.smarthand.FishingChampion
+僵尸尖叫,net.mobigame.zombietsunam
+影子忍者,com.ninjarunner.activity
+绳索逃生,com.appgamess.youxi9
+复仇忍者,com.game.redantz
+Zombirds,com.appgamess.dzjsn
+乐高指环王,com.RetGames.TheLordOfTheRings
+肌肉保镖,com.bikeapril.whackmusclezykj
+火车危机,com.android.guc.traingame
+厨房摩托,com.aceviral.mentalmouseok
+作战指挥官,com.sts.bc
+Burst,com.Burst
+爆笑八戒-夺命狂飙,com.wt.bajiedx
+地铁跑酷,com.kiloo.subwaysurf.full
+超音速飞行3D,cn.osaris.turboflyh
+卡车漂移,com.hezuotruckxin.game
+劫你妹,com.wx.tkwan3
+火柴人坡道飙车,com.appgamess.Stickman_Downhill
+3D暴力摩托-狂野飙车,com.sxiaoao.moto3dOnline
+3D暴力摩托-狂野飙车,com.sxiaoao.moto3dOnline
+火车危机,com.android.guc.traingame
+荒野求生 | Survival Run,com.f84games.survivalrun
+火车拦路者,com.android.guc.traingame
+火车拦路者,com.android.guc.traingame
+疯狂跳跳球,com.android.guc.tiaotiaoqiu
+密室逃生-深山密室 酷传版,studio.tenn.remoch.free
+水果忍者之利剑,com.instlight
+疯狂跳跳球,com.android.guc.tiaotiaoqiu
+火车拦路者,com.android.guc.traingame
+江湖擎天诀OL,com.xxtx.main.zhiyou
+3D暴力摩托-狂野飙车,com.sxiaoao.moto3dOnline
+劫你妹(武侠),com.wx.tkwan3
+降魔神话,air.com.qlwx.xmsh.cmge.c1wan
+劫你妹(武侠),com.wx.tkwan3
+Space Mission GN-1,com.gameneeti.game.SpaceMissionGN1
+Snow Off Road,com.tophotapp.snowoffroad
+恐惧之魂 | SCARESOUL,net.gree.android.pf.greeapp57201a
+丛林有情猪,com.youshi.mm.angrypink2
+降魔神话（金币版）,air.com.qlwx.xmsh.cmge.c1wan
+Big Truck,com.tophotapp.bigtruck
+不可能完成的关卡,mag.game.implevelraw
+龙之吻,com.argtgames.longzhiwen
+金庸群侠传,com.ly.a09.SKWL
+特警大战僵尸,com.manodio.swatandzombies.android.china.panggame.mm
+仙游记,air.com.lingyu.zzxlmobile.A365you.xyj
+仙王之王,air.com.lingyu.zzxlmobile.A365you.xwzw
+笑傲三界,com.kuyue.zxchanyou.xasj
+植物大战僵尸长城版,com.popcap.pvzq
+蛋蛋塔防,com.taixin.tdgame
+仙剑Q侠传,cn.miq.miq.qsuiko
+新仙剑Q侠传,cn.miq.QJhongS
+西游后传,com.qeebu.JourneyToTheWest
+特工任务,com.agents.task
+封神争霸,org.sevenstar.kingofwar
+龙斗士,com.pip.mzcity.lenovomm
+龙斗士:女神来了,com.pip.mzcity.lenovompay
+忍者来了,com.mobygame.ron.lemon
+狩猎赛车,com.tnylabproductions.safarikidracing
+基地防御战,com.droidcop.defensebattle
+高速飞驰,com.batteryacid.highwiyrider
+黎明之光（王者）,com.huoys.wzzhlmzg
+英雄无敌（王者）,com.huoys.wzzhyxwd
+飞机战争,com.me.spacewars
+幻想西游,cn.kk.xyj.p44755_hxxy
+龙斗士:女神来了,com.pip.mzcity.lenovompay
+冰封前线1941中文版,com.petpest.forzen2
+战地1941,com.petpest.frozen3
+王的女人,org.cocos2dx.Playboy
+大海战2,com.byr.battlship
+龙之力量,com.digitalcloud.dragonforce.zh
+武尊,com.wx.nmwz
+女神,com.aiyou.mhsj.hucn_nvshen
+World War II,com.vg.WorldWarII
+少侠闯江湖,com.tx.cw.wxol
+仙剑Q侠传,cn.miq.miq.qsuiko
+新傲视天地,com.phonewoods.Aoshi51
+纹章骑士团(汉化版),com.me.games.trinitycrest1
+银河英雄传,cn.gamexx.hog
+英雄联盟:塔防,com.cn.android.gavin.herodefense
+游戏世界HD,com.lenovo.gameworld
+天降奇兵(金币版),com.kuyue.zxqitian
+英雄无敌（王者）,com.huoys.wzzhyxwd
+华山论剑,com.wx.tkwan1
+密室恐怖故事-幽灵小镇,studio.tenn.bhsghto
+QQ降龙2,com.tencent.qqxl2
+游戏世界HD,com.lenovo.gameworld
+冒险蘑菇,com.hezuomougudoudou.game
+馬桶衝衝樂Lite(Toilet,com.appgames.matongchongchongle
+问剑江湖,com.wx.wjjh.cmge
+永恒战士2-无双战神,com.glu.ewarriors2
+射雕群侠传,com.qx.mobile.kof.baina
+龙霸三国,com.tuomi.mssg.cmge
+口袋英雄,cn.miq.pocketheros
+魔兽三国,com.tuomi.longzhan.cmge
+轩辕名将传,com.sq.sanguo.s.xy51
+修你妹,com.kuyue.zx49you5
+异界女神传,com.pip.mzcitysm
+银河英雄传,cn.gamexx.hog.kuchuan
+魔卡大作战,com.huoys.wzzhlunplay
+仙魔斗,com.kuyue.zxydn6
+是仙,com.xianjiol.xianji.self
+火焰VS外传：亡灵塔,com.lakoo.bof
+狂斩三国,com.koogame.SangoSlayer
+魔卡大作战,com.huoys.wzzhlunplay
+仙剑Q侠传,cn.com.miq.qsuiko
+鬼黑客,air.air.CSYGames
+Dota Buff Dota2英雄榜,com.sohoq.dotabuff
+化神,com.dreamstar.dragon
+纵横天下,com.mango.sanguo15.douwan.cmge
+Dota Buff Dota2英雄榜,com.sohoq.dotabuff
+魔兽三国,com.tuomi.longzhan.cmge
+侠盗神偷,air.top.free.fun.game.sssan
+勇者使命HeroesWar,com.com2us.heroeswar.normal.freefull.cmccmm.cn.android.common
+策略斗地主,com.zhaowei5.mtFightLand
+封神争霸,org.sevenstar.kingofwar
+口袋英雄,cn.miq.pocketheros
+寻秦问道,com.gamemain
+寻秦问道,com.gamemain
+?杀神?,com.pip.android.ss
+英雄无敌（王者）,com.huoys.wzzhyxwd
+暗影同盟：部落冲突,com.playcomo.orcgame
+燃烧的药丸,com.fox.qinliugan.sk
+淘气猫咪战斗团 | Naughty Kitties,com.cis.nk
+圣将三国OL（专属礼包发放中）,com.gamebean.shengjiang.hd.uunion
+萌将传奇,com.joygame.loong.temeng.cmge
+海绵宝宝的餐厅 | SpongeBob Diner Dash,com.playfirst.playground.dinerdashspongebob
+纵横天下,com.mango.sanguo15.douwan.cmge
+傲气三国,cn.Oleaster.zjs.sm5
+丛林激战 | Jungle Heat,ru.mail.games.android.JungleHeat
+新捕鱼大亨高清HD,com.wt.td
+问剑江湖,com.wx.wjjh.cmge
+仙剑Q侠传,cn.com.miq.qsuiko
+萌将传奇,com.joygame.loong.meng.cmge
+婚姻保卫战,mobi.shoumeng.hybwzgame
+银河创世录,com.noumena.android.galaxy2cn
+新一骑当先,db.xyjdx.uc
+暗黑军团,com.backflipstudios.android.aodd
+有乐德州扑克,com.youjoy.com
+天天玩八张,com.zengame.ttwbz.p365you
+麻将斗地主,com.TongBanStudio.JTDDZ
+白金岛三打哈,cn.limsam.sdh
+白金岛跑胡子,cn.limsam.phz
+土豪斗地主,com.syezon.ddz
+摇摇斗地主,com.cgc
+单机斗地主,com.og.lenovoddz
+紫金岛跑得快,game.com.zjdpdk
+开心棋牌,com.excelliance.kxqp
+棋乐马股,yb_game.MaGuTV
+QQ欢乐麻将,com.qqgame.happymj5
+单机斗地主,com.og.lenovoddz
+紫金岛三打哈,game.com.zjdsdh
+纸牌军棋,com.zl.jq
+纸牌军棋,com.zl.jq
+玩玩厦门麻将,com.izhangxin.xmmj.android.wan91
+棋乐黄金矿工,yb_game.RockManTV
+天天爱玩锄大地,com.zengame.cdd.p365you
+久赢老虎机,com.joingames.gslots
+填大坑,com.sz.games.tiandakeng
+紫金岛跑得快,game.com.zjdpdk
+逍遥飞禽走兽,air.com.A51516.xyanimal
+湖南跑得快,com.zen.hnpdk.p365you
+斗地主赢话费欢乐版,com.dshine.mtFightLand
+QQ欢乐升级,com.tencent.qqgame.qqhlupwvga
+血战麻将,com.bigpinwheel.game.majiang
+斗地主赢话费欢乐版,com.dshine.mtFightLand
+豪华蜘蛛纸牌,com.aeeemobillle.Spider
+QQ欢乐麻将,com.qqgame.happymj
+真人斗地主（全新改版）,com.mas.wawagame.jjlord3TH
+单机斗地主,com.og.lenovoddz
+斗地主赢话费欢乐版,com.dshine.mtFightLand
+天天爱玩锄大地,com.zengame.cdd.p365you
+盟乐斗地主,com.zm.ddz
+真人斗地主（全新改版）,com.mas.wawagame.jjlord3TH
+血战麻将,com.bigpinwheel.game.majiang
+湖南跑得快,com.zen.hnpdk.p365you
+摇你妹,com.orangegame.dice
+超级斗地主,com.baicool.doudizhu
+棋乐血战麻将,yb_game.BloodyBattleMahjongTV
+逍遥飞禽走兽,air.com.A51516.xyanimal
+四人麻将,game.androng.andmj
+赌神斗地主,com.coolplay.ddz.cmge
+快乐斗地主,com.coolplay.dsddz.cmge
+棋乐大众斗地主,yb_game.DZDouDiZhuTV
+传奇纸牌：失去的卡片,sggs.los
+波波斗地主,com.xianwei9.mtFightLand
+棋乐黄金矿工,yb_game.RockManTV
+棋乐大众斗地主,yb_game.DZDouDiZhuTV
+填大坑（掌联）,com.sz.games.tiandakeng
+丫丫双人麻将,com.doujiao.majiang
+湖南跑得快,com.zen.hnpdk.p365you
+Excel杀,excel.sgs
+逍遥水果机,air.com.xiaoyao.fruit
+江南斗地主,com.zhaowei2.mtFightLand
+娱乐斗地主,com.zhaowei1.mtFightLand
+土豪赚话费,com.zhaowei3.mtFightLand
+单机斗地主,com.og.lenovoddz
+达人斗地主,com.dshine.mtFightLand.bxkh
+波波斗地主,com.dshine.mtFightLand.wxf
+斗地主赚话费,com.zhaowei3.mtFightLand
+斗地主抢话费,com.zhaowei1.mtFightLand
+赚话费斗地主,com.zhaowei2.mtFightLand
+斗地主赢话费官方版,com.dshine.mtFightLand
+跑得快（掌联）,com.sz.games.paodekuai
+水果机单机斗地主,com.shuiguoji_doudizhu.cn
+填大坑（掌联）,com.sz.games.tiandakeng
+摇你妹,com.orangegame.dice
+斗地主赢话费欢乐版,com.dshine.mtFightLand
+斗地主赢话费欢乐版,com.dshine.mtFightLand
+畅玩二人麻将,air.com.youchang.tv.ermj
+畅玩斗地主,air.com.youchang.tv.doudizhu
+畅玩快乐三张,air.com.youchang.tv.zhajinhua
+畅玩掼蛋,air.com.youchang.tv.guandan
+畅玩二人跑得快,air.com.youchang.tv.guanpai
+KK斗地主,com.kk.landlord
+畅玩德州扑克,air.com.youchang.tv.dezhou
+摇你妹,com.orangegame.dice
+畅玩跑得快,air.com.youchang.tv.paodekuai
+真人斗地主（金豆天天送）,com.mas.wawagame.jjlord3TH
+有乐德州扑克,com.youjoy.com
+快乐斗地主,com.coolplay.dsddz.cmge
+跑得快（掌联）,com.sz.games.paodekuai
+SL Mahjong,com.g.slmahjong.china
+快乐斗地主,com.coolplay.dsddz.cmge
+酷蛙斗地主,com.mas.wawagame.Kuwajjlord
+魔卡幻想,air.com.ifree.cardCHS.TV
+新挖坑,com.hy.wakeng.normal
+德州扑克,yb_game.TexasHoldem
+逆袭海贼王,com.mafia.onepiecedefence
+暴击僵尸：横扫日寇,com.feelingtouch.gnz.qihujd
+穿越火线CS,com.yang.game.criossfire
+射杀僵尸,com.zombieshooter.maria
+火线指令:诺曼底,com.gul.flcnpet
+罪恶都市-横扫僵尸,yc.shoot.appsky
+TankON - Modern Defender,com.intco.baseDefesder
+火线指令,com.glu.modwarsniper_91
+飞机射手,org.cocos2dx.planestriker
+飞机假日,org.cocos2dx.Holidayplane
+疯狂跳跳球,com.android.guc.tiaotiaoqiu
+小鸟的愤怒,com.herocraft.game.birdsonwireok
+坦克英雄,tanke.com
+Fire of Battle,vcm.sohastudio.FireOfBattle
+大炮直升机,com.tophotapp.heliinvasion
+僵尸与飞弹,com.zombieshooter.activity
+史上最刺激的游戏,com.littleKulu.sharkDefense
+飞镖比赛,com.landa.dart
+战争之王HD,com.feelingtouch.gunblood.jd
+二战坦克-金属咆哮,com.koogame.wartank
+反恐特警：火拼街头,com.xuanku.FanKongShenQiangShou
+疯狂跳跳球,com.android.guc.tiaotiaoqiu
+打飞机,com.chengzi.pacific
+1945太平洋空战,com.chengzi.pacific
+坦克-现代防卫,com.cn.android.gavin.tankmoderndefender
+僵尸生存,com.playjowee.zombhot
+原雷电：零小时 | Proto Thunder：Zero Hour,artica.protothunderzerohour
+星际X战警,com.ly.a13.skwl
+疯狂炸弹堂-百战天宠,com.dobetter.client
+小森林战役(中秋版),com.xishi.forestwarmidaf
+逃离西游,com.shuiyun.escape
+科幻塔防,com.cn.android.gavin.sciencefictiondefense
+飞机射手,org.cocos2dx.planestriker
+飞机假日,org.cocos2dx.Holidayplane
+射箭达人,cn.tenone.archery2RR
+僵尸世界大战,com.qt.j612.a78
+飞天流氓狗,fi.bugbyte.daredogsnwell
+天天飞车快艇,com.vevctorunit.greenh
+杂技摩托,com.camelgames.mxmotjxmt
+七星传说2,com.idealdimension.sevenstars2
+疯狂午夜狂飙,com.pgamayund.crazxracingfree
+3D极速狂飙 漂移都市,com.touchtao.urbanchaser
+黑猫跑跑,com.gamedo.vmm
+极限摩托完美版,com.camelgames.mxmotjxmth
+怪兽卡车HD,air.timuzsolutions.monsterridehdpro
+摩托惊险越野,com.motox.game.ultimatemotocrross
+布什保卫战,com.foreverloveperfume.bushshootoutk
+极地保龄！,com.wildtangett.polarrbowler
+乌托邦跑酷,com.nobluffin.srudgerpdf
+北极逃亡,com.teyon.pingwinys
+自由滑雪,com.tractiongamesgww.sticksnowfree
+3D桌球,com.eivazpagames.RealPool3D
+特技卡车HD,air.tiimuzsolutionns.monsterridehd
+云霄飞车,com.digitalchocolate.rollnyfullxz
+天天跑酷,org.game.LineLunner
+极限摩托完美版,com.camelgames.mxmotjxmth
+城市摩托,com.motox.game.ciitymotox
+摩托达人:,com.tophotapp.motorace
+巅峰摩托越野,com.motox.game.ulltimatemotocrossss
+怪兽赛车,com.zenterain.cargame
+3D终极狂飙3,com.sxiaoao.car3d3
+NFS,com.ea.games.nfs13_na
+赛车大战僵尸,zy.g20130619174140
+休闲高尔夫,cn.tenone.golf
+3D终极狂飙3,com.sxiaoao.car3d3
+真实3D停车 | Real Parking 3D,com.clius.realparking3d
+真实赛车3,com.ea.games.r3_row
+极品飞车：最高通缉NFS Most Wanted,com.ea.games.nfs13_na
+月球狂飙,com.noodlecake.racer
+星球飞车,com.moon.racing
+3D终极狂飙3,com.sxiaoao.car3d3
+3D终极狂飙3,com.sxiaoao.car3d3
+台球随手练,com.fcplay.bill
+激流快艇2,com.vectorunit.red
+激流快艇2,com.vectorunit.red
+3D终极狂飙3,com.sxiaoao.car3d3
+赛马,com.smmaopao
+3D终极狂飙3,com.sxiaoao.car3d3
+愤怒的小怪兽,com.angrymonster.dash
+Highway Rider,com.batteryacid.highwayrider
+TurboFly,net.osaris.turbofly
+点球达人 | Perfect Kick,com.gamegou.PerfectKick.google
+吉米灌篮,mominis.Generic_Android.Jimmy_Slam_Dunknaone
+Happy Truck Explorer,com.tophotapp.happytruckex
+乒乓球争霸赛,cn.tenone.ttl.RR
+皇家赛马机,com.orange.racehorsemachine
+暴走无双:尼玛来了,com.zctech.android.bzws.qh
+吃鱼游戏,com.gamevisa8.fishz
+牙齿卫士,air.com.A2min2x.toothsaversloonvsse
+野生王国,com.yswg
+土豪闯江湖,com.wx.wan5g4
+石器时代OL,com.gamebean.stoneageol.hd
+僵尸大战忍者,com.gamedo.SavingGeneralYang
+2020：我的国家,com.gameinsight.mycountry2020
+口袋战争,com.noumena.android.m1
+王国霸主,com.gameloft.android.ANMP.GloftDKHM
+口袋战争,com.noumena.android.m1
+口袋战争,com.noumena.android.m1
+扑扇的小鸟,com.seriouscorp.clumsybird.pt
+物理学激光解谜,com.physics.laser.puzzle
+TD塔防守卫战,com.towerdefense.guardbattle
+疯狂来往,com.hortorgames.crazyguess
+猎鱼高手,com.blingstorm.catchfish
+Wow Fish,com.sg.android.fish
+一站到底,com.wyd.yzdd
+麻将龙虎争霸,com.TongBanStudio.MJZBML
+大富翁4Fun,com.softstar.Richman360
+大鱼吃小鱼-超级进化,com.game5a.feedingclientchannel_MMruo
+汤姆大冒险,com.noris.game.supercat
+大鱼吃小鱼-超级进化,com.game5a.feedingclientchannelprop_MMruo
+萝卜守卫：兔子别嚣张,com.pfu.mmsms.tzbxz.free
+疯狂捕鱼2,com.qukong.fishsister
+火拼连连看(新年版),com.zj.linkup2
+魔兽部落守卫战,com.animal.towerdefense
+植物大战僵尸2高清版,com.popcap.pvz2cthdlx
+马上跑跑酷,com.aga.evangoas
+农场英雄传说中文版,com.ea.farmhero
+保卫鸟蛋,com.me.niaodan
+大鱼吃小鱼-超级进化,com.game5a.feedingclient_dianxin_5a
+水果传奇,a5game.fruit_dianxin_5a
+街机捕鱼,com.elephant.arcadefish
+割绳子箱子,com.leodesolfresman.tapthebox.mair
+疯狂爆破拆房子,com.blowup.master
+疯狂瓶盖,org.madgame.crzcap
+台球2014,com.google.xiapc.game.billiard
+宝石妹妹,com.BaoShi.DaBoMei
+100个圣诞之门,com.mei.projectX
+僵尸密室大逃亡,com.amphibiusdp.zombieinvasion
+英雄联盟（王者）,com.huoys.wzzhyxlm
+愤怒的宅男,ledong.cocos2dx.zhai
+王者战纪,com.tencent.qqnbggfk
+拯救火车,com.omg.wandroidym.san.zhengjiuhuoche
+拯救火车,com.jianhui.traintilesgles
+刀塔女神连连看,android.llkan
+万人在线老虎机,com.slotmachine.maybeslotch
+捕鱼达人内购破解版,org.petpest.coscs2dx
+捕鱼达人HD,com.cocos2s.fishgame2
+亲你妹,kiss.com
+大眼怪,air.com.differencegames.dechmogups
+卷轴拼图,com.kidsgamesgalaxy.scrollpuzzleslite
+鬼子来了,com.game.resistWar.sk
+天天打方块,com.game.shootingball
+Angry Birds,com.rovio.angrydirderie
+FindSomething,org.funship.findsomething.QQQ
+捕鱼之远古时代,com.fangchenggame.FishingEnjoy
+疯狂爆破拆房子,com.blowup.master
+兔子大冒险,com.rabit.advent
+魔兽部落守卫战,com.animal.towerdefense
+保卫橙子,com.coverorangeps.game
+蓝色小球,net.hexage.bukaDEMOz
+小鬼连连看,com.ring.pixyllinkx
+疯狂喷气机,com.halfbrick.jetpackjoyridepaid
+Diner Dash Deluxe,com.appgamess.diner
+滚吧水果,org.cocos2dx.KickBug
+天天爱玩德州扑克,com.zengame.ttawdzpk.p365you
+万人在线赢话费,com.slotmachine.maybeslotch
+植物大战僵尸2高清版,com.popcap.pvz2cthdlx
+超级救火队2,comp.medio.spinkl2
+Angry Birds,com.rovio.angrybirds_3200_1853199
+方块猫极速滑高清中文版,com.petpest.catfl
+找美女茬,com.yiranhan.meinvzhaocha
+迷宫塔防,acan.yueqiu.migongtafang2
+疯狂的小鱼,com.acan.xiaoyu.game
+高智商倒水游戏,com.pour.water
+游奖365,com.longye.znm
+Tank Battle 3D,com.topgames.tankbattle3d
+物理学激光解谜,com.physics.laser.puzzle
+Principia,com.bithack.principia
+跑跑爬山车,com.petpest.hillclimb
+王者无敌（王者）,com.huoys.wzzhwzwd
+王者召唤,com.huoys.wzzhniming
+粘粘球 Cling Thing,com.RET.ClingThing
+英雄联盟（王者）,com.huoys.wzzhyxlm
+Angry Birds,com.rovio.angrybirds
+我为牛狂,com.ccit.crazycow
+相公！快点切,org.gc.gccutfruitmpk
+WhackZombi捶僵尸,com.guava7.whackazombie
+游奖365,com.longye.znm
+天下第一帮,com.wx.tkwan2
+疯狂爆破拆房子,com.blowup.master
+全力以赴 | Full Steam Ahead,air.com.aardman.ssgreatbritain.fullsteamahead
+找茬大冒险,com.appgames.zhaochadamaoxian
+巴别塔狂奔 | Babel Running,com.bulkypix.babelrunningpremium
+游奖365,com.longye.znm
+高智商倒水游戏,com.pour.water
+饥渴的萝卜,com.coboqo.water
+滚吧，水果,org.cocos2dx.KickBug
+赛马,com.sm
+美女切水果2,you.haitao
+游奖365,com.longye.znm
+十三张（掌联）,com.sz.games.shisanzhang
+疯狂蹦蹦球,com.bounceball.activity
+怪物射手 | Monster Shooter,com.gamelion.MonsterShooter
+农场3 僵尸入侵,com.sxiaoao.farmTD3
+游奖365,com.longye.znm
+Minecraft - Pocket Edition,com.mojang.minecraftpe
+爱丝快跑,com.nt.paokugan
+口袋飞机战,com.android.rainbowgameboxplane
+植物大战僵尸2高清版,com.popcap.pvz2cthdlx
+植物大战僵尸2 普清版,com.popcap.pvz2lx
+炸弹小鸟,com.orangegame.Eliminate
+水果老虎机,com.orange.slotmachine
+植物大战僵尸无尽版,com.popcap.pvzthird
+小小群英传,com.bakumens.ALittleWar
+超级玛丽,com.flyfish.supermario
+SudokuExt,com.linesoft.sudokuext
+Train Conductor 2: USA,com.thevoxelagents.TrainConductor2wys
+王者召唤,com.huoys.wzzhniming
+王者无敌（王者）,com.huoys.wzzhwzwd
+放开那个女孩,com.xmyd.puznh
+睡不醒的公主,air.sleepingprincessmm
+飞翔的企鹅2,com.lin.pengfeixiangdeqie
+沉默年代 汉化版,dk.houseonfire.android.thesilentage
+Angry Birds,com.rovio.angrybirdsstarwars.ads.iap
+百战成仙,com.kuyue.shzx.cooguo
+脑力挑战,cn.ahut.brainchallenge
+女神切切切,com.shouzhi.cutbroad
+水果老虎机,com.orange.slotmachine
+儿童游戏乐园,org.madgame.park
+天天爱塔防,mobi.shoumeng.ttathgame
+愤怒的小鸟：星球大战2 | Angry Birds Star Wars II,com.rovio.angrybirdsstarwarsii.premium
+愤怒的小鸟?星球大战2,com.rovio.angrybirdsstarwarsii.ads
+极品钢琴 3.2考级版,ly.pp.justpiano
+水果忍者,com.halfbrick.fruitninja
+疯狂的小鱼,com.acan.xiaoyu.game
+疯狂猜拳,com.nffy.yueqiu.caiquan
+钓鱼达人2豪华版,com.ty.fishing
+小小群英传,com.bakumens.ALittleWar
+我的猜歌王,com.liwang.geci
+脑力挑战,cn.ahut.brainchallenge
+休闲斗地主,com.zhaowei6.mtFightLand
+高富帅斗地主,com.zhaowei4.mtFightLand
+天下第一帮,com.wx.tkwan2
+蠢蠢的死法 Dumb Ways,air.au.com.metro.DumbWaysToDie
+杜甫很忙,com.haopu.DufuIsBusy
+疯狂海贼大冒险,game.Activity
+果冻军团,com.game.chinamobile.jelly
+小鸡来了,com.tuoluo.ChickComing
+农场战争,com.bei.TowerDef
+小人快跑,com.guoli.duoxiaoqiu
+消灭规则,com.gameimob.poplights
+愤怒的小鱼HD,cn.koogame.Fish
+蜗牛大战蚂蚁,com.duolegames.defendhome
+水果老虎机,com.orange.slotmachine
+华容道,org.libsdl.huarongpath
+皇家赛马机,com.orange.huangjaisaimaji
+十三张（掌联）,com.sz.games.shisanzhang
+愤怒的小鸟,com.rovio.angrybirds
+你二不二,com.kinth.areyouidiot
+帅帅牛学数数,cn.thirdgwin.app.ssnfigure
+成语小巴士,cn.thirdgwin.app.IdiomBus
+雪人入侵,com.wuhan.game.activity
+机器家园,com.Small.MachineHome
+愤怒的蔬菜HD,com.reddog.vegetable
+天天消除.南瓜,com.jianhui.jewelcraf
+炸弹人,com.gatedev.bomberman
+王者无敌（王者）,com.huoys.wzzhwzwd
+英雄联盟（王者）,com.huoys.wzzhyxlm
+水魔方,com.gamious.briquidfree
+世界著名建筑拼图,com.leqi.game.construct
+卢多,com.appgamess.luduo
+超级水果机,com.hy.cjsgj_sky
+水果老虎机(中秋特别版),com.orange.slotmachine
+黑暗道路 | Dark Roads,laubak.android.game.dark.roads
+精品水果连连看,com.sumapk.fruitlink
+Inverse kill,com.waterise.Inversekill
+拼图游戏,com.pintu.util.newview
+QQ农场,air.com.tencent.qqfarmios
+爆破专家???,com.adroidzstrone.blowupsl
+宝石爱消除,camel.zouzou.jewell
+粘粘世界 | World Of Goo,com.twodboy.worldofgoofull
+水果忍者,com.monster.game26
+梦游仙境,com.LemonCats.dreamlands
+朗姆岛(Rum Isle),com.panicartstudios.rumisle
+诸神之战(Clash of the Olympians),com.ironhide.games.clashoftheolympians
+Hello Kitty Line POP,air.HelloKitty.game.POPapp817_0
+水果老虎机,com.orange.slotmachine
+CornRider,com.ruanko.cornrider
+疯狂推土机增强版,com.hg.bulldozer_free454
+玩命过山车,air.MadRollerCoasters
+长发姑娘,com.appletreebook.rapunzelapp
+神奇宝石翻翻看,com.fox.fanfankan.sikai
+图形寻宝,cn.thirdgwin.app.Findbao
+幸运大转盘,com.orangegame.roulette001
+数学小天才,cn.thirdgwin.app.MathsTianCai
+糖果之心,cn.thirdgwin.app.candyofheart
+奶酪谷仓,air.com.differencegames.cheesebarn
+午餐时间,nl.gamistry.Chameleonfallbpxfie
+3D狂暴鱼,cn.tenone.HungryFishRR
+魔力女孩,com.qike.witchwar.cmcc
+烧饼修改器,org.sbtools.gamehack
+決奏 Khaos,com.funkit.khaosfull
+SoundBow,com.processing.soundbow
