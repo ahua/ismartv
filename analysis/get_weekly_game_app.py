@@ -38,7 +38,7 @@ def get_code_name(code):
     fp1 = "./file/code_name.txt"
     with open(fp1) as fp:
         for li in fp:
-            name, code = li.rstrip().split(",")
+            code, name = li.rstrip().split(",")
             d[code] = name
     return d.get(code, "-")
 
