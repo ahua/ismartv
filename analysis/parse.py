@@ -54,7 +54,7 @@ def process(filename, output_dir):
             code = r.get("code", "-")
             mediaip = r.get("mediaip", "-")
             cdn = r.get("_cdn", "-")
-            isplus = r.get("_plus", -1)
+            isplus = r.get("_plus", 5)
             vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, subitem, mediaip, cdn, isplus]]
 
             outline = DELIMITER.join(vals) + "\n"
