@@ -42,6 +42,7 @@ class DailyTask:
         for li in res:
             value, device = li.split()
             key = self.day_str + device
+            print key, value
             DailyTask.hbaseinterface.write(key, {"a:f": value})
 
 
