@@ -67,13 +67,19 @@ def get_daily_data(date):
            "a:c": 0,
            "a:g": 0,
            "a:i": 0}
+    res_no_shart = {"date": date,
+                    "a:c": 0,
+                    "a:g": 0,
+                    "a:i": 0}
     for r in rowlist:
+        device = r.row[8:]
         for k in colkeys:
             res[k] += int(r.columns[k].value) if k in r.columns else 0
-    for r in rowlist:
-        print r.row
-
-    return res
+        if device not in ["DS70A", "LX750A", "LX755A", "LX850A"]:
+            for k in colkeys:
+                res_no_shart[k] += int(r.columns[k].value) if k in r.columns else 0
+            
+    return [res, res_no_shart]
 
 ONE_DAY = datetime.timedelta(days=1)
 
@@ -93,7 +99,14 @@ if __name__ == "__main__":
     reslist = []
     for date in daylist:
         reslist.append(get_daily_data(date.strftime("%Y%m%d")))
+    
+    print "所有设备"
     print '日期,联网用户总数,应用活跃用户,game活跃用户'
-    for res in reslist:
+    for res, _ in reslist:
+        print "%s,%s,%s,%s" % (res["date"], res["a:c"], res["a:g"], res["a:i"])
+
+    print "除去Sharp设备"
+    print '日期,联网用户总数,应用活跃用户,game活跃用户'
+    for _, res in reslist:
         print "%s,%s,%s,%s" % (res["date"], res["a:c"], res["a:g"], res["a:i"])
 
