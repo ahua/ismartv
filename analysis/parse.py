@@ -39,6 +39,8 @@ def process(filename, output_dir):
                     r["duration"] = r["position"]                 
                 if float(r["duration"]) >= 100000:
                     r["duration"] = r["position"]
+                if float(r["duration"]) < 0:
+                    r["duration"] = 0
 
             timestamp = time.mktime(r["time"].timetuple())
             day = r["time"].strftime("%Y%m%d")
