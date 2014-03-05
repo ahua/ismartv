@@ -70,8 +70,13 @@ def get_daily_data(date):
     for r in rowlist:
         for k in colkeys:
             res[k] += int(r.columns[k].value) if k in r.columns else 0
+    for r in rowlist:
+        print r.row
+
     return res
+
 ONE_DAY = datetime.timedelta(days=1)
+
 if __name__ == "__main__":
     daylist = []
     if len(sys.argv) == 1:
