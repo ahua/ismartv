@@ -104,7 +104,7 @@ if __name__ == "__main__":
     print '日期,联网用户总数,应用活跃用户,game活跃用户'
     for res, _ in reslist:
         print "%s,%s,%s,%s" % (res["date"], res["a:c"], res["a:g"], res["a:i"])
-
+    print 
     print "除去Sharp设备"
     print '日期,联网用户总数,应用活跃用户,game活跃用户'
     for _, res in reslist:
