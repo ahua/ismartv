@@ -125,7 +125,8 @@ class DailyTask:
         for li in res2:
             value, device = li.split()
             key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:e": value})
+            if device.upper() in ['A11', 'A21']:
+                DailyTask.hbaseinterface.write(key, {"a:e": value})
 
     # VOD用户播放总时长
     @timed
