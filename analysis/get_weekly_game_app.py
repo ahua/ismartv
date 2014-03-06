@@ -9,7 +9,7 @@ def get_top50(date, dirname):
     d = {}
     with open(filepath) as fp:
         for li in fp:
-            date, code, c = li.rstrip().split(",")
+            date, device, code, c = li.rstrip().split(",")
             d[code] = int(c)
     return d
 
