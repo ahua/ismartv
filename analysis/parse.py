@@ -34,6 +34,8 @@ def process(filename, output_dir):
             r = eval(li.rstrip())
             if not is_right(r["event"]):
                 continue
+            if r.get("_type", "normal") != "normal":
+                continue
             if r["event"] == "video_exit":
                 if r["duration"] == "0" and r["to"] == "next":
                     r["duration"] = r["position"]                 
