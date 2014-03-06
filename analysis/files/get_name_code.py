@@ -25,21 +25,14 @@ def process(filename):
                 continue
             code = r.get("code", "-")
             title = r.get("title", "-")
+            title.replace("," " ")
             print "%s,%s" % (code, title.replace(",", " "))
         except Exception as e:
             #print e
             continue
 
-def get_filelist(dirname):
-    filelist = os.listdir(dirname)
-    return filelist
-
 def main():
-    INPUT_DIR = sys.argv[1]
-    
-    filelist = get_filelist(INPUT_DIR)
-    for logfile in filelist:
-        process(os.path.join(INPUT_DIR, logfile))
+    process(sys.argv[1])
         
 if __name__ == "__main__":
     main()
