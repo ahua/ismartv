@@ -72,28 +72,47 @@ if __name__ == "__main__":
     gameappdir = "/home/deploy/src/ismartv/analysis/result/gameapp"
 
     d, d_no_sharp = get_top50(date, appdir)
+    print "所有设备"
     print "APP应用活跃用户数top50应用排名；"
     print "id,code,tiltle,count"
     display_top(d)
-    
+    print "除去Sharp设备"
+    print "APP应用活跃用户数top50应用排名；"
+    print "id,code,tiltle,count"
+    display_top(d_no_sharp)
+
     display_newline()
 
+    d, d_no_sharp = get_top50(date, gameappdir)
+    print "所有设备"
     print "Game应用活跃用户数top50应用排名；"
     print "id,code,tiltle,count"
-    d, d_no_sharp = get_top50(date, gameappdir)
     display_top(d)
+    print "除去Sharp设备"
+    print "Game应用活跃用户数top50应用排名；"
+    print "id,code,tiltle,count"
+    display_top(d_no_sharp)
 
     display_newline()
 
+    d, d_no_sharp = get_top10(date, appdir)
+    print "所有设备"
     print "本周活跃用户数增长最快的应用top10；"
     print "id,code,tiltle,count"
-    d, d_no_sharp = get_top10(date, appdir)
     display_top(d, 10)
-    
+    print "除去Sharp设备"    
+    print "本周活跃用户数增长最快的应用top10；"
+    print "id,code,tiltle,count"
+    display_top(d_no_sharp, 10)
+
     display_newline()
 
+    d, d_no_sharp = get_top10(date, gameappdir)
+    print "所有设备"
     print "本周活跃用户数增长最快的游戏top10；"
     print "id,code,tiltle,count"
-    d, d_no_sharp = get_top10(date, gameappdir)
     display_top(d, 10)
-
+    print "除去Sharp设备"
+    print "本周活跃用户数增长最快的游戏top10；"
+    print "id,code,tiltle,count"
+    display_top(d_no_sharp, 10)
