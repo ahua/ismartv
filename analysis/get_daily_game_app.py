@@ -60,17 +60,17 @@ class HbaseInterface:
 
 def get_daily_data(date):
     client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
-    colkeys = ["a:c", "a:g", "a:i"]
+    colkeys = ["a:c", "a:i", "a:j"]
     rowlist = client.read_all(date, colkeys)
     s = ('联网用户总数','应用活跃用户','game活跃用户')
     res = {"date": date,
            "a:c": 0,
-           "a:g": 0,
-           "a:i": 0}
+           "a:i": 0,
+           "a:j": 0}
     res_no_shart = {"date": date,
                     "a:c": 0,
-                    "a:g": 0,
-                    "a:i": 0}
+                    "a:i": 0,
+                    "a:j": 0}
     for r in rowlist:
         device = r.row[8:]
         for k in colkeys:
@@ -103,10 +103,10 @@ if __name__ == "__main__":
     print "所有设备"
     print '日期,联网用户总数,应用活跃用户,game活跃用户'
     for res, _ in reslist:
-        print "%s,%s,%s,%s" % (res["date"], res["a:c"], res["a:g"], res["a:i"])
+        print "%s,%s,%s,%s" % (res["date"], res["a:c"], res["a:i"], res["a:j"])
     print 
     print "除去Sharp设备"
     print '日期,联网用户总数,应用活跃用户,game活跃用户'
     for _, res in reslist:
-        print "%s,%s,%s,%s" % (res["date"], res["a:c"], res["a:g"], res["a:i"])
+        print "%s,%s,%s,%s" % (res["date"], res["a:c"], res["a:i"], res["a:j"])
 
