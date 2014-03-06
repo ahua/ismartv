@@ -100,18 +100,18 @@ class DailyTask:
     @timed
     def _e(self):
         # device in ("K", "S"), event = "video_play_load"
-        sql = """select count(*), device
-                 from daily_logs where parsets = '%s'
-                 and event = "video_play_load"
-                 group by device
-              """ % self.day_str
-        res1 = DailyTask.hiveinterface.execute(sql)
-        if not res1:
-            res1 = []
-        for li in res1:
-            value, device = li.split()
-            key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:e": value})
+       # sql = """select count(*), device
+       #          from daily_logs where parsets = '%s'
+       #          and event = "video_play_load"
+       #          group by device
+       #       """ % self.day_str
+       # res1 = DailyTask.hiveinterface.execute(sql)
+       # if not res1:
+       #     res1 = []
+       # for li in res1:
+       #     value, device = li.split()
+       #     key = self.day_str + device
+       #     DailyTask.hbaseinterface.write(key, {"a:e": value})
 
         # device in ("A"), event = "video_start"
         sql = """select count(*), device
@@ -125,8 +125,8 @@ class DailyTask:
         for li in res2:
             value, device = li.split()
             key = self.day_str + device
-            if device.upper() in ['A11', 'A21']:
-                DailyTask.hbaseinterface.write(key, {"a:e": value})
+            #if device.upper() in ['A11', 'A21']:
+            DailyTask.hbaseinterface.write(key, {"a:e": value})
 
     # VOD用户播放总时长
     @timed
