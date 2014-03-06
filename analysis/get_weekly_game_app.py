@@ -76,6 +76,7 @@ if __name__ == "__main__":
     print "APP应用活跃用户数top50应用排名；"
     print "id,code,tiltle,count"
     display_top(d)
+    display_newline()
     print "除去Sharp设备"
     print "APP应用活跃用户数top50应用排名；"
     print "id,code,tiltle,count"
@@ -88,6 +89,7 @@ if __name__ == "__main__":
     print "Game应用活跃用户数top50应用排名；"
     print "id,code,tiltle,count"
     display_top(d)
+    display_newline()
     print "除去Sharp设备"
     print "Game应用活跃用户数top50应用排名；"
     print "id,code,tiltle,count"
@@ -100,6 +102,7 @@ if __name__ == "__main__":
     print "本周活跃用户数增长最快的应用top10；"
     print "id,code,tiltle,count"
     display_top(d, 10)
+    display_newline()
     print "除去Sharp设备"    
     print "本周活跃用户数增长最快的应用top10；"
     print "id,code,tiltle,count"
@@ -112,7 +115,9 @@ if __name__ == "__main__":
     print "本周活跃用户数增长最快的游戏top10；"
     print "id,code,tiltle,count"
     display_top(d, 10)
+    display_newline()
     print "除去Sharp设备"
     print "本周活跃用户数增长最快的游戏top10；"
     print "id,code,tiltle,count"
     display_top(d_no_sharp, 10)
+
