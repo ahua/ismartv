@@ -9,7 +9,7 @@ import shutil
 
 DELIMITER = ","
  
-EVENT_LIB = set(('app_start',))
+EVENT_LIB = set(('app_exit',))
 
 def is_right(event):
     if event in EVENT_LIB:
@@ -18,6 +18,7 @@ def is_right(event):
 
 def process(filename):    
     fin = open(filename, "r")
+    d = {}
     for li in fin:
         try:
             r = eval(li.rstrip())
@@ -25,11 +26,12 @@ def process(filename):
                 continue
             code = r.get("code", "-")
             title = r.get("title", "-")
-            title.replace("," " ")
-            print "%s,%s" % (code, title.replace(",", " "))
+            d[code] =  title
         except Exception as e:
             #print e
             continue
+    for k in d:
+        print "%s,%s"%(k, d[k])
 
 def main():
     process(sys.argv[1])
