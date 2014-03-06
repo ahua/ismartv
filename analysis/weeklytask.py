@@ -80,27 +80,27 @@ class WeeklyTask:
             key = self.day_str + device
             WeeklyTask.hbaseinterface.write(key, {"a:d": "%s" % value})
 
-    # app 用户数
+    # 应用用户数(除去系统应用和游戏应用), group by code, device 
     @timed
     def _e(self):
         sql = weeklysql.sql_e_format % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
         lines = []
         for li in res:
-            value, code = li.split()
-            lines.append("%s,%s,%s\n" % (self.day_str, code, value))
+            value, code, device = li.split()
+            lines.append("%s,%s,%s,%s\n" % (self.day_str, device, code, value))
         with open("./result/app/%s.txt" % self.day_str, "w") as fp:
             fp.writelines(lines)
     
-    # game app 用户数
+    # 游戏用户数, group by (code, device)
     @timed
     def _f(self):
         sql = weeklysql.sql_f_format % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
         lines = []                 
         for li in res:
-            value, code = li.split()
-            lines.append("%s,%s,%s\n" % (self.day_str, code, value))
+            value, code, device = li.split()
+            lines.append("%s,%s,%s,%s\n" % (self.day_str, device, code, value))
         with open("./result/gameapp/%s.txt" % self.day_str, "w") as fp:
             fp.writelines(lines)
 

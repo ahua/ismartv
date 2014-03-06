@@ -70,7 +70,7 @@ sql_c_format = """select count(distinct sn), device
                  group by device
               """ 
 
-# 周智能用户数(除去智能用户)
+# 周智能用户数
 sql_d_format = """select count(distinct sn), device
                  from daily_logs where parsets >= '%s' and parsets <= '%s'
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")

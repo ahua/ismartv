@@ -169,6 +169,7 @@ class DailyTask:
             key = self.day_str + device
             DailyTask.hbaseinterface.write(key, {"a:h": "%s" % value})
 
+    # 普通应用(除去游戏应用,系统应用)用户
     @timed
     def _i(self):
         sql = dailysql.sql_i_format % self.day_str
@@ -179,6 +180,18 @@ class DailyTask:
             value, device = li.split()
             key = self.day_str + device
             DailyTask.hbaseinterface.write(key, {"a:i": "%s" % value})
+
+    # 游戏应用用户
+    @timed
+    def _j(self):
+        sql = dailysql.sql_j_format % self.day_str
+        res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
+        for li in res:
+            value, device = li.split()
+            key = self.day_str + device
+            DailyTask.hbaseinterface.write(key, {"a:j": "%s" % value})
 
 
     def execute(self):
