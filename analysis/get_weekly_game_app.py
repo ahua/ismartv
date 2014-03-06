@@ -13,7 +13,7 @@ def get_top50(date, dirname):
             date, device, code, c = li.rstrip().split(",")            
             d[code] = int(c) + d.get(code, 0)
             if device not in ["DS70A", "LX750A", "LX755A", "LX850A"]:
-                d_no_sharp = int(c) + d_no_sharp(code, 0)
+                d_no_sharp = int(c) + d_no_sharp.get(code, 0)
     return d, d_no_sharp
 
 def get_top10(date, dirname):
