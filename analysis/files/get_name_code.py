@@ -31,7 +31,7 @@ def process(filename):
             #print e
             continue
     for k in d:
-        print "%s,%s"%(k, d[k])
+        sys.stdout.write("%s,%s\n"%(k, d[k]))
 
 def main():
     process(sys.argv[1])

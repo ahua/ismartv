@@ -31,7 +31,7 @@ class DailyTask:
     @timed
     def _a(self):
         sql = """select count(distinct sn), device 
-                 from daily_logs where parsets <= '%s'
+                 from daily_logs where parsets <= "%s"
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
@@ -46,7 +46,7 @@ class DailyTask:
     @timed
     def _b(self):
         sql = """select distinct device from daily_logs 
-                 where parsets = '%s'
+                 where parsets = "%s"
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
         if not res:
@@ -68,7 +68,7 @@ class DailyTask:
     @timed
     def _c(self):
         sql = """select count(distinct sn), device 
-                 from daily_logs where parsets = '%s'
+                 from daily_logs where parsets = "%s"
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
@@ -83,7 +83,7 @@ class DailyTask:
     @timed
     def _d(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where parsets = '%s'
+                 from daily_logs where parsets = "%s"
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
                  group by device
               """ % self.day_str
@@ -115,7 +115,7 @@ class DailyTask:
 
         # device in ("A"), event = "video_start"
         sql = """select count(*), device
-                 from daily_logs where parsets = '%s'
+                 from daily_logs where parsets = "%s"
                  and event = "video_start"
                  group by device
               """ % self.day_str
@@ -132,7 +132,7 @@ class DailyTask:
     @timed
     def _f(self):
         sql = """select sum(duration), device
-                 from daily_logs where parsets = '%s'
+                 from daily_logs where parsets = "%s"
                  and event = "video_exit" and duration > 0
                  group by device
               """ % self.day_str

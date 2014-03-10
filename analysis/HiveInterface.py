@@ -9,6 +9,7 @@ from thrift.transport import TSocket
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 
+import os
 
 class HiveInterface:
     def __init__(self, host="127.0.0.1", port=10000):
@@ -28,9 +29,11 @@ class HiveInterface:
 
     def execute(self, sql):
         try:
-            self.client.execute(sql)
-
-            lines = self.client.fetchAll()
+            #self.client.execute(sql)
+            bashcmd = """hive -S -e '%s'""" % sql
+            f = os.popen(bashcmd)
+            lines = f.readlines()
+            #lines = self.client.fetchAll()
             return lines
         except Thrift.TException, tx:
             print '%s' % (tx.message)
@@ -40,6 +43,7 @@ class HiveInterface:
 if __name__ == '__main__':
     client = HiveInterface("localhost")
     client.execute("SET mapred.job.tracker=hadoopns410:8021")
-#    lines = client.execute("select * from daily_result")
+#    lines = client.execute("select * from test")
+#    lines = client.execute("select count(*) from test")
     lines = client.execute("select count(1) from daily_logs")
     print lines
