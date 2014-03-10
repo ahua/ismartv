@@ -32,7 +32,7 @@ class MonthlyTask:
     @timed
     def _a(self):
         sql = """select count(distinct sn), device 
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  group by device
               """ % (self.startday_str, self.endday_str)
         res = MonthlyTask.hiveinterface.execute(sql)
@@ -45,7 +45,7 @@ class MonthlyTask:
     @timed
     def _b(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
                  group by device
               """ % (self.startday_str, self.endday_str)
@@ -59,36 +59,36 @@ class MonthlyTask:
     @timed
     def _c(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event = "app_start"
                  and code not in  ("-",
-                                 'com.lenovo.oobe',
-                                 'com.lenovo.dll.nebula.vod',
-                                 'com.lenovo.nebula.packageinstaller',
-                                 'com.lenovo.nebula.settings',
-                                 'com.lenovo.nebula.app',
-                                 'com.lenovo.nebula.recovery',
-                                 'com.lenovo.dll.nebula.launcher',
-                                 'com.lenovo.nebula.local.player.video',
-                                 'com.lenovo.nebula.local.player.music',
-                                 'com.lenovo.vod.player',
-                                 'com.android.settings',
-                                 'com.lenovo.leos.pushengine',
-                                 'com.android.systeminfo',
-                                 'com.lenovo.ChangeServerAddress',
-                                 'wnc.w806.engineermode',
-                                 'com.lenovo.tv.freudsettings',
-                                 'com.lenovo.service',
-                                 'com.lenovo.leyun',
-                                 'com.lenovo.nebula.Launcher',
-                                 'com.baidu.input.oem',
-                                 'com.lenovo.nebula.local.player.image',
-                                 'com.lenovo.dc',
-                                 'com.android.quicksearchbox',
-                                 'com.iflytek.speechservice',
-                                 'com.lenovo.nebula.weibo',
-                                 'com.chinatvpay',
-                                 'com.lenovo.leos.pay')
+                                 "com.lenovo.oobe",
+                                 "com.lenovo.dll.nebula.vod",
+                                 "com.lenovo.nebula.packageinstaller",
+                                 "com.lenovo.nebula.settings",
+                                 "com.lenovo.nebula.app",
+                                 "com.lenovo.nebula.recovery",
+                                 "com.lenovo.dll.nebula.launcher",
+                                 "com.lenovo.nebula.local.player.video",
+                                 "com.lenovo.nebula.local.player.music",
+                                 "com.lenovo.vod.player",
+                                 "com.android.settings",
+                                 "com.lenovo.leos.pushengine",
+                                 "com.android.systeminfo",
+                                 "com.lenovo.ChangeServerAddress",
+                                 "wnc.w806.engineermode",
+                                 "com.lenovo.tv.freudsettings",
+                                 "com.lenovo.service",
+                                 "com.lenovo.leyun",
+                                 "com.lenovo.nebula.Launcher",
+                                 "com.baidu.input.oem",
+                                 "com.lenovo.nebula.local.player.image",
+                                 "com.lenovo.dc",
+                                 "com.android.quicksearchbox",
+                                 "com.iflytek.speechservice",
+                                 "com.lenovo.nebula.weibo",
+                                 "com.chinatvpay",
+                                 "com.lenovo.leos.pay")
                  group by device
               """ % (self.startday_str, self.endday_str)
         res = MonthlyTask.hiveinterface.execute(sql)
@@ -101,35 +101,35 @@ class MonthlyTask:
     @timed
     def _d(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
-                 and code not in ('com.lenovo.oobe',
-                                 'com.lenovo.dll.nebula.vod',
-                                 'com.lenovo.nebula.packageinstaller',
-                                 'com.lenovo.nebula.settings',
-                                 'com.lenovo.nebula.app',
-                                 'com.lenovo.nebula.recovery',
-                                 'com.lenovo.dll.nebula.launcher',
-                                 'com.lenovo.nebula.local.player.video',
-                                 'com.lenovo.nebula.local.player.music',
-                                 'com.lenovo.vod.player',
-                                 'com.android.settings',
-                                 'com.lenovo.leos.pushengine',
-                                 'com.android.systeminfo',
-                                 'com.lenovo.ChangeServerAddress',
-                                 'wnc.w806.engineermode',
-                                 'com.lenovo.tv.freudsettings',
-                                 'com.lenovo.service',
-                                 'com.lenovo.leyun',
-                                 'com.lenovo.nebula.Launcher',
-                                 'com.baidu.input.oem',
-                                 'com.lenovo.nebula.local.player.image',
-                                 'com.lenovo.dc',
-                                 'com.android.quicksearchbox',
-                                 'com.iflytek.speechservice',
-                                 'com.lenovo.nebula.weibo',
-                                 'com.chinatvpay',
-                                 'com.lenovo.leos.pay')
+                 and code not in ("com.lenovo.oobe",
+                                 "com.lenovo.dll.nebula.vod",
+                                 "com.lenovo.nebula.packageinstaller",
+                                 "com.lenovo.nebula.settings",
+                                 "com.lenovo.nebula.app",
+                                 "com.lenovo.nebula.recovery",
+                                 "com.lenovo.dll.nebula.launcher",
+                                 "com.lenovo.nebula.local.player.video",
+                                 "com.lenovo.nebula.local.player.music",
+                                 "com.lenovo.vod.player",
+                                 "com.android.settings",
+                                 "com.lenovo.leos.pushengine",
+                                 "com.android.systeminfo",
+                                 "com.lenovo.ChangeServerAddress",
+                                 "wnc.w806.engineermode",
+                                 "com.lenovo.tv.freudsettings",
+                                 "com.lenovo.service",
+                                 "com.lenovo.leyun",
+                                 "com.lenovo.nebula.Launcher",
+                                 "com.baidu.input.oem",
+                                 "com.lenovo.nebula.local.player.image",
+                                 "com.lenovo.dc",
+                                 "com.android.quicksearchbox",
+                                 "com.iflytek.speechservice",
+                                 "com.lenovo.nebula.weibo",
+                                 "com.chinatvpay",
+                                 "com.lenovo.leos.pay")
                  group by device
               """ % (self.startday_str, self.endday_str)
         res = MonthlyTask.hiveinterface.execute(sql)
@@ -144,7 +144,7 @@ class MonthlyTask:
         sql = """select count(*), device 
                  from daily_logs
                  where event = "video_play_load" and duration <= 3
-                 and parsets >= '%s' and parsets <= '%s'
+                 and parsets >= "%s" and parsets <= "%s"
                  group by device
               """ % (self.startday_str, self.endday_str)
         res = MonthlyTask.hiveinterface.execute(sql)
@@ -162,7 +162,7 @@ class MonthlyTask:
                  as
                  select device, sn, token, clip, count(*)
                  from daily_logs 
-                 where parsets >= '%s' and parsets <= '%s'
+                 where parsets >= "%s" and parsets <= "%s"
                  and event = "video_play_blockend"
                  group by device, sn, token, clip having count(*) > 1
               """ % (self.startday_str, self.endday_str)

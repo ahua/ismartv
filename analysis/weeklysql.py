@@ -3,7 +3,7 @@
 
 # 周应用用户数(除去系统应用)
 sql_c_format = """select count(distinct sn), device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event = "app_start"
                  and code not in  ("-",
 "com.android.browser",
@@ -72,7 +72,7 @@ sql_c_format = """select count(distinct sn), device
 
 # 周智能用户数
 sql_d_format = """select count(distinct sn), device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
                  and code not in (
 "com.android.browser",
@@ -141,7 +141,7 @@ sql_d_format = """select count(distinct sn), device
 
 # 应用用户数(除去系统应用和游戏应用), group by code, device
 sql_e_format = """select count(distinct sn), code, device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("app_start")
                  and code not in (
 "com.android.browser",
@@ -1556,7 +1556,7 @@ sql_e_format = """select count(distinct sn), code, device
 
 # 游戏用户数, group by (code, device)
 sql_f_format = """select count(distinct sn), code, device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("app_start")
                  and code in (
 "a5game.fruit_dianxin_5a",

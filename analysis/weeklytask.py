@@ -37,7 +37,7 @@ class WeeklyTask:
     @timed
     def _a(self):
         sql = """select count(distinct sn), device 
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  group by device
               """ % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
@@ -50,7 +50,7 @@ class WeeklyTask:
     @timed
     def _b(self):
         sql = """select count(distinct sn), device
-                 from daily_logs where parsets >= '%s' and parsets <= '%s'
+                 from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
                  group by device
               """ % (self.startday_str, self.endday_str)
