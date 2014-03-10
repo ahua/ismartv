@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 # app count (应用数,不包括系统自带应用)
 sql_g_format = """select count(distinct sn), device
-         from daily_logs where parsets = '%s'
+         from daily_logs where parsets = "%s"
          and event = "app_start"
          and code not in  ("-",
 "com.android.browser",
@@ -72,7 +72,7 @@ sql_g_format = """select count(distinct sn), device
 
 # smartv(智能用户 = VOD用户+APP用户)
 sql_h_format = """select count(distinct sn), device
-                 from daily_logs where parsets = '%s'
+                 from daily_logs where parsets = "%s"
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit", "app_start")
                  and code not in ("com.android.browser",
 "com.android.camera",
@@ -141,7 +141,7 @@ sql_h_format = """select count(distinct sn), device
 # 普通应用(除去游戏应用,系统应用)用户
 sql_i_format = """
 select count(distinct sn), device
-from daily_logs where parsets = '%s'
+from daily_logs where parsets = "%s"
 and event in ("app_start")
 and code in (
 "com.android.browser",
@@ -1556,7 +1556,7 @@ group by device
 # 游戏应用用户
 sql_j_format = """
 select count(distinct sn), device
-from daily_logs where parsets = '%s'
+from daily_logs where parsets = "%s"
 and event in ("app_start")
 and code in (
 "a5game.fruit_dianxin_5a",
