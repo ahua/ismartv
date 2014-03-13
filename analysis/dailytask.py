@@ -52,6 +52,7 @@ class DailyTask:
         if not res:
             res = []
         for device in res:
+            device = device.rstrip().strip()
             x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
             y = DailyTask.hbaseinterface.read(self.last_day_str + device, ["a:a"])
             if x and y:
