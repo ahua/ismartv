@@ -19,6 +19,7 @@ class DailyTask:
     hiveinterface = HiveInterface(HIVEHOST)    
     hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
     hbaseinterface = HbaseInterface(HBASEHOST, "9090","daily_result")
+    sntable = HbaseInterface(HBASEHOST, "9090", "sn_table")
 
     def __init__(self, day):
         self.day = day
@@ -26,44 +27,59 @@ class DailyTask:
         self.last_day = day - ONE_DAY
         self.last_day_str = self.last_day.strftime("%Y%m%d")
         #self.hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
-    
-    # 累计用户数
+
+    def exists_in_hbase(self, sn):
+        key = "sn_%s" % sn
+        return DailyTask.sntable.read(key)
+
+    def save_to_hbase(self, sn, device, day_str):
+        key = "sn_%s" % sn
+        d = {"a:device": device, "a:day": day_str}
+        DailyTask.sntable.write(key, d)
+
+
+    # 累计用户数 & 新增用户数
     @timed
     def _a(self):
-        sql = """select count(distinct sn), device 
-                 from daily_logs where parsets <= "%s"
-                 group by device
+        sql = """select distinct device from daily_logs 
+                 where parsets = "%s"
+              """ % self.day_str
+        res = DailyTask.hiveinterface.execute(sql)
+        devices = {}
+        for li in res:
+            devices[li.rstrip()] = {"x": 0, # 今天累计用户数
+                                    "y": 0, # 昨天累计用户数
+                                    "z": 0  # 新增用户数
+                                    }
+
+        sql = """select distinct sn, device
+                 from daily_logs where parsets = "%s"
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
         if not res:
             res = []
         for li in res:
-            value, device = li.split()
+            sn, device = li.rstrip().split()
+            if not self.exists_in_hbase(sn):
+                self.save_to_hbase(sn, device, self.day_str)
+                devices[device]["z"] += 1
+    
+        for device in devices:
+            y = DailyTask.hbaseinterface.read(self.last_day_str + device, ["a:a"])
+            if y:
+                devices[device]["y"] = int(y.columns["a:a"].value)
+            else:
+                devices[device]["y"] = 0
+            devices[device]["x"] = devices[device]["y"] + devices[device]["z"]
+
             key = self.day_str + device
-            DailyTask.hbaseinterface.write(key, {"a:a": value})
+            DailyTask.hbaseinterface.write(key, {"a:a": str(devices[device]["x"])})
+            DailyTask.hbaseinterface.write(key, {"a:b": str(devices[device]["z"])})
 
     # 新增用户数
     @timed
     def _b(self):
-        sql = """select distinct device from daily_logs 
-                 where parsets = "%s"
-              """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
-        if not res:
-            res = []
-        for device in res:
-            device = device.rstrip().strip()
-            x = DailyTask.hbaseinterface.read(self.day_str + device, ["a:a"])
-            y = DailyTask.hbaseinterface.read(self.last_day_str + device, ["a:a"])
-            if x and y:
-                z = int(x.columns["a:a"].value) - int(y.columns["a:a"].value)
-            elif x and not y:
-                z = int(x.columns["a:a"].value)
-            elif not x and y:
-                z = 0
-            else:
-                z = 0
-            DailyTask.hbaseinterface.write(self.day_str + device, {"a:b": str(z)})
+        pass 
             
     # 活跃用户数
     @timed

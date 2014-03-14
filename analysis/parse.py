@@ -116,7 +116,7 @@ def main():
         shutil.move(os.path.join(INPUT_DIR, logfile), os.path.join(USED_DIR, logfile))
 
     load_to_hive(OUTPUT_DIR)
-    
+    shutil.move(USED_DIR, "/data1/hadoop_log/")
     print "end at: %s" % datetime.datetime.now()
     print "All Done..."
 
