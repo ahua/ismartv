@@ -10,11 +10,9 @@ import shutil
 DELIMITER = ","
 
 EVENT_LIB = set(('system_off',
- 'video_play_seek_blockend',
  'video_play_blockend',
  'video_start',
  'video_play_load',
- 'video_play_start',
  'video_exit',
  'app_start',
  'system_on',
@@ -59,7 +57,10 @@ def process(filename, output_dir):
             mediaip = r.get("mediaip", "-")
             cdn = r.get("_cdn", "-")
             isplus = r.get("_plus", 5)
-            vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, subitem, mediaip, cdn, isplus]]
+            channel = r.get("channel", "UNKNOWN")
+            quality = r.get("quality", "UNKNOWN")
+            vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, \
+                                        subitem, mediaip, cdn, isplus, channel, quality]]
 
             outline = DELIMITER.join(vals) + "\n"
             if not OUT_DIC.has_key(day):
