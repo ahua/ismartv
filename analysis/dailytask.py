@@ -30,7 +30,7 @@ class DailyTask:
 
     def exists_in_hbase(self, sn):
         key = "sn_%s" % sn
-        return DailyTask.sntable.read(key)
+        return DailyTask.sntable.read(key, ["a:device", "a:day"])
 
     def save_to_hbase(self, sn, device, day_str):
         key = "sn_%s" % sn
