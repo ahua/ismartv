@@ -42,7 +42,7 @@ class DailyTask:
     def init_sn_table(self):
         sql = """select distinct sn, device
                  from daily_logs where parsets < '20140101'
-              """ % self.day_str
+              """
         res = DailyTask.hiveinterface.execute(sql)
         if not res:
             res = []
