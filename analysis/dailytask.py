@@ -38,6 +38,19 @@ class DailyTask:
         DailyTask.sntable.write(key, d)
 
 
+    @timed
+    def init_sn_table(self):
+        sql = """select distinct sn, device
+                 from daily_logs where parsets < '20140101'
+              """ % self.day_str
+        res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
+        for li in res:
+            sn, device = li.rstrip().split()
+            if not self.exists_in_hbase(sn):
+                self.save_to_hbase(sn, device, '20131231')
+
     # 累计用户数 & 新增用户数
     @timed
     def _a(self):
@@ -243,9 +256,10 @@ def main():
 
 def test():
     task = DailyTask(datetime.datetime.now())
-    print task.exists_in_hbase("sn0")
-    task.save_to_hbase("sn0", "device", "20140314")
-    print task.exists_in_hbase("sn0")
+    #print task.exists_in_hbase("sn0")
+    #task.save_to_hbase("sn0", "device", "20140314")
+    #print task.exists_in_hbase("sn0")
+    task.init_sn_table()
 
 
 if __name__ == "__main__":
