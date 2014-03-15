@@ -210,7 +210,6 @@ class DailyTask:
             key = self.day_str + device
             DailyTask.hbaseinterface.write(key, {"a:j": "%s" % value})
 
-
     def execute(self):
         self._a()
         self._b()
@@ -223,7 +222,8 @@ class DailyTask:
         self._i()
         self._j()
 
-if __name__ == "__main__":
+
+def main():
     if len(sys.argv) == 1:
         daylist = [datetime.datetime.now() - datetime.timedelta(days=1)]
     elif len(sys.argv) == 2:
@@ -239,4 +239,16 @@ if __name__ == "__main__":
     for day in daylist:
         task = DailyTask(day)
         task.execute()
-                                           
+
+
+def test():
+    task = DailyTask(day)
+    print task.exists_in_hbase("sn0")
+    task.save_to_hbase("sn0", "device", "20140314")
+    print task.exists_in_hbase("sn0")
+
+
+if __name__ == "__main__":
+    #main()
+    test()
+
