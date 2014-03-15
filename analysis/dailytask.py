@@ -242,7 +242,7 @@ def main():
 
 
 def test():
-    task = DailyTask(day)
+    task = DailyTask(datetime.datetime.now())
     print task.exists_in_hbase("sn0")
     task.save_to_hbase("sn0", "device", "20140314")
     print task.exists_in_hbase("sn0")
