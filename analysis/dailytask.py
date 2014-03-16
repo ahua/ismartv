@@ -29,14 +29,15 @@ class DailyTask:
         #self.hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
 
     def exists_in_hbase(self, sn):
-        key = "sn_%s" % sn
-        return DailyTask.sntable.read(key, ["a:device", "a:day"])
+        key = "sn_%s" % (sn)
+        return DailyTask.sntable.read(key, ["a:device"])
 
     def save_to_hbase(self, sn, device, day_str):
-        key = "sn_%s_%s" % (day_str, sn)
+        key = "sn_%s" % (sn)
+        key1 = "%s_%s" % (day_str, sn)
         d = {"a:device": device, "a:day": day_str}
         DailyTask.sntable.write(key, d)
-
+        DailyTask.sntable.write(key1, d)
 
     @timed
     def init_sn_table(self):
