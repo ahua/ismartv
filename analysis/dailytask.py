@@ -59,7 +59,7 @@ class DailyTask:
                 total[device] = 1
             else:
                 total[device] += 1
-        for device, c in d.iteritems():
+        for device, c in total.iteritems():
             key = "20131230" + device
             DailyTask.hbaseinterface.write(key, {"a:a": str(c)})
 
