@@ -42,7 +42,7 @@ class DailyTask:
     @timed
     def init_sn_table(self):
         sql = """select distinct sn, device
-                 from daily_logs where parsets < '20140101'
+                 from daily_logs where parsets < '20131231'
               """
         res = DailyTask.hiveinterface.execute(sql)
         if not res:
@@ -50,7 +50,19 @@ class DailyTask:
         for li in res:
             sn, device = li.rstrip().split()
             if not self.exists_in_hbase(sn):
-                self.save_to_hbase(sn, device, '20131231')
+                self.save_to_hbase(sn, device, '20131230')
+
+        total = {}
+        for li in res:
+            sn, device = li.rstrip().split()
+            if device not in total:
+                total[device] = 1
+            else:
+                total[device] += 1
+        for device, c in d.iteritems():
+            key = "20131230" + device
+            DailyTask.hbaseinterface.write(key, {"a:a": str(c)})
+
 
     # 累计用户数 & 新增用户数
     @timed
