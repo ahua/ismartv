@@ -29,13 +29,39 @@ class DailyTask:
         #self.hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
 
     def exists_in_hbase(self, sn):
-        key = "sn_%s" % sn
-        return DailyTask.sntable.read(key)
+        key = "sn_%s" % (sn)
+        return DailyTask.sntable.read(key, ["a:device"])
 
     def save_to_hbase(self, sn, device, day_str):
-        key = "sn_%s" % sn
+        key = "sn_%s" % (sn)
+        key1 = "%s_%s" % (day_str, sn)
         d = {"a:device": device, "a:day": day_str}
         DailyTask.sntable.write(key, d)
+        DailyTask.sntable.write(key1, d)
+
+    @timed
+    def init_sn_table(self):
+        sql = """select distinct sn, device
+                 from daily_logs where parsets < '20131231'
+              """
+        res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
+        for li in res:
+            sn, device = li.rstrip().split()
+            if not self.exists_in_hbase(sn):
+                self.save_to_hbase(sn, device, '20131230')
+
+        total = {}
+        for li in res:
+            sn, device = li.rstrip().split()
+            if device not in total:
+                total[device] = 1
+            else:
+                total[device] += 1
+        for device, c in total.iteritems():
+            key = "20131230" + device
+            DailyTask.hbaseinterface.write(key, {"a:a": str(c)})
 
 
     # 累计用户数 & 新增用户数
@@ -210,7 +236,6 @@ class DailyTask:
             key = self.day_str + device
             DailyTask.hbaseinterface.write(key, {"a:j": "%s" % value})
 
-
     def execute(self):
         self._a()
         self._b()
@@ -223,7 +248,8 @@ class DailyTask:
         self._i()
         self._j()
 
-if __name__ == "__main__":
+
+def main():
     if len(sys.argv) == 1:
         daylist = [datetime.datetime.now() - datetime.timedelta(days=1)]
     elif len(sys.argv) == 2:
@@ -239,4 +265,17 @@ if __name__ == "__main__":
     for day in daylist:
         task = DailyTask(day)
         task.execute()
-                                           
+
+
+def test():
+    task = DailyTask(datetime.datetime.now())
+    #print task.exists_in_hbase("sn0")
+    #task.save_to_hbase("sn0", "device", "20140314")
+    #print task.exists_in_hbase("sn0")
+    task.init_sn_table()
+
+
+if __name__ == "__main__":
+    main()
+    #test()
+
