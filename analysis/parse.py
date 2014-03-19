@@ -62,7 +62,7 @@ def process(filename, output_dir):
             sn = r["sn"]
             token= r["token"]
             event = r["event"]
-            duration = r.get("duration", -1)
+            duration = int(r.get("duration", -1))
             clip = r.get("clip", -1)
             item = r.get("item", -1)
             subitem = r.get("subitem", -1)
