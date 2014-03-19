@@ -40,7 +40,7 @@ def fetch_channels(entrance):
                 url = channel["url"]
                 fetch_sections(channel_name, url)
     except Exception, ex:
-        raise ex
+        pass
     
 def fetch_sections(channel, entrance):
     try:
@@ -55,7 +55,7 @@ def fetch_sections(channel, entrance):
                 url = section["url"]
                 fetch_items(channel, section_name, url)
     except Exception, ex:
-        raise ex
+        pass
 
 itemlist = []
 
@@ -75,20 +75,21 @@ def fetch_items(channel, section, entrance, page=1):
                 channel = channel,
                 score = item_score)
             itemlist.append(content)
+            #print content
         if data["num_pages"] > 1 and page == 1:
             for page in range(2, data["num_pages"] + 1):
                 fetch_items(channel, section, entrance + str(page) + "/", page)
     except Exception, ex:
-        raise ex
+        pass
     
 def save_to_file():
     item_dict = {}
     for item in itemlist:
-        if item['channel'] != u"排行榜":
+        if item['channel'] != "rankinglist":
             item_dict[item['item']] = item['channel']
 
     with io.open('./files/itemchannel.csv', 'w', encoding="utf8") as fp:
-        fp.write(unicode("item,channel\n"))
+        #fp.write(unicode("item,channel\n"))
         for item in item_dict.keys():
             fp.write(item + "," + item_dict[item] + "\n")
 
