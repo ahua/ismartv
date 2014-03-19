@@ -136,8 +136,15 @@ def main():
 
 
 def test():
-    pass
+    filelist = ["./log/testdata.log"]
+    for logfile in filelist:
+        process(logfile, "./log")
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "test":
+        test()
+    else:
+        main()
+
+    
 
