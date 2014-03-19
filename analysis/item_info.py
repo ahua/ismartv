@@ -87,7 +87,7 @@ def save_to_file():
         if item['channel'] != u"排行榜":
             item_dict[item['item']] = item['channel']
 
-    with io.open('./itemchannel.csv', 'w', encoding="utf8") as fp:
+    with io.open('./files/itemchannel.csv', 'w', encoding="utf8") as fp:
         fp.write(unicode("item,channel\n"))
         for item in item_dict.keys():
             fp.write(item + "," + item_dict[item] + "\n")
@@ -95,7 +95,7 @@ def save_to_file():
 
 def get_channel(item):
     item_dict = {}
-    with open("./channel_description.csv") as fp:
+    with open("./files/channel_description.csv") as fp:
         for li in fp:
             k, v = li.rstrip().split(",")
             item_dict[k] = v
