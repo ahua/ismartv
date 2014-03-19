@@ -34,7 +34,7 @@ def get_channel(item):
                     CHANNELS[item] = channel
                 except:
                     pass
-    return CHANNELS.get(item, "UNKNOWN")
+    return CHANNELS.get(item, "-")
 
 def process(filename, output_dir):
     OUT_DIC = {}
@@ -71,7 +71,7 @@ def process(filename, output_dir):
             cdn = r.get("_cdn", "-")
             isplus = r.get("_plus", 5)
             channel = get_channel(item)
-            quality = r.get("quality", "UNKNOWN")
+            quality = r.get("quality", "-")
             vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, \
                                         subitem, mediaip, cdn, isplus, channel, quality]]
 
