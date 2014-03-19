@@ -23,6 +23,19 @@ def is_right(event):
         return True
     return False
 
+CHANNELS = {}
+def get_channel(item):
+    global CHANNELS
+    if not CHANNELS:
+        with open("./files/itemchannel.csv") as fp:
+            for li in fp:
+                try:
+                    item, channel = li.rstrip().split(",")
+                    CHANNELS[item] = channel
+                except:
+                    pass
+    return CHANNELS.get(item, "UNKNOWN")
+
 def process(filename, output_dir):
     OUT_DIC = {}
     
@@ -57,7 +70,7 @@ def process(filename, output_dir):
             mediaip = r.get("mediaip", "-")
             cdn = r.get("_cdn", "-")
             isplus = r.get("_plus", 5)
-            channel = r.get("channel", "UNKNOWN")
+            channel = get_channel(item)
             quality = r.get("quality", "UNKNOWN")
             vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, \
                                         subitem, mediaip, cdn, isplus, channel, quality]]
