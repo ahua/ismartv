@@ -176,7 +176,7 @@ class DailyTask:
     def _f(self):
         sql = """select sum(duration), device
                  from daily_logs where parsets = "%s"
-                 and event = "video_exit" and duration > 0
+                 and event = "video_exit" and duration > 0 and isplus != 2
                  group by device
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
