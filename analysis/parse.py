@@ -68,7 +68,7 @@ def process(filename, output_dir):
             subitem = r.get("subitem", -1)
             code = r.get("code", "-")
             mediaip = r.get("mediaip", "-")
-            cdn = r.get("_cdn", "-")
+            cdn = r.get("_cdn", "-").encode("utf8")
             isplus = r.get("_plus", 5)
             channel = get_channel(item)
             quality = r.get("quality", "-")
