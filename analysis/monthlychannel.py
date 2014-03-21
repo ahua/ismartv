@@ -33,7 +33,7 @@ class MonthlyTask:
         sql = """select count(distinct sn), device, channel
                  from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("video_start", "video_play_load", "video_play_start", "video_exit")
-                 group by device
+                 group by device, channel
               """ % (self.startday_str, self.endday_str)
         res = MonthlyTask.hiveinterface.execute(sql)
         for li in res:
