@@ -4,3 +4,7 @@ create 'video_exit', 'log'
 
 create 'sn_table', 'a'
 
+create 'daily_channel', 'a'
+create 'weekly_channel', 'a'
+create 'monthly_channel', 'a'
+

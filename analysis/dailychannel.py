@@ -8,9 +8,8 @@ from decorators import timed
 from HiveInterface import HiveInterface
 from HbaseInterface import HbaseInterface
 
-import dailysql
-
 #VOD用户数、播放量、VOD户均时长(分钟)、VOD户均访次、频道激活率
+# 频道激活率 = 频道vod用户数 / vod总用户数
 
 HIVEHOST = "hadoopsnn411"
 HBASEHOST = "hadoopns410"
@@ -44,7 +43,6 @@ class DailyTask:
             key = self.day_str + device + channel
             DailyTask.hbaseinterface.write(key, {"a:a": value})
 
-
     # VOD播放次数
     @timed
     def _b(self):
@@ -73,8 +71,8 @@ class DailyTask:
         if not res:
             res = []
         for li in res:
-            value, device = li.split()
-            key = self.day_str + device
+            value, device, channel = li.split()
+            key = self.day_str + device + channel
             DailyTask.hbaseinterface.write(key, {"a:c": value})
 
     def execute(self):
