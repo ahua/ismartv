@@ -56,13 +56,13 @@ class WeeklyTask:
                  and event = "video_start"
                  group by device, channel
               """ % (self.startday_str, self.endday_str)
-        res = DailyTask.hiveinterface.execute(sql)
+        res = WeeklyTask.hiveinterface.execute(sql)
         if not res:
-            res2 = []
+            res = []
         for li in res:
             value, device, channel = li.split()
             key = self.day_str + device + channel
-            DailyTask.hbaseinterface.write(key, {"a:b": value})
+            WeeklyTask.hbaseinterface.write(key, {"a:b": value})
 
     def execute(self):
         self._a()
