@@ -42,6 +42,7 @@ row format delimited fields terminated by ',';
 ALTER TABLE test ADD COLUMNS (isplus int);
 alter table test add columns (channel string);
 alter table test add columns (quality string);
+alter table test add columns (ip string);
 drop table if exists test;
 
 

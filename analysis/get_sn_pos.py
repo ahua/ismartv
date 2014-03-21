@@ -3,7 +3,7 @@
 
 import sys
 import datetime
-
+import redis
 from decorators import timed
 from HbaseInterface import HbaseInterface
 
@@ -13,6 +13,7 @@ sntable = HbaseInterface(HBASEHOST, "9090", "sn_table")
 def exists_in_hbase(sn):
     key = "sn_%s" % (sn)
     return sntable.read(key, ["a:device"])
+
 
 def save_to_hbase(sn, day_str, province, city):
     key = "sn_%s" % (sn)
@@ -29,10 +30,20 @@ def get_sn_list_by_day(day_str):
         sn_list.append(day_sn[9:])
     return sn_list
 
+
+def get_ip(sn):
+    r = redis.Redis('10.0.2.41', port = 6379, db=3)
+    res = r.zrevrange(sn, 0, -1)
+    if res:
+        return res[0]
+    return None
+
 SN_CACHE = {}
 
 IP_LOOKUP_URL = ['http://cdn.ismartv.com.cn/ip_query.php?ip=',
                  '&code=gb2312&format=json']
+
+
 def get_pos(sn):
     global SN_CACHE
     if not SN_CACHE:
@@ -43,14 +54,13 @@ def get_pos(sn):
     if ip:
         data = json.load(urllib2.urlopen(urllib2.Request(IP_LOOKUP_URL[0] + ip + IP_LOOKUP_URL[1])))
 
-    
-
 def process(day):
     day_str = day.strftime("%Y%m%d")
     sn_list = get_sn_list_by_day(day_str)
     for sn in sn_list:
         province, city = get_pos(sn)
-        save_to_hbase(sn, day_str, province, city)
+        #save_to_hbase(sn, day_str, province, city)
+        print province, city
         
 
 def main():
