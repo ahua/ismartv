@@ -43,11 +43,26 @@ SN_CACHE = {}
 IP_LOOKUP_URL = ['http://cdn.ismartv.com.cn/ip_query.php?ip=',
                  '&code=gb2312&format=json']
 
+def init_sn_cache(day):
+    global SN_CACHE
+    
+    with open("/vat/tmp/sn/snlist.log") as fp:
+        for li in fp:
+            sn, province, city = li.rstrip().split()
+            SN_CACHE[sn] = [province, city]
+    
+    gzfile = "/vat/tmp/sn/snlist_area%s.tgz" % day.strftime("%Y_%m_%d")
+    if os.path.exists(gzfile):
+        f = gzip.open(gzfile)
+        content = f.read()
+        f.close()
+        lines = content.split("\n")
+        for li in lines:
+            sn, province, city = li.rstrip().split()
+            SN_CACHE[sn] = [province, city]
+
 
 def get_pos(sn):
-    global SN_CACHE
-    if not SN_CACHE:
-        init_sn_cache()
     if sn in SN_CACHE:
         return SN_CACHE[sn]
     ip = get_ip(sn)
@@ -55,6 +70,10 @@ def get_pos(sn):
         data = json.load(urllib2.urlopen(urllib2.Request(IP_LOOKUP_URL[0] + ip + IP_LOOKUP_URL[1])))
 
 def process(day):
+    global SN_CACHE
+    if not SN_CACHE:
+        init_sn_cache(day)
+
     day_str = day.strftime("%Y%m%d")
     sn_list = get_sn_list_by_day(day_str)
     for sn in sn_list:
@@ -81,6 +100,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
 
