@@ -4,28 +4,13 @@
 """
 add to crontab:
 1 1 * * * /path/to/item_info.py
-
-The format used looks like this:
-
->>> item_channel.get_channel("181961")
-'\xe4\xbd\x93\xe8\x82\xb2'
 """
 
 import httplib2
 import io
 import json
 import re
-import redis
-from redis import ConnectionError
-
-CONF = {
-    "host": "localhost",
-    "port": 6379,
-    "db": 9
-}
-
-POOL = redis.ConnectionPool(host=CONF["host"], port=CONF["port"], db=CONF["db"])
-RCLI = redis.Redis(connection_pool=POOL)
+import shutil
 
 def fetch_channels(entrance):
     try:
@@ -88,11 +73,12 @@ def save_to_file():
         if item['channel'] != "rankinglist":
             item_dict[item['item']] = item['channel']
 
-    with io.open('./files/itemchannel.csv', 'w', encoding="utf8") as fp:
+    with io.open('./files/itemchannel1.csv', 'w', encoding="utf8") as fp:
         #fp.write(unicode("item,channel\n"))
         for item in item_dict.keys():
             fp.write(item + "," + item_dict[item] + "\n")
 
+    shutil.copyfile('./files/itemchannel1.csv', './files/itemchannel.csv')
 
 def get_channel(item):
     item_dict = {}
