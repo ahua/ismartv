@@ -37,7 +37,7 @@ class MonthlyTask:
               """ % (self.startday_str, self.endday_str)
         res = MonthlyTask.hiveinterface.execute(sql)
         for li in res:
-            value, device = li.split()
+            value, device, channel = li.split()
             key = self.month_str + device + channel
             MonthlyTask.hbaseinterface.write(key, {"a:a": value})
 

@@ -16,7 +16,8 @@ EVENT_LIB = set(('system_off',
  'video_exit',
  'app_start',
  'system_on',
- 'app_exit'))
+ 'app_exit',
+ 'video_except'))
 
 def is_right(event):
     if event in EVENT_LIB:
@@ -42,6 +43,7 @@ def process(filename, output_dir):
     fin = open(filename, "r")
     for li in fin:
         try:
+#        if True:
             r = eval(li.rstrip())
             if not is_right(r["event"]):
                 continue
@@ -68,12 +70,15 @@ def process(filename, output_dir):
             subitem = r.get("subitem", -1)
             code = r.get("code", "-")
             mediaip = r.get("mediaip", "-")
+            if r["event"] == "video_except":
+                mediaip = r.get("content", "-").encode("utf8")
             cdn = r.get("_cdn", "-").encode("utf8")
             isplus = r.get("_plus", 5)
             channel = get_channel(item)
             quality = r.get("quality", "-")
+            ip = r.get("ip", "-")
             vals =[str(i) for i in [timestamp, day, _device, _unique_key, sn, token, event, duration, clip, code, item, \
-                                        subitem, mediaip, cdn, isplus, channel, quality]]
+                                        subitem, mediaip, cdn, isplus, channel, quality, ip]]
 
             outline = DELIMITER.join(vals) + "\n"
             if not OUT_DIC.has_key(day):
