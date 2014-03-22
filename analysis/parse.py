@@ -59,6 +59,8 @@ def process(filename, output_dir):
 
             timestamp = time.mktime(r["time"].timetuple())
             day = r["time"].strftime("%Y%m%d")
+            if day > datetime.datetime.now().strftime("%Y%m%d"):
+                day = datetime.datetime.now().strftime("%Y%m%d")
             _device = r["_device"]
             _unique_key = r["_unique_key"]
             sn = r["sn"]
