@@ -22,14 +22,6 @@ def exists_in_hbase(sn):
 def save_to_hbase(sn, day_str, province, city):
     key = "sn_%s" % (sn)
     key1 = "%s_%s" % (day_str, sn)
-    try:
-        province = province.encode("utf8")
-    except:
-        pass
-    try:
-        city = city.encode("utf8")
-    except:
-        pass
     d = {"a:province": province, "a:city": city}
     sntable.write(key, d)
     sntable.write(key1, d)
@@ -96,6 +88,15 @@ def process(day):
     sn_list = get_sn_list_by_day(day_str)
     for sn in sn_list:
         province, city = get_pos(sn)
+        try:
+            province = province.encode("utf8")
+        except:
+            pass
+        try:
+            city = city.encode("utf8")
+        except:
+            pass
+        
         save_to_hbase(sn, day_str, province, city)
         print sn, province, city
         
