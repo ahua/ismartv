@@ -61,19 +61,19 @@ def get_sn_pos(day):
     for r in rowlist:
         day_sn = r.row
         cols = r.columns
+        t = {}
         t["day"] = day_sn[0:8]
         t["sn"] = day_sn[9:]
-        t = {}
         try:
             t["device"] = cols["a:device"].value
         except:
             t["device"] = "-"
         try:
-            t["province"] = cols[a:province].value
+            t["province"] = cols["a:province"].value
         except:
             t["device"] = "-"
         try:
-            t["city"] = cols[a:city].value
+            t["city"] = cols["a:city"].value
         except:
             t["city"] = "-"
         res.append(t)
