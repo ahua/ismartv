@@ -6,6 +6,8 @@ import sys
 import datetime
 import gzip
 import redis
+import json
+import urllib2
 from decorators import timed
 from HbaseInterface import HbaseInterface
 
@@ -20,12 +22,21 @@ def exists_in_hbase(sn):
 def save_to_hbase(sn, day_str, province, city):
     key = "sn_%s" % (sn)
     key1 = "%s_%s" % (day_str, sn)
+    try:
+        province = province.encode("utf8")
+    except:
+        pass
+    try:
+        city = city.encode("utf8")
+    except:
+        pass
     d = {"a:province": province, "a:city": city}
-    DailyTask.sntable.write(key, d)
-    DailyTask.sntable.write(key1, d)
+    sntable.write(key, d)
+    sntable.write(key1, d)
 
 def get_sn_list_by_day(day_str):
     rowlist = sntable.read_all(day_str, ["a:device", "a:day"])
+    print len(rowlist)
     sn_list = []
     for r in rowlist:
         day_sn = r.row 
@@ -52,16 +63,15 @@ def init_sn_cache(day):
         for li in fp:
             sn, province, city = li.rstrip().split()
             SN_CACHE[sn] = [province, city]
-    
-    gzfile = "/var/tmp/sn/snlist_area%s.tgz" % day.strftime("%Y_%m_%d")
+    fday = day + datetime.timedelta(days=1) 
+    gzfile = "/var/tmp/sn/snlist_area%s.tgz" % fday.strftime("%Y_%m_%d")
     if os.path.exists(gzfile):
-        f = gzip.open(gzfile)
-        content = f.read()
-        f.close()
-        lines = content.split("\n")
-        for li in lines:
-            sn, province, city = li.rstrip().split()
-            SN_CACHE[sn] = [province, city]
+        os.system("cd /var/tmp/sn; tar xvzf %s" % gzfile)
+        snfile = "/var/tmp/sn/home/deploy/Warehouse/snlist_area/snlist_area.log"
+        with open(snfile) as fp:
+            for li in fp:
+                sn, province, city = li.rstrip().split()
+                SN_CACHE[sn] = [province, city]
 
 
 def get_pos(sn):
@@ -69,19 +79,25 @@ def get_pos(sn):
         return SN_CACHE[sn]
     ip = get_ip(sn)
     if ip:
+	#{u'ip_satrt': u'36.56.0.0', 
+        # u'prov': u'\u5b89\u5fbd', u'ip_end': u'36.63.255.255', u'isp': u'\u7535\u4fe1', u'city': u'\u5176\u4ed6'}
         data = json.load(urllib2.urlopen(urllib2.Request(IP_LOOKUP_URL[0] + ip + IP_LOOKUP_URL[1])))
+       	if data:
+            return data["prov"], data["city"]
+    return "-", "-"
 
 def process(day):
     global SN_CACHE
     if not SN_CACHE:
         init_sn_cache(day)
 
+    print day
     day_str = day.strftime("%Y%m%d")
     sn_list = get_sn_list_by_day(day_str)
     for sn in sn_list:
         province, city = get_pos(sn)
-        #save_to_hbase(sn, day_str, province, city)
-        print province, city
+        save_to_hbase(sn, day_str, province, city)
+        print sn, province, city
         
 
 def main():
