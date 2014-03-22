@@ -73,7 +73,11 @@ def get_pos(sn):
     if ip:
 	#{u'ip_satrt': u'36.56.0.0', 
         # u'prov': u'\u5b89\u5fbd', u'ip_end': u'36.63.255.255', u'isp': u'\u7535\u4fe1', u'city': u'\u5176\u4ed6'}
-        data = json.load(urllib2.urlopen(urllib2.Request(IP_LOOKUP_URL[0] + ip + IP_LOOKUP_URL[1])))
+        data = None
+        try:
+            data = json.load(urllib2.urlopen(urllib2.Request(IP_LOOKUP_URL[0] + ip + IP_LOOKUP_URL[1])))
+        except:
+            pass
        	if data:
             return data["prov"], data["city"]
     return "-", "-"
