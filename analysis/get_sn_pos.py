@@ -3,6 +3,7 @@
 
 import sys
 import datetime
+import gzip
 import redis
 from decorators import timed
 from HbaseInterface import HbaseInterface
@@ -46,12 +47,12 @@ IP_LOOKUP_URL = ['http://cdn.ismartv.com.cn/ip_query.php?ip=',
 def init_sn_cache(day):
     global SN_CACHE
     
-    with open("/vat/tmp/sn/snlist.log") as fp:
+    with open("/var/tmp/sn/snlist.log") as fp:
         for li in fp:
             sn, province, city = li.rstrip().split()
             SN_CACHE[sn] = [province, city]
     
-    gzfile = "/vat/tmp/sn/snlist_area%s.tgz" % day.strftime("%Y_%m_%d")
+    gzfile = "/var/tmp/sn/snlist_area%s.tgz" % day.strftime("%Y_%m_%d")
     if os.path.exists(gzfile):
         f = gzip.open(gzfile)
         content = f.read()
