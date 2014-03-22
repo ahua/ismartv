@@ -101,6 +101,8 @@ def process(day):
         print sn, province, city
         
 
+ONE_DAY = datetime.timedelta(days=1)
+
 def main():
     if len(sys.argv) == 1:
         daylist = [datetime.datetime.now() - datetime.timedelta(days=1)]
