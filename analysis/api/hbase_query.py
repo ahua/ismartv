@@ -396,7 +396,7 @@ def get_monthly_channel(date, channels='ALL', devices='ALL'):
 
     someday = datetime.datetime.strptime(date + "01", "%Y%m%d")
     while someday.strftime("%Y%m") == date:
-        res = get_daily_data(someday.strftime("%Y%m%d"),channels,  devices)
+        res = get_daily_channel(someday.strftime("%Y%m%d"),channels,  devices)
         month_dr_per_sn += res["dr_per_sn"]
         month_play_count_per_sn += res["play_count_per_sn"]
         month_load_per_channel += res["load_per_channel"]
@@ -426,4 +426,8 @@ if __name__ == "__main__":
     #print get_daily_data(date)
     #print get_weekly_data("20140207")
     #print get_monthly_data("201401")
+
+    print get_daily_channel("20140322")
+    print get_weekly_channel("20140328")
+    print get_monthly_channel("201403")
 
