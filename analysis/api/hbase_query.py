@@ -412,9 +412,9 @@ def get_monthly_channel(date, channels='ALL', devices='ALL'):
          "sn_vod_load_per_day": sn_vod_load/7,  # 日均vod用户数
          "play_count_per_day": sn_play_count/7,  # 日均播放量
 
-         "dr_per_sn_day":  week_dr_per_sn/7,  # 日均户均时长(分钟)
-         "play_count_per_sn": week_play_count_per_sn/7,  # 日均VOD户均访次
-         "load_per_active_day": week_load_per_channel/7,   # 日均频道VOD激活率
+         "dr_per_sn_day":  month_dr_per_sn/7,  # 日均户均时长(分钟)
+         "play_count_per_sn": month_play_count_per_sn/7,  # 日均VOD户均访次
+         "load_per_active_day": month_load_per_channel/7,   # 日均频道VOD激活率
          }
 
     format_res(t)
