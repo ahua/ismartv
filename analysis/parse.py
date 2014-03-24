@@ -58,7 +58,7 @@ def process(filename, output_dir):
                     r["duration"] = 0
 
             #timestamp = time.mktime(r["time"].timetuple())
-            timestamp = int(r["time"].strftime("%Y%m%d%H%M"))
+            timestamp = int(r["time"].strftime("%Y%m%d%H%M%S"))
             day = r["time"].strftime("%Y%m%d")
             if day > datetime.datetime.now().strftime("%Y%m%d"):
                 day = datetime.datetime.now().strftime("%Y%m%d")
