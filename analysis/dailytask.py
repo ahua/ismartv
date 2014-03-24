@@ -68,8 +68,8 @@ class DailyTask:
     @timed
     def _a(self):
         sql = """select distinct device from daily_logs 
-                 where parsets = "%s"
-              """ % self.day_str
+                 where parsets >= "%s"
+              """ % self.last_day_str
         res = DailyTask.hiveinterface.execute(sql)
         devices = {}
         for li in res:
