@@ -72,6 +72,10 @@ class DailyTask:
               """ % self.last_day_str
         res = DailyTask.hiveinterface.execute(sql)
         devices = {}
+        res = res + ["A11", "A21", "K72", "K82", "K91",
+                     "S31", "S51", "S61", 
+                     "E31",
+                     "DS70A", "LX750A", "LX755A", "LX850A"]
         for li in res:
             devices[li.rstrip()] = {"x": 0, # 今天累计用户数
                                     "y": 0, # 昨天累计用户数
