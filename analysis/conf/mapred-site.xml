@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+<property>
+  <name>mapred.tasktracker.map.tasks.maximum</name>
+  <value>20</value>
+  <description>The maximum number of map tasks that will be run
+  simultaneously by a task tracker.
+  </description>
+</property>
+    
+<property>
+  <name>mapred.tasktracker.reduce.tasks.maximum</name>
+  <value>20</value>
+  <description>The maximum number of reduce tasks that will be run
+  simultaneously by a task tracker.
+  </description>
+</property>
+
+  <property>
+    <name>mapred.job.tracker</name>
+    <value>hadoopns410:8021</value>
+  </property>
+
+  <property>
+    <name>mapred.local.dir</name>
+    <value>/data1/mapred/local,/data2/mapred/local,/data3/mapred/local,/data4/mapred/local,/data5/mapred/local</value>
+  </property>
+
+   <property>
+    <name>mapreduce.map.sort.spill.percent</name>
+    <value>0.7</value>
+  </property>
+  <property>
+    <name>mapreduce.map.java.opts</name>
+    <value>-Xmx2048m</value>
+  </property>
+ <property>
+    <name>mapreduce.reduce.shuffle.input.buffer.percent</name>
+    <value>0.7</value>
+  </property>
+ <property>
+    <name>mapreduce.reduce.java.opts</name>
+    <value>-Xmx2048m</value>
+  </property>
+
+</configuration>
+
