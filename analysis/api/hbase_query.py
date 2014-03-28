@@ -456,21 +456,21 @@ if __name__ == "__main__":
     
     channels =  ['child', 'chnfilm', 'entertain', 'life',
                  'music', 'ovsfilm', 'sports', 'teleplay', 'ALL']
-    print get_daily_top("20140327", channels[0])
+    print get_daily_top("20140327", channels[0:1])
     print "*" * 20
-    print get_daily_top("20140327", channels[1])
+    print get_daily_top("20140327", channels[1:2])
     print "*" * 20
-    print get_daily_top("20140327", channels[2])
+    print get_daily_top("20140327", channels[2:3])
     print "*" * 20
-    print get_daily_top("20140327", channels[3])
+    print get_daily_top("20140327", channels[3:4])
     print "*" * 20
-    print get_daily_top("20140327", channels[4])
+    print get_daily_top("20140327", channels[4:5])
     print "*" * 20
-    print get_daily_top("20140327", channels[5])
+    print get_daily_top("20140327", channels[5:6])
     print "*" * 20
-    print get_daily_top("20140327", channels[6])
+    print get_daily_top("20140327", channels[6:7])
     print "*" * 20
-    print get_daily_top("20140327", channels[7])
+    print get_daily_top("20140327", channels[7:8])
     print "*" * 20
     print get_daily_top("20140327", channels[8])
     print "*" * 20
