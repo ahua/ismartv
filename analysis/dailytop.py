@@ -59,7 +59,7 @@ class DailyTop:
                 except:
                     pass
                 self.last_counts[item] = count
-        return self.last_counts[item]
+        return self.last_counts.get(item, "0")
         
 
     def execute(self):
