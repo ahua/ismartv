@@ -50,7 +50,7 @@ class DailyTop:
 
     def get_last_count(self, item):
         if not self.last_counts:
-            rowlist = DailyTop.HbaseInterface.read_all(self.last_day_str, ["a:count"])
+            rowlist = DailyTop.hbaseinterface.read_all(self.last_day_str, ["a:count"])
             for r in rowlist:
                 day, item = r.row.split("_")
                 count = "0"
