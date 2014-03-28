@@ -53,7 +53,7 @@ class DailyTask:
               """ % self.day_str
         res = DailyTask.hiveinterface.execute(sql)
         if not res:
-            res2 = []
+            res = []
         for li in res:
             value, device, channel = li.split()
             key = self.day_str + device + channel

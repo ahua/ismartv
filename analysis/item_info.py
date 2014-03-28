@@ -54,11 +54,14 @@ def fetch_items(channel, section, entrance, page=1):
         item_list = data["objects"]
         for item in item_list:
             item_pk = item["url"]
-            item_score = item["bean_score"]  
+            item_score = item["bean_score"]
+            item_title = item["title"]
             content = dict(item = re.findall('\d+', item_pk)[0],
-                section = section,
-                channel = channel,
-                score = item_score)
+                           section = section,
+                           channel = channel,
+                           score = item_score,
+                           title = item_title
+                           )
             itemlist.append(content)
             #print content
         if data["num_pages"] > 1 and page == 1:
@@ -69,16 +72,23 @@ def fetch_items(channel, section, entrance, page=1):
     
 def save_to_file():
     item_dict = {}
+    title_dict = {}
     for item in itemlist:
         if item['channel'] != "rankinglist":
             item_dict[item['item']] = item['channel']
+            title_dict[item['item']] = item['title']
 
     with io.open('./files/itemchannel1.csv', 'w', encoding="utf8") as fp:
         #fp.write(unicode("item,channel\n"))
         for item in item_dict.keys():
             fp.write(item + "," + item_dict[item] + "\n")
 
+    with io.open('./files/itemtitle1.csv', 'w', encoding="utf8") as fp:
+        for item in title_dict.keys():
+            fp.write(item + "," + title_dict[item] + "\n")
+
     shutil.copyfile('./files/itemchannel1.csv', './files/itemchannel.csv')
+    shutil.copyfile('./files/itemtitle1.csv', './files/itemtitle.csv')
 
 def get_channel(item):
     item_dict = {}
