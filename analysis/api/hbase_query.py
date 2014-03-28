@@ -420,6 +420,29 @@ def get_monthly_channel(date, channels='ALL', devices='ALL'):
     format_res(t)
     return t    
 
+def get_daily_top(date, channel):
+    channel_list = get_channel_list(channel)
+    client = HbaseInterface(HBASE_ADDR, "9090", "daily_top")
+    colkeys = ["a:channel", "a:title", "a:count", "a:up", "a:item"]
+    rowlist = client.read_all(date, colkeys)
+    
+    d = []
+    for r in rowlist:
+        t = []
+        for colkey in colkeys:
+            t.append(r.columns[colkey].value if colkey in r.columns else "0")
+        d.append(t)
+    
+    d = filter(lambda t: t[0] in channel_list, d)
+    d = sorted(d, key=lambda t: int(t[2]), reverse=True)
+    d = d[0:10]
+    res = []
+    for i in d:
+        res.append({"title": i[1],
+                    "count": i[2],
+                    "up": i[3]})
+    return res
+
 
 if __name__ == "__main__":
     date = "20140102"
@@ -427,7 +450,8 @@ if __name__ == "__main__":
     #print get_weekly_data("20140207")
     #print get_monthly_data("201401")
 
-    print get_daily_channel("20140322")
-    print get_weekly_channel("20140328")
-    print get_monthly_channel("201403")
+    #print get_daily_channel("20140322")
+    #print get_weekly_channel("20140328")
+    #print get_monthly_channel("201403")
 
+    print get_daily_top("20140327")
