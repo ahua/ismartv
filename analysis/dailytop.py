@@ -39,6 +39,7 @@ class DailyTop:
         for li in res:
             count, item = li.split()
             title = get_title(item)
+            channel = get_channel(item)
             key = self.day_str + "_" + item
             last_count = self.get_last_count(item)
             up = "0"
@@ -46,7 +47,7 @@ class DailyTop:
                 up = "1"
             elif int(count) < int(last_count):
                 up = "-1"
-            DailyTop.hbaseinterface.write(key, {"a:count": value, "a:title": title, "a:up": up})
+            DailyTop.hbaseinterface.write(key, {"a:count": count, "a:title": title, "a:channel": channel, "a:up": up})
 
     def get_last_count(self, item):
         if not self.last_counts:
@@ -79,6 +80,20 @@ def get_title(item):
                 except:
                     pass
     return TITLES.get(item, "-")
+
+CHANNELS = {}
+def get_channel(item):
+    global CHANNELS
+    if not CHANNELS:
+        with open("./files/itemchannel.csv") as fp:
+            for li in fp:
+                try:
+                    item, channel = li.rstrip().split(",")
+                    CHANNELS[item] = channel
+                except:
+                    pass
+    return CHANNELS.get(item, "-")
+
 
 def main():
     if len(sys.argv) == 1:
