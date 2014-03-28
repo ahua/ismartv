@@ -12,6 +12,7 @@ HIVEHOST = "hadoopsnn411"
 HBASEHOST = "hadoopns410"
 ONE_DAY = datetime.timedelta(days=1)
 
+
 class DailyTop:
     hiveinterface = HiveInterface(HIVEHOST)    
     hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
@@ -22,6 +23,7 @@ class DailyTop:
         self.day_str = day.strftime("%Y%m%d")
         self.last_day = day - ONE_DAY
         self.last_day_str = self.last_day.strftime("%Y%m%d")
+        self.last_counts = {}
 
     # VOD播放次数
     @timed
@@ -31,18 +33,52 @@ class DailyTop:
                  and event = "video_start"
                  group by item
               """ % self.day_str
-        res = DailyTask.hiveinterface.execute(sql)
+        res = DailyTop.hiveinterface.execute(sql)
         if not res:
             res = []
         for li in res:
-            value, item = li.split()
+            count, item = li.split()
+            title = get_title(item)
             key = self.day_str + "_" + item
-            DailyTask.hbaseinterface.write(key, {"a:a": value})
+            last_count = self.get_last_count(item)
+            up = "0"
+            if int(count) > int(last_count):
+                up = "1"
+            elif int(count) < int(last_count):
+                up = "-1"
+            DailyTop.hbaseinterface.write(key, {"a:count": value, "a:title": title, "a:up": up})
+
+    def get_last_count(self, item):
+        if not self.last_counts:
+            rowlist = DailyTop.HbaseInterface.read_all(self.last_day_str, ["a:count"])
+            for r in rowlist:
+                day, item = r.row.split("_")
+                count = "0"
+                try:
+                    count = r.columns["a:count"].value
+                except:
+                    pass
+                self.last_counts[item] = count
+        return self.last_counts[item]
+        
 
     def execute(self):
         self._a()
 
 
+
+TITLES = {}
+def get_title(item):
+    global TITLES
+    if not TITLES:
+        with open("./files/itemtitle.csv") as fp:
+            for li in fp:
+                try:
+                    item, title = li.rstrip().split(",")
+                    TITLES[item] = title
+                except:
+                    pass
+    return TITLES.get(item, "-")
 
 def main():
     if len(sys.argv) == 1:
