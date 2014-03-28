@@ -453,5 +453,25 @@ if __name__ == "__main__":
     #print get_daily_channel("20140322")
     #print get_weekly_channel("20140328")
     #print get_monthly_channel("201403")
+    
+    channels =  ['child', 'chnfilm', 'entertain', 'life',
+                 'music', 'ovsfilm', 'sports', 'teleplay', 'ALL']
+    print get_daily_top("20140327", channels[0])
+    print "*" * 20
+    print get_daily_top("20140327", channels[1])
+    print "*" * 20
+    print get_daily_top("20140327", channels[2])
+    print "*" * 20
+    print get_daily_top("20140327", channels[3])
+    print "*" * 20
+    print get_daily_top("20140327", channels[4])
+    print "*" * 20
+    print get_daily_top("20140327", channels[5])
+    print "*" * 20
+    print get_daily_top("20140327", channels[6])
+    print "*" * 20
+    print get_daily_top("20140327", channels[7])
+    print "*" * 20
+    print get_daily_top("20140327", channels[8])
+    print "*" * 20
 
-    print get_daily_top("20140327")
