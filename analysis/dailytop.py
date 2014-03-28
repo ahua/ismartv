@@ -47,7 +47,7 @@ class DailyTop:
                 up = "1"
             elif int(count) < int(last_count):
                 up = "-1"
-            DailyTop.hbaseinterface.write(key, {"a:count": count, "a:title": title, "a:channel": channel, "a:up": up})
+            DailyTop.hbaseinterface.write(key, {"a:count": count, "a:title": title, "a:channel": channel, "a:up": up, "a:item": item})
 
     def get_last_count(self, item):
         if not self.last_counts:
