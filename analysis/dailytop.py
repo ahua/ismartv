@@ -28,26 +28,36 @@ class DailyTop:
     # VOD播放次数
     @timed
     def _a(self):
-        sql = """select count(*), item
+        sql = """select count(*), item, channel
                  from daily_logs where parsets = "%s"
                  and event = "video_start"
-                 group by item
+                 group by item, channel
               """ % self.day_str
         res = DailyTop.hiveinterface.execute(sql)
         if not res:
             res = []
+        d = {}
         for li in res:
-            count, item = li.split()
-            title = get_title(item)
-            channel = get_channel(item)
-            key = self.day_str + "_" + item
-            last_count = self.get_last_count(item)
-            up = "0"
-            if int(count) > int(last_count):
-                up = "1"
-            elif int(count) < int(last_count):
-                up = "-1"
-            DailyTop.hbaseinterface.write(key, {"a:count": count, "a:title": title, "a:channel": channel, "a:up": up, "a:item": item})
+            count, item, channel = li.split()
+            if channel not in d:
+                d[channel] = [[item,count]]
+            else:
+                d[channel].append([item,count])
+        
+        for channel in d:
+            d[channel] = sorted(d[channel], key=lambda t: int(t[1]), reverse=True)[0:10]
+        for channel in d:
+            for item, count in d[channel]:
+                title = get_title(item)
+                channel = get_channel(item)
+                key = self.day_str + "_" + item
+                last_count = self.get_last_count(item)
+                up = "0"
+                if int(count) > int(last_count):
+                    up = "1"
+                elif int(count) < int(last_count):
+                    up = "-1"
+                    DailyTop.hbaseinterface.write(key, {"a:count": count, "a:title": title, "a:channel": channel, "a:up": up, "a:item": item})
 
     def get_last_count(self, item):
         if not self.last_counts:
