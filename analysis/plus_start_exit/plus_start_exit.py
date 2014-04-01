@@ -60,14 +60,33 @@ def del_from_redis(k):
     """
     return RCLI.delete(k)
 
+def get_timestamp(doc):
+    return time.mktime(datetime.datetime.strptime(doc['time'], "%Y-%m-%dT%H:%M:%S.%fZ").timetuple())
+
 def plus_exit_event(docs):
     """
     添加start和exit事件,
     docs[-1] 一定是exit事件, 且docs中只能有一个video_exit
+    如果倒数第二个是start事件则交换
     """
     docs[-1]["_plus"] = 2
+    
+    another_start = None
+
+    if len(docs) >= 3:
+        if docs[-2]["event"] == "video_start" \
+                and docs[-1]["event"] == "video_exit" \
+                and get_timestamp(docs[-2]) + 1 >= get_timestamp(docs[-1]) \
+                and docs[-3]["item"] == docs[-1]["item"] \
+                and docs[-3].get("subitem", "") == docs[-1].get("subitem", ""):
+            docs[-2], docs[-1] = docs[-1], docs[-2]
+            another_start = str(docs.pop(-1)) + "\n"
+            print "Another_start:", another_start,
+
+
     if len(docs) == 1:
-        return [str(docs[-1]) + "\n"]
+        return [str(docs[-1]) + "\n"], another_start
+
     docs = sorted(docs, key=lambda k: k["time"])
     # swap video_exit to docs[-1]
     num = len(docs)
@@ -102,7 +121,7 @@ def plus_exit_event(docs):
                 total_seconds()
             t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
             res.append(str(t) + "\n")
-            idx = idx - 1
+        idx = idx - 1
     
     # plus start event
     last_start = docs[0]
@@ -115,10 +134,11 @@ def plus_exit_event(docs):
             t = docs[0].copy()
             t["_plus"] = 1
             t["time"] = docs[idx]["time"]
+            t["clip"] = docs[idx].get("clip", -2)
             t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
             res.append(str(t) + "\n")
-            idx = idx + 1
             last_start = t
+        idx = idx + 1
 
     if last_exit["duration"] <= 1 or last_exit["duration"] >= 100000:
         duration = (last_exit["time"] - last_start["time"]).total_seconds()
@@ -129,7 +149,7 @@ def plus_exit_event(docs):
     
     res.append(str(last_exit) + "\n")
 
-    return res
+    return res, another_start
 
 def process(logfile, outfile):
     """
@@ -142,11 +162,15 @@ def process(logfile, outfile):
                 try:
                     r = eval(li.rstrip())
                     
+                    # item 一组连续剧标志
+                    # clip 视频唯一id
                     k = "%s_%s_%s" % (r.get("sn", "0"), r.get("item", "0"), r.get("token", "0"))
                     save_to_redis(k, li)
                     if r["event"] == "video_exit":
-                        docs = get_docs(k)
+                        docs, another_start = get_docs(k)
                         del_from_redis(k)
+                        if another_start:
+                            save_to_redis(another_start)
                         res = plus_exit_event(docs)
                         fout.writelines(res)
                 except Exception as e:
@@ -197,7 +221,7 @@ def plus_exit_event_2(docs):
                 total_seconds()
             t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
             res.append(str(t) + "\n")
-            idx = idx - 1
+        idx = idx - 1
     
     # plus start event
     idx = 2
@@ -206,10 +230,11 @@ def plus_exit_event_2(docs):
             t = docs[0].copy()
             t["_plus"] = 1
             t["time"] = docs[idx]["time"]
+            t["clip"] = docs[idx].get("clip", -2)
             t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
             res.append(str(t) + "\n")
-            idx = idx + 1
             last_start = t
+        idx = idx + 1
             
     return res, last_event
 
