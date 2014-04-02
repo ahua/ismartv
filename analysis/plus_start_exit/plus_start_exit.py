@@ -61,95 +61,99 @@ def del_from_redis(k):
     return RCLI.delete(k)
 
 def get_timestamp(doc):
-    return time.mktime(datetime.datetime.strptime(doc['time'], "%Y-%m-%dT%H:%M:%S.%fZ").timetuple())
+    return time.mktime(doc['time'].timetuple())
 
 def plus_exit_event(docs):
     """
-    添加start和exit事件,
-    docs[-1] 一定是exit事件, 且docs中只能有一个video_exit
-    如果倒数第二个是start事件则交换
+    函数作用:
+    1.对play_load事件添加start和exit事件, _plus = 1
+    2.修改exit的duration, 以及 _plus = 2
+    3.所有原始log _plus = 5
+
+    算法:
+    两个连续到事件类型组合:
+    start, start
+    start, exit   # 如果是在同一秒, 则交换顺序.
+    start, play_load
+    play_load, start
+    play_load, play_load
+    play_load, exit
+    exit, start
+    exit, play_load
+    exit, exit
     """
-    docs[-1]["_plus"] = 2
-    
-    another_start = None
-
-    if len(docs) >= 3:
-        if docs[-2]["event"] == "video_start" \
-                and docs[-1]["event"] == "video_exit" \
-                and get_timestamp(docs[-2]) + 1 >= get_timestamp(docs[-1]) \
-                and docs[-3]["item"] == docs[-1]["item"] \
-                and docs[-3].get("subitem", "") == docs[-1].get("subitem", ""):
-            docs[-2], docs[-1] = docs[-1], docs[-2]
-            another_start = str(docs.pop(-1)) + "\n"
-            print "Another_start:", another_start,
-
-
-    if len(docs) == 1:
-        return [str(docs[-1]) + "\n"], another_start
-
     docs = sorted(docs, key=lambda k: k["time"])
-    # swap video_exit to docs[-1]
-    num = len(docs)
-    idx = num - 1
-    while idx >= 0 and docs[idx]["event"] != "video_exit":
-        idx = idx - 1
-    if idx != num -1:
-        t = docs[idx]
-        docs[idx] = docs[num-1]
-        docs[num-1] = t
-        t = docs[idx]["time"]
-        docs[idx]["time"] = docs[num-1]["time"]
-        docs[num-1]["time"] = t
+    up = len(docs) - 1
+    idx = 1
+    while idx <= up:
+        if docs[idx-1]["event"] == "video_start" \
+                and docs[idx]["event"] == "video_exit" \
+                and get_timestamp(docs[idx-1]) + 1 >= get_timestamp(docs[idx]) \
+                and docs[idx-1]["item"] != docs[idx]["item"]:
+            docs[idx-1], docs[idx] = docs[idx], docs[idx-1]
+            print docs[idx-2] if idx >= 2 else "none"
+            print docs[idx-1]
+            print docs[idx]
+            print docs[idx+1] if idx + 1 <= up else "none"
+            print "\n" * 3
+        idx += 1
 
     res = []
-    if docs[0]["event"] != "video_start":
-        t = docs[0].copy()
-        t["event"] = "video_start"
-        t["_plus"] = 1
-        t["_unique_key"] = hashlib.md5(cPickle.dumps(t)).hexdigest()
-        docs.insert(0, t)
-        res.append(str(t) + "\n")
-
-    # plus exit event
-    idx = len(docs) - 3
-    while idx >= 0:
-        if docs[idx]["event"] == "video_play_load":
-            t = docs[-1].copy()
-            t['_plus'] = 1
-            t['time'] = docs[idx+1]["time"]
-            t['duration'] = (docs[idx+1]["time"] - docs[idx]["time"]).\
-                total_seconds()
-            t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
+    idx = 0
+    last_start = None
+    last_exit = None
+    while idx <= up:
+        if docs[idx]["event"] == "video_start":
+            last_start = docs[idx]
+        elif docs[idx]["event"] == "video_exit":
+            last_exit = docs[idx]
+            # change duration and add _plus=2
+            t = docs[idx].copy()
+            t["_plus"] = 2
+            if t["duration"] <= 1 or t["duration"] >= 100000:
+                if idx >= 1:
+                    duration = (docs[idx]["time"] - docs[idx-1]["time"]).total_seconds()
+                    position = duration
+                    t["duration"] = duration if duration >= 0 and duration < 100000 else 0
+                    t["position"] = t["duration"]
+                else:
+                    t["duration"] = 0
+                    t["position"] = 0
             res.append(str(t) + "\n")
-        idx = idx - 1
-    
-    # plus start event
-    last_start = docs[0]
-    last_play_load = docs[-2]
-    last_exit = docs[-1]
+        elif docs[idx]["event"] == "video_play_load":
+            if idx <= 0 or docs[idx-1]["event"] != "video_start":
+                # plus start event
+                t = None
+                if last_start:
+                    t = last_start.copy()
+                else:
+                    t = docs[idx].copy()
+                    t["event"] = "video_start"
+                t["_plus"] = 1
+                t["time"] = docs[idx]["time"]
+                t["clip"] = docs[idx].get("clip", -2)
+                t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
+                res.append(str(t) + "\n")
+            if idx <= up - 1 and docs[idx+1]["event"] != "video_exit":
+                # plus exit event
+                t = None
+                if last_exit:
+                    t = last_exit.copy()
+                else:
+                    t = docs[idx].copy()
+                t['_plus'] = 1
+                t['time'] = docs[idx+1]["time"]
+                t['duration'] = (docs[idx+1]["time"] - docs[idx]["time"]).\
+                    total_seconds()
+                t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
+                res.append(str(t) + "\n")
+        idx += 1
 
-    idx = 2
-    while idx <= len(docs) - 1:
-        if docs[idx]["event"] == "video_play_load":
-            t = docs[0].copy()
-            t["_plus"] = 1
-            t["time"] = docs[idx]["time"]
-            t["clip"] = docs[idx].get("clip", -2)
-            t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
-            res.append(str(t) + "\n")
-            last_start = t
-        idx = idx + 1
+    if docs[up]["event"] == "video_start" or docs[up]["event"] == "video_play_load":
+        return res, docs[up]
+    else:
+        return res, None
 
-    if last_exit["duration"] <= 1 or last_exit["duration"] >= 100000:
-        duration = (last_exit["time"] - last_start["time"]).total_seconds()
-        last_duration = last_play_load.get("duration", 0)
-        position = duration - last_duration if duration > last_duration else 0
-        last_exit["duration"] = duration
-        last_exit["position"] = position
-    
-    res.append(str(last_exit) + "\n")
-
-    return res, another_start
 
 def process(logfile, outfile):
     """
@@ -160,94 +164,28 @@ def process(logfile, outfile):
         with open(outfile, "a") as fout:
             for li in fin:
                 try:
-                    r = eval(li.rstrip())
-                    
+                    r = eval(li.rstrip())                    
                     # item 一组连续剧标志
                     # clip 视频唯一id
                     k = "%s_%s_%s" % (r.get("sn", "0"), r.get("item", "0"), r.get("token", "0"))
                     save_to_redis(k, li)
-                    if r["event"] == "video_exit":
-                        docs, another_start = get_docs(k)
-                        del_from_redis(k)
-                        if another_start:
-                            save_to_redis(another_start)
-                        res = plus_exit_event(docs)
-                        fout.writelines(res)
                 except Exception as e:
                     continue
 
     print datetime.datetime.now()
-    print "All done.."
+    print "save to redis %s.." % logfile
 
-
-def plus_exit_event_2(docs):
-    """
-    添加start和exit事件,
-    docs中还没有遇到video_exit事件, 返回补的事件和一条start事件
-    """
-    if len(docs) == 1:
-        return [], None
-    if len(docs) == 2 and docs[0]["event"] == "video_start":
-        return [], None
-    docs = sorted(docs, key=lambda k: k["time"])
-    res = []
-    # plus first start event.
-    if docs[0]["event"] != "video_start":
-        t = docs[0].copy()
-        t["event"] = "video_start"
-        t["_plus"] = 1
-        t["_unique_key"] = hashlib.md5(cPickle.dumps(t)).hexdigest()
-        docs.insert(0, t)
-        res.append(str(t) + "\n")
-
-    last_event = docs.pop(-1)
-    # plus last exit event
-    t = last_event.copy()
-    t["event"] = "video_exit"
-    t["_plus"] = 1
-    t["_unique_key"] = hashlib.md5(cPickle.dumps(t)).hexdigest()
-    t["duration"] = (last_event["time"] - docs[-1]["time"]).total_seconds()
-    docs.append(t)
-    res.append(str(t) + "\n")
-
-    # plus exit event
-    idx = len(docs) - 3
-    while idx >= 0:
-        if docs[idx]["event"] == "video_play_load":
-            t = docs[-1].copy()
-            t['_plus'] = 1
-            t['time'] = docs[idx+1]["time"]
-            t['duration'] = (docs[idx+1]["time"] - docs[idx]["time"]).\
-                total_seconds()
-            t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
-            res.append(str(t) + "\n")
-        idx = idx - 1
-    
-    # plus start event
-    idx = 2
-    while idx <= len(docs) - 1:
-        if docs[idx]["event"] == "video_play_load":
-            t = docs[0].copy()
-            t["_plus"] = 1
-            t["time"] = docs[idx]["time"]
-            t["clip"] = docs[idx].get("clip", -2)
-            t['_unique_key'] = hashlib.md5(cPickle.dumps(t)).hexdigest()
-            res.append(str(t) + "\n")
-            last_start = t
-        idx = idx + 1
-            
-    return res, last_event
 
 def process_all_in_redis(outfile):
     key_list = get_key_list()
     with open(outfile, "a") as fout:
         for key in key_list:
             docs = get_docs(key)
-            res, last_event = plus_exit_event_2(docs)
+            res, last_event = plus_exit_event(docs)
             fout.writelines(res)
+            del_from_redis(key)
             if last_event:
-                del_from_redis(key)
-                save_to_redis(key, last_event)
+                save_to_redis(key, str(last_event) + "\n")
 
 def get_filelist(input_dir):
     """
@@ -280,9 +218,7 @@ def main():
         process(logfile, outfile)
         shutil.move(logfile, USED_DIR)
 
-    h = int(starttime.strftime("%H"))
-    if h > 2 and h < 4:
-        process_all_in_redis(outfile)
+    process_all_in_redis(outfile)
 
 
 if __name__ == "__main__":
