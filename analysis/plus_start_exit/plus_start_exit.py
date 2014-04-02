@@ -91,11 +91,6 @@ def plus_exit_event(docs):
                 and get_timestamp(docs[idx-1]) + 1 >= get_timestamp(docs[idx]) \
                 and docs[idx-1]["item"] != docs[idx]["item"]:
             docs[idx-1], docs[idx] = docs[idx], docs[idx-1]
-            print docs[idx-2] if idx >= 2 else "none"
-            print docs[idx-1]
-            print docs[idx]
-            print docs[idx+1] if idx + 1 <= up else "none"
-            print "\n" * 3
         idx += 1
 
     res = []
@@ -141,6 +136,7 @@ def plus_exit_event(docs):
                     t = last_exit.copy()
                 else:
                     t = docs[idx].copy()
+                    t["event"] = "video_exit"
                 t['_plus'] = 1
                 t['time'] = docs[idx+1]["time"]
                 t['duration'] = (docs[idx+1]["time"] - docs[idx]["time"]).\
