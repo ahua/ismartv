@@ -164,7 +164,8 @@ def process(logfile, outfile):
                     # item 一组连续剧标志
                     # clip 视频唯一id
                     k = "%s_%s_%s" % (r.get("sn", "0"), r.get("item", "0"), r.get("token", "0"))
-                    save_to_redis(k, li)
+                    if r.get("event") in ("video_start", "video_play_load", "video_exit"):
+                        save_to_redis(k, li)
                 except Exception as e:
                     continue
 
