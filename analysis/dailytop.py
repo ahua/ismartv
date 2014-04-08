@@ -49,7 +49,7 @@ class DailyTop:
         for channel in d:
             for item, count in d[channel]:
                 title = get_title(item)
-                channel = get_channel(item)
+                _channel = channel
                 key = self.day_str + "_" + item
                 last_count = self.get_last_count(item)
                 up = "0"
@@ -57,7 +57,7 @@ class DailyTop:
                     up = "1"
                 elif int(count) < int(last_count):
                     up = "-1"
-                DailyTop.hbaseinterface.write(key, {"a:count": count, "a:title": title, "a:channel": channel, "a:up": up, "a:item": item})
+                DailyTop.hbaseinterface.write(key, {"a:count": count, "a:title": title, "a:channel": _channel, "a:up": up, "a:item": item})
 
     def get_last_count(self, item):
         if not self.last_counts:
