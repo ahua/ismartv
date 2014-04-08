@@ -28,7 +28,7 @@ class DailyTop:
     # VOD播放次数
     @timed
     def _a(self):
-        sql = """select count(*), item, channel
+        sql = """select count(distinct sn), item, channel
                  from daily_logs where parsets = "%s"
                  and event = "video_start"
                  group by item, channel
