@@ -38,6 +38,9 @@ class DailyTop:
         d = {}
         for li in res:
             count, item = li.split()
+            if item == "-1":
+                continue
+
             channel = get_channel(item)
             if channel not in d:
                 d[channel] = [[item,count]]
