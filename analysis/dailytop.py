@@ -28,17 +28,17 @@ class DailyTop:
     # VOD播放次数
     @timed
     def _a(self):
-        sql = """select count(distinct sn), item, channel
+        sql = """select count(distinct sn), item
                  from daily_logs where parsets = "%s"
-                 and event = "video_start"
-                 group by item, channel
+                 group by item
               """ % self.day_str
         res = DailyTop.hiveinterface.execute(sql)
         if not res:
             res = []
         d = {}
         for li in res:
-            count, item, channel = li.split()
+            count, item = li.split()
+            channel = get_channel(item)
             if channel not in d:
                 d[channel] = [[item,count]]
             else:
