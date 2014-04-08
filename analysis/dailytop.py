@@ -29,7 +29,7 @@ class DailyTop:
     @timed
     def _a(self):
         sql = """select count(distinct sn), item
-                 from daily_logs where parsets = "%s"
+                 from daily_logs where parsets = "%s" and item >= 0
                  group by item
               """ % self.day_str
         res = DailyTop.hiveinterface.execute(sql)
