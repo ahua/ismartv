@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
+import sys
+import datetime
+
+from decorators import timed
+from HiveInterface import HiveInterface
+
+HIVEHOST = "hadoopsnn411"
+ONE_DAY = datetime.timedelta(days=1)
+
+hiveinterface = HiveInterface(HIVEHOST)    
+hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
+
+def get_top(day_str):
+    sql = """select count(*), item
+                 from daily_logs where parsets >= "%s" and item >= 0
+                 and event = "video_start"
+                 group by item
+              """ % day_str
+    res = hiveinterface.execute(sql)
+    if not res:
+        res = []
+    d = {}
+    for li in res:
+        count, item = li.split()
+        if item == "-1":
+            continue
+        channel = get_channel(item)
+        if channel not in d:
+            d[channel] = [[item,count]]
+        else:
+            d[channel].append([item,count])
+
+    allcat = []
+    for channel in d:
+        d[channel] = sorted(d[channel], key=lambda t: int(t[1]), reverse=True)[0:1000]
+        allcat += d[channel]
+    allcat = sorted(allcat, key=lambda t: int(t[1]), reverse=True)[0:1000]
+    
+    idx = 0
+    for item, count in allcat:
+        idx += 1
+        title = get_title(item)
+        with open("/var/tmp/%s.csv" % "allcat" , "w") as fp:
+            fp.write("%s,%s,%s\n"%(idx, item, title))
+    
+    for channel in d:
+        idx = 0
+        for item, count in d[channel]:
+            idx += 1
+            title = get_title(item)
+            with open("/var/tmp/%s.csv" % channel , "w") as fp:
+                fp.write("%s,%s,%s\n"%(idx, item, title))
+            if idx >= 100:
+                break
+    
+    
+
+TITLES = {}
+def get_title(item):
+    global TITLES
+    if not TITLES:
+        with open("./files/itemtitle.csv") as fp:
+            for li in fp:
+                try:
+                    item, title = li.rstrip().split(",")
+                    TITLES[item] = title
+                except:
+                    pass
+    return TITLES.get(item, "-")
+
+CHANNELS = {}
+def get_channel(item):
+    global CHANNELS
+    if not CHANNELS:
+        with open("./files/itemchannel.csv") as fp:
+            for li in fp:
+                try:
+                    item, channel = li.rstrip().split(",")
+                    CHANNELS[item] = channel
+                except:
+                    pass
+    return CHANNELS.get(item, "-")
+
+def main():
+    if len(sys.argv) == 1:
+        daylist = [datetime.datetime.now() - datetime.timedelta(days=1)]
+    elif len(sys.argv) == 2:
+        daylist = [datetime.datetime.strptime(sys.argv[1], "%Y%m%d")]
+    else:
+        startday = datetime.datetime.strptime(sys.argv[1], "%Y%m%d")
+        endday = datetime.datetime.strptime(sys.argv[2], "%Y%m%d")
+        daylist = []
+        while startday <= endday:
+            daylist.append(startday)
+            startday = startday + ONE_DAY
+    
+    for day in daylist:
+        task = DailyTop(day)
+        task.execute()
+
+if __name__ == "__main__":
+    main()
+
