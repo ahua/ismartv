@@ -28,6 +28,9 @@ def get_top(day_str):
         if item == "-1":
             continue
         channel = get_channel(item)
+        if channel == "-":
+            continue
+        
         if channel not in d:
             d[channel] = [[item,count]]
         else:
@@ -39,24 +42,31 @@ def get_top(day_str):
         allcat += d[channel]
     allcat = sorted(allcat, key=lambda t: int(t[1]), reverse=True)[0:1000]
     
-    idx = 0
-    for item, count in allcat:
-        idx += 1
-        title = get_title(item)
-        with open("/var/tmp/%s.csv" % "allcat" , "w") as fp:
+    with open("/var/tmp/%s.csv" % "allcat" , "w") as fp:
+        idx = 0
+        for item, count in allcat:
+            idx += 1
+            title = get_description_picture(item)
             fp.write("%s,%s,%s\n"%(idx, item, title))
     
     for channel in d:
-        idx = 0
-        for item, count in d[channel]:
-            idx += 1
-            title = get_title(item)
-            with open("/var/tmp/%s.csv" % channel , "w") as fp:
+        if channel == "-": continue
+        
+        with open("/var/tmp/%s.csv" % channel , "w") as fp:
+            idx = 0
+            for item, count in d[channel]:
+                idx += 1
+                title = get_description_picture(item)
                 fp.write("%s,%s,%s\n"%(idx, item, title))
-            if idx >= 100:
-                break
-    
-    
+                if idx >= 100:
+                    break
+import urllib2
+import json
+def get_description_picture(item):
+    url = "http://cord.tvxio.com/api/item/%s/" % item
+    s = urllib2.urlopen(url).read()
+    j = json.loads(s)
+    return j["title"].encode("utf8")
 
 TITLES = {}
 def get_title(item):
@@ -85,21 +95,8 @@ def get_channel(item):
     return CHANNELS.get(item, "-")
 
 def main():
-    if len(sys.argv) == 1:
-        daylist = [datetime.datetime.now() - datetime.timedelta(days=1)]
-    elif len(sys.argv) == 2:
-        daylist = [datetime.datetime.strptime(sys.argv[1], "%Y%m%d")]
-    else:
-        startday = datetime.datetime.strptime(sys.argv[1], "%Y%m%d")
-        endday = datetime.datetime.strptime(sys.argv[2], "%Y%m%d")
-        daylist = []
-        while startday <= endday:
-            daylist.append(startday)
-            startday = startday + ONE_DAY
-    
-    for day in daylist:
-        task = DailyTop(day)
-        task.execute()
+    day = datetime.datetime.now() - datetime.timedelta(days=6)
+    get_top(day.strftime("%Y%m%d"))
 
 if __name__ == "__main__":
     main()
