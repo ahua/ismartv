@@ -68,7 +68,8 @@ def init_sn_cache(day):
 
 def get_pos(sn):
     if sn in SN_CACHE:
-        return SN_CACHE[sn]
+        if SN_CACHE[sn][0] != u"北京":
+            return SN_CACHE[sn]
     ip = get_ip(sn)
     if ip:
 	#{u'ip_satrt': u'36.56.0.0', 
