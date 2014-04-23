@@ -524,7 +524,7 @@ def get_daily_top(date, channel):
 
 def get_year_kpi():
     res = {"load_per_active": 0,
-           "dr_per_sn_day", 0
+           "dr_per_sn_day": 0
            }
     client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
     colkeys = ["a:c", "a:d", "a:f"] #'活跃用户', 'VOD用户', 'VOD播放总时长'
@@ -534,6 +534,7 @@ def get_year_kpi():
     dr_per_sn_day_list = []
     while startday <= endday:
         date = startday.strftime("%Y%m%d")
+        startday += datetime.timedelta(days=1)
         rowlist = client.read_all(date, colkeys)
         active_user = 0
         vod_user = 0
@@ -545,8 +546,8 @@ def get_year_kpi():
         load_per_active_list.append(vod_user/active_user * 100 if active_user != 0 else 0)
         dr_per_sn_day_list.append(vod_play_time/(vod_user*60) if vod_user != 0 else 0)
     
-    res["load_per_active"] = round(load_per_active_list / len(load_per_active_list), 2)
-    res["dr_per_sn_day"] = round(dr_per_sn_day_list / len(dr_per_sn_day_list), 2)
+    res["load_per_active"] = round(math.fsum(load_per_active_list) / len(load_per_active_list), 2)
+    res["dr_per_sn_day"] = round(math.fsum(dr_per_sn_day_list) / len(dr_per_sn_day_list), 2)
     return res
 
 
