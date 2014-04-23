@@ -3,6 +3,8 @@
 import sys
 import math 
 import datetime
+import urllib2
+import json
 
 from thrift import Thrift
 from thrift.transport import TSocket
@@ -60,7 +62,7 @@ def get_device_list(devices):
     if devices == "ALL":
         return ['A11', 'A21',
                 'DS70A',
-                'E31',
+                'E31', 'E62', 'UD10A', '960A', 'LX960A',
                 'K72', 'K82','K91',
                 'S31', 'S51', 'S61', 
                 'LX750A', 'LX755A', 'LX850A']
@@ -68,9 +70,8 @@ def get_device_list(devices):
     return [i.upper() for i in devices]
 
 def get_channel_list(channels):
-    if channels == "ALL":
-        return ['child', 'chnfilm', 'entertain', 'life',
-                'music', 'ovsfilm', 'sports', 'teleplay']
+    if channels == "ALL" or channels == 'all':
+        return ['music', 'variety', 'documentary', 'overseas', 'sport', 'comic', 'teleplay', 'chinesemovie']
     return [i.lower() for i in channels]
 
 def format_res(res):
@@ -173,8 +174,8 @@ def get_weekly_data(date, devices='ALL'):
          "sn_vod_load": sn_vod_load,      # 周VOD用户数
          "week_sn_play_count": week_sn_play_count, # 周VOD播放次数(播放量)
          "load_per_active": load_per_active,   # 周激活率(VOD)
-         "sn_active_per_day": week_sn_active/7,    # 日均活跃用户数
-         "sn_vod_load_per_day": week_sn_vod_load/7,  # 日均vod用户数
+         "sn_active_per_day": int(week_sn_active/7),    # 日均活跃用户数
+         "sn_vod_load_per_day": int(week_sn_vod_load/7),  # 日均vod用户数
          "play_count_per_day": week_sn_play_count/7,  # 日均播放量
          "dr_per_sn_day": week_dr/(week_sn_vod_load) \
              if week_sn_vod_load > 0 else 0,  # 日均户均时长(分钟)
@@ -238,14 +239,14 @@ def get_monthly_data(date, devices='ALL'):
          "sn_vod_load": sn_vod_load,      # 月VOD用户数
          "month_sn_play_count": month_sn_play_count, # 月播放量
          "load_per_active": load_per_active,   # 月激活率(VOD)
-         "sn_active_per_day": month_sn_active/7,    # 日均活跃用户数
-         "sn_vod_load_per_day": month_sn_vod_load/7,  # 日均vod用户数
+         "sn_active_per_day": int(month_sn_active/30),    # 日均活跃用户数
+         "sn_vod_load_per_day": int(month_sn_vod_load/30),  # 日均vod用户数
          "sn_play_count_per_day": month_sn_play_count/30, # 日均播放量
-         "dr_per_sn_day": month_dr/(month_sn_vod_load*7*60) \
+         "dr_per_sn_day": month_dr/(month_sn_vod_load) \
              if month_sn_vod_load > 0 else 0,  # 日均户均时长(分钟
          "play_count_per_sn": month_sn_play_count/month_sn_vod_load \
              if month_sn_vod_load > 0 else 0 ,         # 日均VOD户均访次
-         "load_per_active_day": month_sn_vod_load/(7*month_sn_active)*100\
+         "load_per_active_day": month_sn_vod_load/month_sn_active*100\
              if month_sn_active > 0 else 0,   # 日均VOD激活率
          "sn_vod_play_count_per_day": month_sn_play_count/30, # 日均VOD访问次数
          "active_per_total_day": month_sn_active/month_sn_total* 100 \
@@ -255,6 +256,64 @@ def get_monthly_data(date, devices='ALL'):
          "block_2_per_total":block_2 / month_sn_play_count * 100\
              if month_sn_play_count > 0 else 0  # 每次播放卡顿2次内占比 
          }
+    format_res(t)
+    return t
+
+
+def sum_device_cdn_data(d, colprefix, device_list, cdn_list):
+    s = 0
+    for dev in device_list:
+        for cdn in cdn_list:
+            col = colprefix + ":" + cdn
+            try:
+                s += d[dev][col]
+            except:
+                pass
+    return s
+
+
+def get_daily_cdn(date, cdn='all', devices='all'):
+    device_list = []
+    if devices == 'ALL' or devices == 'all':
+        device_list = ["A21", "E", "K", "LX", "S"]
+    else:
+        device_list = [i.upper() for i in devices]
+    cdn_list = []
+    if cdn == "ALL" or cdn == 'all':
+        cdn_list = ["1", "2", "3", "5"]
+    else:
+        cdn_list = [i for i in cdn]
+    client = HbaseInterface(HBASE_ADDR, "9090", "cdn_quality")    
+    colkeys = ["bl3:1",  "bl3:2",  "bl3:3",  "bl3:5",
+               "lcvv:1", "lcvv:2", "lcvv:3", "lcvv:5",
+               "uv:1",   "uv:2",   "uv:3",   "uv:5",
+               "vv:1",   "vv:2",   "vv:3",   "vv:5",
+               "vv0:1",  "vv0:2",  "vv0:3",  "vv0:5",
+               "ycvv:1", "ycvv:2", "ycvv:3", "ycvv:5"]
+    rowlist = client.read_all(date, colkeys)
+
+    d = {}
+    for r in rowlist:
+        dev = r.row[8:]
+        d[dev] = {}
+        for colkey in colkeys:
+            d[dev][colkey] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+    bl3 = sum_device_cdn_data(d, "bl3", device_list, cdn_list)
+    lcvv = sum_device_cdn_data(d, "lcvv", device_list, cdn_list)
+    uv = sum_device_cdn_data(d, "uv", device_list, cdn_list)
+    vv = sum_device_cdn_data(d, "vv", device_list, cdn_list)
+    vv0 = sum_device_cdn_data(d, "vv0", device_list, cdn_list)
+    ycvv = sum_device_cdn_data(d, "ycvv", device_list, cdn_list)
+
+    t =  {"time": date,
+          "uv": uv,
+          "vv": vv,
+          "vv0": vv0/vv * 100 if vv > 0 else 0, #零缓冲率
+          "lcvv": lcvv/vv * 100 if vv > 0 else 0, #流畅率
+          "ycvv": ycvv/vv * 100 if vv > 0 else 0, # 异常率
+          "bl3": bl3/vv * 100 if vv > 0 else 0  # 三次以上卡顿率
+          }
     format_res(t)
     return t
 
@@ -351,7 +410,7 @@ def get_weekly_channel(date, channels='ALL', devices='ALL'):
          "sn_vod_load": sn_vod_load,      # 周VOD用户数
          "sn_play_count": sn_play_count, # 周VOD播放次数(播放量)
          "load_per_channel": load_per_channel,   # 周频道激活率(VOD)
-         "sn_vod_load_per_day": sn_vod_load/7,  # 日均vod用户数
+         "sn_vod_load_per_day": int(sn_vod_load/7),  # 日均vod用户数
          "play_count_per_day": sn_play_count/7,  # 日均播放量
 
          "dr_per_sn_day":  week_dr_per_sn/7,  # 日均户均时长(分钟)
@@ -406,19 +465,34 @@ def get_monthly_channel(date, channels='ALL', devices='ALL'):
     load_per_channel = sn_vod_load / sn_vod_load_total * 100 if sn_vod_load_total > 0 else 0    
 
     t = {"time": someday.strftime("%Y%m%d"),
-         "sn_vod_load": sn_vod_load,      # 周VOD用户数
-         "sn_play_count": sn_play_count, # 周VOD播放次数(播放量)
-         "load_per_channel": load_per_channel,   # 周频道激活率(VOD)
-         "sn_vod_load_per_day": sn_vod_load/7,  # 日均vod用户数
-         "play_count_per_day": sn_play_count/7,  # 日均播放量
+         "sn_vod_load": sn_vod_load,      # 月VOD用户数
+         "sn_play_count": sn_play_count, # 月VOD播放次数(播放量)
+         "load_per_channel": load_per_channel,   # 月频道激活率(VOD)
+         "sn_vod_load_per_day": int(sn_vod_load/30),  # 日均vod用户数
+         "play_count_per_day": sn_play_count/30,  # 日均播放量
 
-         "dr_per_sn_day":  month_dr_per_sn/7,  # 日均户均时长(分钟)
-         "play_count_per_sn": month_play_count_per_sn/7,  # 日均VOD户均访次
-         "load_per_active_day": month_load_per_channel/7,   # 日均频道VOD激活率
+         "dr_per_sn_day":  month_dr_per_sn/30,  # 日均户均时长(分钟)
+         "play_count_per_sn": month_play_count_per_sn/30,  # 日均VOD户均访次
+         "load_per_active_day": month_load_per_channel/30,   # 日均频道VOD激活率
          }
 
     format_res(t)
     return t    
+
+ITEM_INFO_CACHE = {}
+def get_description_picture(item):
+    global ITEM_INFO_CACHE
+    try:
+        if item in ITEM_INFO_CACHE:
+            return ITEM_INFO_CACHE[item]
+        url = "http://cord.tvxio.com/api/item/%s/" % item
+        s = urllib2.urlopen(url).read()
+        j = json.loads(s)
+        ITEM_INFO_CACHE[item] = (j["description"], j["adlet_url"], j["title"])
+        return j["description"], j["adlet_url"], j["title"]
+    except:
+        return "", "", ""
+
 
 def get_daily_top(date, channel):
     channel_list = get_channel_list(channel)
@@ -438,11 +512,78 @@ def get_daily_top(date, channel):
     d = d[0:10]
     res = []
     for i in d:
-        res.append({"title": i[1],
-                    "count": i[2],
-                    "up": i[3]})
+        description, picture, title = get_description_picture(i[4])
+        res.append({
+                "title": title if title else i[1],
+                "count": i[2],
+                "up": i[3],
+                "item": i[4],
+                "description": description,
+                "picture_link": picture})
     return res
 
+def get_year_kpi():
+    res = {"load_per_active": 0,
+           "dr_per_sn_day", 0
+           }
+    client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
+    colkeys = ["a:c", "a:d", "a:f"] #'活跃用户', 'VOD用户', 'VOD播放总时长'
+    startday = datetime.datetime(2014, 4, 1)
+    endday = datetime.datetime.now() - datetime.timedelta(days=1)
+    load_per_active_list = []
+    dr_per_sn_day_list = []
+    while startday <= endday:
+        date = startday.strftime("%Y%m%d")
+        rowlist = client.read_all(date, colkeys)
+        active_user = 0
+        vod_user = 0
+        vod_play_time = 0
+        for r in rowlist:
+            active_user += float(r.columns["a:c"].value) if "a:c" in r.columns else 0
+            vod_user += float(r.columns["a:d"].value) if "a:d" in r.columns else 0
+            vod_play_time += float(r.columns["a:f"].value) if "a:f" in r.columns else 0
+        load_per_active_list.append(vod_user/active_user * 100 if active_user != 0 else 0)
+        dr_per_sn_day_list.append(vod_play_time/(vod_user*60) if vod_user != 0 else 0)
+    
+    res["load_per_active"] = round(load_per_active_list / len(load_per_active_list), 2)
+    res["dr_per_sn_day"] = round(dr_per_sn_day_list / len(dr_per_sn_day_list), 2)
+    return res
+
+
+import MySQLdb
+LAUNCH_DB = MySQLdb.connect("10.0.1.13", "pink", "ismartv", "pink2")
+LAUNCH_DB.set_character_set('utf8')
+LAUNCH_CUR = LAUNCH_DB.cursor()
+
+def get_launcher_click(starttime, endtime):
+    global LAUNCH_DB, LAUNCH_CUR
+    sql = '''select count(*) as click_count, count(distinct(a.sn)) as click_sn, 
+                    c.type,
+                    a.pk,
+                    b.title
+             from launcher_vod_click as a, 
+                  launcher_vod_click_pk as b,
+                  launcher_vod_click_type as c
+             where a.type = c.id and a.pk = b.pk
+                   and a.time >= '%s' and a.time <= '%s'
+             group by a.type, a.pk;
+          ''' % (starttime, endtime)
+    print sql
+    LAUNCH_CUR.execute(sql)
+    objs = LAUNCH_CUR.fetchall()
+    res = []
+    for o in objs:
+        picture_link = ""
+        if o[2] != "section":
+            _, picture_link, _ = get_description_picture(o[3])
+        res.append({"click_count": o[0],
+                    "click_sn": o[1],
+                    "type": o[2],
+                    "pk": o[3],
+                    "title": o[4],
+                    "picture_link": picture_link}
+                   )
+    return res
 
 if __name__ == "__main__":
     date = "20140102"
@@ -453,25 +594,5 @@ if __name__ == "__main__":
     #print get_daily_channel("20140322")
     #print get_weekly_channel("20140328")
     #print get_monthly_channel("201403")
-    
-    channels =  ['child', 'chnfilm', 'entertain', 'life',
-                 'music', 'ovsfilm', 'sports', 'teleplay', 'ALL']
-    print get_daily_top("20140327", channels[0:1])
-    print "*" * 20
-    print get_daily_top("20140327", channels[1:2])
-    print "*" * 20
-    print get_daily_top("20140327", channels[2:3])
-    print "*" * 20
-    print get_daily_top("20140327", channels[3:4])
-    print "*" * 20
-    print get_daily_top("20140327", channels[4:5])
-    print "*" * 20
-    print get_daily_top("20140327", channels[5:6])
-    print "*" * 20
-    print get_daily_top("20140327", channels[6:7])
-    print "*" * 20
-    print get_daily_top("20140327", channels[7:8])
-    print "*" * 20
-    print get_daily_top("20140327", channels[8])
-    print "*" * 20
 
+    print get_daily_cdn("20140408")
