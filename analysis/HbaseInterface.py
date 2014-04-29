@@ -47,7 +47,7 @@ class HbaseInterface:
     
     def read_all(self, prefix, columns):
         scannerId = self.client.scannerOpenWithPrefix(self.tableName, prefix, columns, None)
-        rowlist = self.client.scannerGetList(scannerId, 100000)
+        rowlist = self.client.scannerGetList(scannerId, 1000000)
         self.client.scannerClose(scannerId)
         return rowlist
 
