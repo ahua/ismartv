@@ -81,6 +81,47 @@ def format_res(res):
 
 HBASE_ADDR = "10.0.4.10"
 
+
+def get_weekly_sum_data(docs, start, end):
+    res = {"sn_new": 0,
+           "sn_active": 0,
+           "sn_vod_load": 0,
+           "sn_play_count": 0,
+           "dr_per_sn": 0,
+           "play_count_per_sn": 0,
+           "load_per_active": 0,
+           "active_per_total": 0,
+           }
+    i = start
+    while i <= end:
+        for k in res:
+            res[k] += docs[i][k]
+        i = i + 1
+    return res
+
+def get_daily_prediction_data(docs):
+    periods = []
+    up = len(docs) - 1
+    i = 0
+    while i <= up and datetime.datetime.strptime(docs[i]["time"], "%Y%m%d").strftime("%w") == '0':
+        i = i + 1
+    periods.append([0, i-1])
+    while i < up:
+        if i + 6 <= up:
+            periods.append([i, i+6])
+        i += 6
+
+    week1 = get_weekly_sum_data(docs, periods[1][0], periods[1][1])
+    week2 = get_weekly_sum_data(docs, periods[2][0], periods[2][1])
+
+    t = {}
+    for k in week1:
+        t[k] = week1[k]/week2[k] * docs[6][k]
+    t["time"] = datetime.datetime.now().strftime("%Y%m%d")
+    t["sn_total"] = docs[0]["sn_total"] + t["sn_new"]
+    format_res(t)
+    return t
+
 def get_daily_data(date, devices='ALL'):
     device_list = get_device_list(devices)
 
@@ -270,6 +311,81 @@ def sum_device_cdn_data(d, colprefix, device_list, cdn_list):
             except:
                 pass
     return s
+
+
+def get_month_cdn(date, cdn='all', devices='all',target='all',line_type='all'):
+    device_list = []
+    if devices == 'ALL' or devices == 'all':
+        devices='ALL'
+        device_list = get_device_list(devices)
+    else:
+        device_list = [i.upper() for i in devices]
+
+    cdn_list = []
+    if cdn == "ALL" or cdn == 'all':
+        cdn_list = ["1", "2", "3", "5","8"]
+    else:
+        cdn_list = [i for i in cdn]
+
+    target_list = []
+    if target == "ALL" or target == 'all':
+        target_list = ["avg_loads","vv0", "yc_lv"]
+    else:
+        target_list = [i for i in target]
+
+
+    type_list = []
+    if line_type == "ALL" or line_type == 'all':
+        type_list = ["day", "high", "low"]
+    else:
+        type_list = [i for i in line_type]
+
+    client = HbaseInterface(HBASE_ADDR, "9090", "month_cdn_quality")    
+
+    query_col = ["avg_loads","count_loads","vv","vv0","yc"]
+
+    colkeys = []
+    for col in query_col:
+        for cdn in  cdn_list:
+            colkey = col  + ":" + cdn
+            colkeys.append(colkey)
+    rowlist = client.read_all(date, colkeys)
+
+    #print date,colkeys,rowlist
+    d = {}
+    for r in rowlist:
+        rws = r.row.split(";")
+        dev = rws[1]
+        type = rws[2]
+
+        if d.has_key(type):
+           if not  d[type].has_key(dev):
+              d[type][dev]={}
+        else:
+            d[type] = {}
+            d[type][dev]={}
+
+        for colkey in colkeys:
+            d[type][dev][colkey] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+    t = {}
+    t['time'] = date
+    #print type_list
+    #print d
+    for type in type_list :
+        type_tag = {} 
+        for col in  query_col:   
+            type_tag[col] = sum_device_cdn_data(d[type], col, device_list, cdn_list)
+
+        t[type] = {
+                   "vv0": type_tag['vv0']/type_tag['vv'] * 100 if type_tag['vv'] > 0 else 0, #零缓冲率
+                   "yc_lv": type_tag['yc']/type_tag['vv']*100 if type_tag['vv'] > 0 else 0, # 异常率
+                   "avg_loads": type_tag['avg_loads']/type_tag['count_loads']   #平均缓冲时长
+          }
+        format_res(t[type])
+    #print t
+    return t
+
 
 
 def get_daily_cdn(date, cdn='all', devices='all'):
@@ -543,8 +659,11 @@ def get_year_kpi():
             active_user += float(r.columns["a:c"].value) if "a:c" in r.columns else 0
             vod_user += float(r.columns["a:d"].value) if "a:d" in r.columns else 0
             vod_play_time += float(r.columns["a:f"].value) if "a:f" in r.columns else 0
-        load_per_active_list.append(vod_user/active_user * 100 if active_user != 0 else 0)
-        dr_per_sn_day_list.append(vod_play_time/(vod_user*60) if vod_user != 0 else 0)
+        t1 = vod_user/active_user * 100 if active_user != 0 else 0
+        t2 = vod_play_time/(vod_user*60) if vod_user != 0 else 0
+        if t1 != 0 or t2 != 0:
+            load_per_active_list.append(t1)
+            dr_per_sn_day_list.append(t2)
     
     res["load_per_active"] = round(math.fsum(load_per_active_list) / len(load_per_active_list), 2)
     res["dr_per_sn_day"] = round(math.fsum(dr_per_sn_day_list) / len(dr_per_sn_day_list), 2)
