@@ -120,6 +120,11 @@ def get_daily_prediction_data(docs):
     t["time"] = datetime.datetime.now().strftime("%Y%m%d")
     t["sn_total"] = docs[0]["sn_total"] + t["sn_new"]
     format_res(t)
+    t["sn_total"] = int(t["sn_total"])
+    t["sn_new"] = int(t["sn_new"])
+    t["sn_active"] = int(t["sn_active"])
+    t["sn_vod_load"] = int(t["sn_vod_load"])
+    t["sn_play_count"] = int(t["sn_play_count"])
     return t
 
 def get_daily_data(date, devices='ALL'):
@@ -671,9 +676,9 @@ def get_year_kpi():
 
 
 import MySQLdb
-LAUNCH_DB = MySQLdb.connect("10.0.1.13", "pink", "ismartv", "pink2")
-LAUNCH_DB.set_character_set('utf8')
-LAUNCH_CUR = LAUNCH_DB.cursor()
+#LAUNCH_DB = MySQLdb.connect("10.0.1.13", "pink", "ismartv", "pink2")
+#LAUNCH_DB.set_character_set('utf8')
+#LAUNCH_CUR = LAUNCH_DB.cursor()
 
 def get_launcher_click(starttime, endtime):
     global LAUNCH_DB, LAUNCH_CUR
