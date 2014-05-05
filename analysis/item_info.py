@@ -89,7 +89,8 @@ def save_to_file():
 
     shutil.copyfile('./files/itemchannel1.csv', './files/itemchannel.csv')
     shutil.copyfile('./files/itemtitle1.csv', './files/itemtitle.csv')
-
+    cp_to_112()
+    
 def get_channel(item):
     item_dict = {}
     with open("./files/channel_description.csv") as fp:
@@ -97,6 +98,11 @@ def get_channel(item):
             k, v = li.rstrip().split(",")
             item_dict[k] = v
     return item_dict.get(item, None)
+
+def cp_to_112():
+    import os
+    os.system("scp -P 36022 itemchannel.csv deploy@10.0.1.12:/var/tmp/channel")
+
 
 if __name__ == "__main__":
     API = "http://cord.tvxio.com/api/tv/channels/"
