@@ -101,7 +101,7 @@ def get_channel(item):
 
 def cp_to_112():
     import os
-    os.system("scp -P 36022 itemchannel.csv deploy@10.0.1.12:/var/tmp/channel")
+    os.system("scp -P 36022 ./files/itemchannel.csv deploy@10.0.1.12:/var/tmp/channel")
 
 
 if __name__ == "__main__":
