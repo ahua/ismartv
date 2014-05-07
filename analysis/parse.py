@@ -17,7 +17,8 @@ EVENT_LIB = set(('system_off',
  'app_start',
  'system_on',
  'app_exit',
- 'video_except'))
+ 'video_except',
+ "video_search"))
 
 def is_right(event):
     if event in EVENT_LIB:
@@ -75,6 +76,8 @@ def process(filename, output_dir):
             mediaip = r.get("mediaip", "-")
             if r["event"] == "video_except":
                 mediaip = r.get("content", "-").encode("utf8")
+            elif r["event"] == "video_search":
+                mediaip = r.get("q", "-").encode("utf8")
             cdn = r.get("_cdn", "-").encode("utf8")
             isplus = r.get("_plus", 5)
             channel = get_channel(item)
