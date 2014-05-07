@@ -21,7 +21,7 @@ def exists_in_hbase(sn):
 def save_to_hbase(sn, day_str, size):
     key = "sn_%s" % (sn)
     key1 = "%s_%s" % (day_str, sn)
-    d = {"a:size": province}
+    d = {"a:size": size}
     sntable.write(key, d)
     sntable.write(key1, d)
 
@@ -80,7 +80,7 @@ def process(day):
         size = get_size(sn)
         if size:
             save_to_hbase(sn, day_str, size)
-        print sn, model, size        
+        print sn, size        
 
 ONE_DAY = datetime.timedelta(days=1)
 
