@@ -24,7 +24,7 @@ def process(day):
     sql = ""
 
 def calc_prectent():
-    rowlist = sn_table.read_all(day_str, ["a:device", "a:size"])
+    rowlist = sn_table.read_all("sn_", ["a:device", "a:size"])
     sn_list = []
     for r in rowlist:
         day_sn = r.row
