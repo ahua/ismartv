@@ -128,8 +128,27 @@ def get_daily_prediction_data(docs):
     t["sn_play_count"] = int(t["sn_play_count"])
     return t
 
-def get_search_word():
-    date = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y%m%d")
+
+def get_sn_info():
+    client = HbaseInterface(HBASE_ADDR, "9090", "device_size_count")    
+    colkeys = ["a:size", "a:count"]
+    rowlist = client.read_all(date, colkeys)
+    devices_list = get_device_list('ALL')
+    d = []
+    for r in rowlist:
+        t = {}
+        device = r.row[7:-3]
+        if device in devices:
+            t["device"] = device
+            for k in colkeys:
+                t[k[2:]] = r.columns[k].value
+            d.append(t)
+    return d
+    
+
+def get_search_word(date=None):
+    if not date:
+        date = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y%m%d")
     client = HbaseInterface(HBASE_ADDR, "9090", "daily_search")    
     colkeys = ["a:c", "a:q"]
     rowlist = client.read_all(date, colkeys)
