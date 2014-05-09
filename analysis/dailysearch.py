@@ -57,7 +57,7 @@ def main():
             startday = startday + ONE_DAY
     
     for day in daylist:
-        task = DailyTask(day)
+        task = DailySearch(day)
         task.execute()
 
 if __name__ == "__main__":
