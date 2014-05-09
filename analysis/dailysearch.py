@@ -34,9 +34,11 @@ class DailySearch:
         cmd = """hive -e "select mediaip from daily_logs where parsets = '%s' and event = 'video_search' and length(mediaip) > 1;" > /tmp/t 2>/dev/null
               """ % self.day_str
         os.system(cmd)
-        cmd = """cat /tmp/t | sort | uniq -c  | sort -n -r | head -n 30"""
-        f = os.popen(cmd)
+        cmd = """cat /tmp/t | sort | uniq -c  | sort -n -r | head -n 30 > /tmp/s"""
+        os.system(cmd)
+        f = open("/tmp/s")
         lines = f.readlines()
+        f.close()
         i = 0
         for li in lines:
             items = li.strip().rstrip().split()
