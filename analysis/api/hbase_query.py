@@ -113,10 +113,11 @@ def get_daily_prediction_data(docs):
 
     week1 = get_weekly_sum_data(docs, periods[1][0], periods[1][1])
     week2 = get_weekly_sum_data(docs, periods[2][0], periods[2][1])
+    week3 = get_weekly_sum_data(docs, periods[3][0], periods[3][1])
 
     t = {}
     for k in week1:
-        t[k] = week1[k]/week2[k] * docs[6][k]
+        t[k] = (week1[k]/week2[k] + week2[k]/week3[k]) * (docs[6][k] + docs[13][k] + docs[20][k]) / 6.0
     t["time"] = datetime.datetime.now().strftime("%Y%m%d")
     t["sn_total"] = docs[0]["sn_total"] + t["sn_new"]
     format_res(t)
@@ -126,6 +127,20 @@ def get_daily_prediction_data(docs):
     t["sn_vod_load"] = int(t["sn_vod_load"])
     t["sn_play_count"] = int(t["sn_play_count"])
     return t
+
+def get_search_word():
+    date = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y%m%d")
+    client = HbaseInterface(HBASE_ADDR, "9090", "daily_search")    
+    colkeys = ["a:c", "a:q"]
+    rowlist = client.read_all(date, colkeys)
+    d = []
+    for r in rowlist:
+        t = {}
+        for k in colkeys:
+            t[k[-1]] = r.columns[k].value
+        d.append(t)
+    return d
+
 
 def get_daily_data(date, devices='ALL'):
     device_list = get_device_list(devices)
@@ -385,7 +400,7 @@ def get_month_cdn(date, cdn='all', devices='all',target='all',line_type='all'):
         t[type] = {
                    "vv0": type_tag['vv0']/type_tag['vv'] * 100 if type_tag['vv'] > 0 else 0, #零缓冲率
                    "yc_lv": type_tag['yc']/type_tag['vv']*100 if type_tag['vv'] > 0 else 0, # 异常率
-                   "avg_loads": type_tag['avg_loads']/type_tag['count_loads']   #平均缓冲时长
+                   "avg_loads": type_tag['avg_loads']/type_tag['count_loads']  if type_tag['count_loads'] >0 else 0,  #平均缓冲时长
           }
         format_res(t[type])
     #print t
@@ -396,21 +411,26 @@ def get_month_cdn(date, cdn='all', devices='all',target='all',line_type='all'):
 def get_daily_cdn(date, cdn='all', devices='all'):
     device_list = []
     if devices == 'ALL' or devices == 'all':
-        device_list = ["A21", "E", "K", "LX", "S"]
+        #device_list = ["A21", "E", "K", "LX", "S"]
+        device_list = get_device_list(devices)
     else:
         device_list = [i.upper() for i in devices]
     cdn_list = []
     if cdn == "ALL" or cdn == 'all':
-        cdn_list = ["1", "2", "3", "5"]
+        cdn_list = ["1", "2", "3", "5","8"]
     else:
         cdn_list = [i for i in cdn]
     client = HbaseInterface(HBASE_ADDR, "9090", "cdn_quality")    
-    colkeys = ["bl3:1",  "bl3:2",  "bl3:3",  "bl3:5",
-               "lcvv:1", "lcvv:2", "lcvv:3", "lcvv:5",
-               "uv:1",   "uv:2",   "uv:3",   "uv:5",
-               "vv:1",   "vv:2",   "vv:3",   "vv:5",
-               "vv0:1",  "vv0:2",  "vv0:3",  "vv0:5",
-               "ycvv:1", "ycvv:2", "ycvv:3", "ycvv:5"]
+    colkeys = ["bl3:1",  "bl3:2",  "bl3:3",  "bl3:5","bl3:8",
+            "lcvv:1", "lcvv:2", "lcvv:3", "lcvv:5","lcvv:8",
+            "uv:1",   "uv:2",   "uv:3",   "uv:5","uv:8",
+            "vv:1",   "vv:2",   "vv:3",   "vv:5","vv:8",
+            "vv0:1",  "vv0:2",  "vv0:3",  "vv0:5","vv0:8",
+            "total_pltms:1",  "total_pltms:2",  "total_pltms:3",  "total_pltms:5","total_pltms:8",
+            "total_bltms:1",  "total_bltms:2",  "total_bltms:3",  "total_bltms:5","total_bltms:8",
+            "sumloads:1",  "sumloads:2",  "sumloads:3",  "sumloads:5","sumloads:8",
+            "countloads:1",  "countloads:2",  "countloads:3",  "countloads:5","countloads:8",
+            "ycvv:1", "ycvv:2", "ycvv:3", "ycvv:5","ycvv:8"]
     rowlist = client.read_all(date, colkeys)
 
     d = {}
@@ -426,6 +446,10 @@ def get_daily_cdn(date, cdn='all', devices='all'):
     vv = sum_device_cdn_data(d, "vv", device_list, cdn_list)
     vv0 = sum_device_cdn_data(d, "vv0", device_list, cdn_list)
     ycvv = sum_device_cdn_data(d, "ycvv", device_list, cdn_list)
+    total_pltms = sum_device_cdn_data(d, "total_pltms", device_list, cdn_list)
+    total_bltms = sum_device_cdn_data(d, "total_bltms", device_list, cdn_list)
+    sumloads = sum_device_cdn_data(d, "sumloads", device_list, cdn_list)
+    countloads = sum_device_cdn_data(d, "countloads", device_list, cdn_list)
 
     t =  {"time": date,
           "uv": uv,
@@ -433,7 +457,9 @@ def get_daily_cdn(date, cdn='all', devices='all'):
           "vv0": vv0/vv * 100 if vv > 0 else 0, #零缓冲率
           "lcvv": lcvv/vv * 100 if vv > 0 else 0, #流畅率
           "ycvv": ycvv/vv * 100 if vv > 0 else 0, # 异常率
-          "bl3": bl3/vv * 100 if vv > 0 else 0  # 三次以上卡顿率
+          "bl3": bl3/vv * 100 if vv > 0 else 0 , # 三次以上卡顿率
+          "blpl": total_bltms/total_pltms * 100 if total_pltms > 0 else 0 , # 卡播比
+          "avgloads": sumloads/countloads  if countloads > 0 else 0  # 平均缓冲时长
           }
     format_res(t)
     return t
