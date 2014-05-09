@@ -43,7 +43,7 @@ class DailySearch:
             c = items[0]
             q = " ".join(items[1:])
             i = i + 1
-            self.save_to_hbase(self.daylist, i, c, q)
+            self.save_to_hbase(self.day_str, i, c, q)
 
     def execute(self):
         self._calc()
