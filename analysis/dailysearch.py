@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import subprocess
 import sys
 import os
 import datetime
@@ -35,7 +36,8 @@ class DailySearch:
               """ % self.day_str
         os.system(cmd)
         cmd = """cat /tmp/t | sort | uniq -c  | sort -n -r | head -n 30 > /tmp/s"""
-        os.system(cmd)
+        task = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        task.wait()
         f = open("/tmp/s")
         lines = f.readlines()
         f.close()
