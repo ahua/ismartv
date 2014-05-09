@@ -78,7 +78,7 @@ def process(filename, output_dir):
                 mediaip = r.get("content", "-").encode("utf8")
             elif r["event"] == "video_search":
                 mediaip = r.get("q", "-").encode("utf8")
-            elif r["event"] == "":
+            elif r["event"] == "video_start":
                 mediaip = r.get("_screen", "-")
                 if mediaip == "-" and _device.upper() == "K91":
                     mediaip = "55"
