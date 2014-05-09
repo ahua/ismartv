@@ -30,7 +30,7 @@ def get_sn_list_by_day(day_str):
     sn_list = []
     for r in rowlist:
         day_sn = r.row 
-        sn_list.append(day_sn[9:])
+        sn_list.append([day_sn[9:], r.columns["a:device"].value])
     return sn_list
 
 SN_DEV_SIZE = {
@@ -67,7 +67,16 @@ SN_DEV_SIZE = {
     "TD07": ["A11", "42"]
     }
 
+SN_TABLE = {}
+with open("/tmp/a21_series.txt") as fp:
+    for li in fp:
+        sn, device, size = li.rstrip().split()
+        SN_TABLE[sn] = size
+
 def get_size(sn):
+    global SN_TABLE
+    if sn.upper() in SN_TABLE:
+        return SN_TABLE[sn.upper()]
     k = sn[0:4].upper()
     if k in SN_DEV_SIZE:
         return SN_DEV_SIZE[k][1]
@@ -76,8 +85,12 @@ def get_size(sn):
 def process(day):
     day_str = day.strftime("%Y%m%d")
     sn_list = get_sn_list_by_day(day_str)
-    for sn in sn_list:
-        size = get_size(sn)
+    for sn, device in sn_list:
+        size = None
+        if device.upper() == "K91":
+            size = "55"
+        else:
+            size = get_size(sn)
         if size:
             save_to_hbase(sn, day_str, size)
         print sn, size        
