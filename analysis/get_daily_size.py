@@ -36,15 +36,15 @@ def calc_prectent():
     total = len(sn_list)
     d = {}
     for _, device, size in sn_list:
-        k = "%s_%s" % (device, size)
+        k = "%s:%s" % (device, size)
         if k in d:
             d[k] += 1
         else:
             d[k] = 1
     for k in d:
-        device, size = k.split("_")
+        device, size = k.split(":")
         p = str(round(float(d[k])/total*100, 2))
-        save_to_hbase(device, size, d[k], p)
+        save_to_hbase(device, size, p)
 
 ONE_DAY = datetime.timedelta(days=1)
 def main():
