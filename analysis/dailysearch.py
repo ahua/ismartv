@@ -27,7 +27,7 @@ class DailySearch:
     def save_to_hbase(self, day_str, i, c, q):
         key = "%s_%s" % (day_str, i)
         d = {"a:c": c, "a:q": q}
-        DailyTask.hbaseinterface.write(key, d)
+        DailySearch.hbaseinterface.write(key, d)
 
     @timed
     def _calc(self):
