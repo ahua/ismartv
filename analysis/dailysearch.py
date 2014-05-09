@@ -34,12 +34,16 @@ class DailySearch:
         cmd = """hive -e "select mediaip from daily_logs where parsets = '%s' and event = 'video_search' and length(mediaip) > 1;" > /tmp/t 2>/dev/null
               """ % self.day_str
         os.system(cmd)
-        cmd = """cat /tmp/t | sort | uniq -c  | sort -n -r | head -n 100"""
+        cmd = """cat /tmp/t | sort | uniq -c  | sort -n -r | head -n 30"""
         f = os.popen(cmd)
         lines = f.readlines()
+        i = 0
         for li in lines:
-            c, q = li.strip().rstrip().split()
-            print c, q
+            items = li.strip().rstrip().split()
+            c = items[0]
+            q = " ".join(items[1:])
+            i = i + 1
+            self.save_to_hbase(self.daylist, i, c, q)
 
     def execute(self):
         self._calc()
