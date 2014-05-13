@@ -13,6 +13,10 @@ HBASEHOST = "hadoopns410"
 ONE_DAY = datetime.timedelta(days=1)
 hiveinterface = HiveInterface(HIVEHOST)    
 
+def save(filename, lines):
+    with open(os.path.join("/var/tmp/", filename), "w") as fp:
+        fp.writelines(lines)
+
 @timed
 def calc_by_device(parsets, h):
     d = datetime.datetime.strptime(parsets, "%Y%m%d")
@@ -26,13 +30,11 @@ def calc_by_device(parsets, h):
              group by device
           """ % (parsets, startts, endts)
     print sql
-    return 
+    filename = "device_%s_%s.log" %(parsets, h)
     res = hiveinterface.execute(sql)
     if not res:
         res = []
-    for li in res:
-        print li,
-
+    save(filename, res)
 
 # VOD用户数
 @timed
@@ -48,14 +50,15 @@ def calc_by_device_and_channel(parsets, h):
              group by device, channel
           """ % (parsets, startts, endts)
     print sql
-    return 
+    filename = "channel_%s_%s.log" % (parsets, h)
     res = hiveinterface.execute(sql)
     if not res:
         res = []
-    for li in res:
-        print li,
+    save(filename, res)
 
 
+calc_by_device("20140512", 9)
+calc_by_device_and_channel("20140512", 9)
 
 startday = datetime.datetime(2014, 4, 11)
 endday = datetime.datetime(2014, 5, 9)
