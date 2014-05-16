@@ -74,8 +74,9 @@ class DailyTask:
         devices = {}
         res = res + ["A11", "A21", "K72", "K82", "K91",
                      "S31", "S51", "S61", 
-                     "E31", '960A', 'E62', 'UD10A',
-                     "DS70A", "LX750A", "LX755A", "LX850A"]
+                     "E31", 'LX960A', 'E62', 'UD10A',
+                     "DS70A", "LX750A", "LX755A", "LX850A",
+                     "S9", "S1", "U1", "S52"]
         res = [i.rstrip() for i in res]
         for li in res:
             devices[li.rstrip()] = {"x": 0, # 今天累计用户数
