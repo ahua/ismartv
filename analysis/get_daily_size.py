@@ -47,7 +47,7 @@ def calc_prectent():
     sn_list = []
     for r in rowlist:
         day_sn = r.row
-        t = [day_sn[9:]]
+        t = [day_sn[3:]]
         if "a:device" in r.columns and "a:size" in r.columns:
             t = t + [r.columns["a:device"].value, r.columns["a:size"].value]
             sn_list.append(t)
