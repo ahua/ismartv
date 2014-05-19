@@ -35,7 +35,7 @@ def process(day):
     day_str = day.strftime("%Y%m%d")
 
     sql = """select distinct sn, mediaip from daily_logs
-          where parsets = '%s' and event = 'video_start';
+          where parsets = "%s" and event = "video_start";
          """ % day_str
     res = hiveinterface.execute(sql)
     for li in res:
