@@ -19,7 +19,7 @@ hiveinterface = HiveInterface(HIVEHOST)
 device_size_count = HbaseInterface(HBASEHOST, "9090", "device_size_count")
 sn_table = HbaseInterface(HBASEHOST, "9090", "sn_table")
 
-def save_to_sn_table(sn, size):
+def save_to_sn_table(sn, size, day_str):
     key = "sn_%s" % (sn)
     key1 = "%s_%s" % (day_str, sn)
     d = {"a:size": size}
@@ -40,7 +40,7 @@ def process(day):
     res = hiveinterface.execute(sql)
     for li in res:
         sn, size = li.rstrip().split()
-        save_to_sn_table(sn, size)
+        save_to_sn_table(sn, size, day_str)
 
 def calc_prectent():
     rowlist = sn_table.read_all("sn_", ["a:device", "a:size"])
