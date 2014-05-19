@@ -23,8 +23,8 @@ def save_to_sn_table(sn, size, day_str):
     key = "sn_%s" % (sn)
     key1 = "%s_%s" % (day_str, sn)
     d = {"a:size": size}
-    sntable.write(key, d)
-    sntable.write(key1, d)
+    sn_table.write(key, d)
+    sn_table.write(key1, d)
 
 def save_to_hbase(device, size, count):
     key = "device_%s_%s" % (device, size)
