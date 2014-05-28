@@ -242,6 +242,21 @@ class DailyTask:
             key = self.day_str + device
             DailyTask.hbaseinterface.write(key, {"a:j": "%s" % value})
 
+    # 户均开机时长
+    @timed
+    def _k(self):
+        sql = """
+                 select device, sum(duration)/(60*count(distinct sn))
+                 from daily_logs where event = "system_on" and parsets = "%s"
+              """ % self.day_str
+        res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
+        for li in res:
+            device, value = li.split()
+            key = self.day_str + device
+            DailyTask.hbaseinterface.write(key, {"a:k": "%s" % value})
+
     def execute(self):
         self._a()
         self._b()
@@ -253,7 +268,7 @@ class DailyTask:
         self._h()
         self._i()
         self._j()
-
+        self._k()
 
 def main():
     if len(sys.argv) == 1:
