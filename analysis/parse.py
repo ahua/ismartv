@@ -82,6 +82,9 @@ def process(filename, output_dir):
                 mediaip = r.get("_screen", "-")
                 if mediaip == "-" and _device.upper() == "K91":
                     mediaip = "55"
+            elif r["event"] == "app_start":
+                mediaip = r.get("title", "-")
+
             cdn = r.get("_cdn", "-").encode("utf8")
             isplus = r.get("_plus", 5)
             channel = get_channel(item)
