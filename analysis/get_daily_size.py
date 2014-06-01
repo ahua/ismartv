@@ -10,10 +10,21 @@ import json
 import urllib2
 from decorators import timed
 from HbaseInterface import HbaseInterface
+from HiveInterface import HiveInterface
 
+HIVEHOST = "hadoopsnn411"
 HBASEHOST = "hadoopns410"
+hiveinterface = HiveInterface(HIVEHOST)
+
 device_size_count = HbaseInterface(HBASEHOST, "9090", "device_size_count")
 sn_table = HbaseInterface(HBASEHOST, "9090", "sn_table")
+
+def save_to_sn_table(sn, size, day_str):
+    key = "sn_%s" % (sn)
+    key1 = "%s_%s" % (day_str, sn)
+    d = {"a:size": size}
+    sn_table.write(key, d)
+    sn_table.write(key1, d)
 
 def save_to_hbase(device, size, count):
     key = "device_%s_%s" % (device, size)
@@ -21,14 +32,22 @@ def save_to_hbase(device, size, count):
     device_size_count.write(key, d)
 
 def process(day):
-    sql = ""
+    day_str = day.strftime("%Y%m%d")
+
+    sql = """select distinct sn, mediaip from daily_logs
+          where parsets = "%s" and event = "video_start";
+         """ % day_str
+    res = hiveinterface.execute(sql)
+    for li in res:
+        sn, size = li.rstrip().split()
+        save_to_sn_table(sn, size, day_str)
 
 def calc_prectent():
     rowlist = sn_table.read_all("sn_", ["a:device", "a:size"])
     sn_list = []
     for r in rowlist:
         day_sn = r.row
-        t = [day_sn[9:]]
+        t = [day_sn[3:]]
         if "a:device" in r.columns and "a:size" in r.columns:
             t = t + [r.columns["a:device"].value, r.columns["a:size"].value]
             sn_list.append(t)

@@ -74,8 +74,9 @@ class DailyTask:
         devices = {}
         res = res + ["A11", "A21", "K72", "K82", "K91",
                      "S31", "S51", "S61", 
-                     "E31", '960A', 'E62', 'UD10A',
-                     "DS70A", "LX750A", "LX755A", "LX850A"]
+                     "E31", 'LX960A', 'E62', 'UD10A',
+                     "DS70A", "LX750A", "LX755A", "LX850A",
+                     "S9", "S1", "U1", "S52"]
         res = [i.rstrip() for i in res]
         for li in res:
             devices[li.rstrip()] = {"x": 0, # 今天累计用户数
@@ -241,6 +242,21 @@ class DailyTask:
             key = self.day_str + device
             DailyTask.hbaseinterface.write(key, {"a:j": "%s" % value})
 
+    # 户均开机时长
+    @timed
+    def _k(self):
+        sql = """
+                 select device, sum(duration)/(60*count(distinct sn))
+                 from daily_logs where event = "system_on" and parsets = "%s"
+              """ % self.day_str
+        res = DailyTask.hiveinterface.execute(sql)
+        if not res:
+            res = []
+        for li in res:
+            device, value = li.split()
+            key = self.day_str + device
+            DailyTask.hbaseinterface.write(key, {"a:k": "%s" % value})
+
     def execute(self):
         self._a()
         self._b()
@@ -252,7 +268,7 @@ class DailyTask:
         self._h()
         self._i()
         self._j()
-
+        self._k()
 
 def main():
     if len(sys.argv) == 1:
