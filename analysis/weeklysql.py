@@ -140,7 +140,7 @@ sql_d_format = """select count(distinct sn), device
               """
 
 # 应用用户数(除去系统应用和游戏应用), group by code, device
-sql_e_format = """select count(distinct sn), code, device
+sql_e_format = """select count(distinct sn), code, mediaip, device
                  from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("app_start")
                  and code not in (
@@ -205,7 +205,6 @@ sql_e_format = """select count(distinct sn), code, device
 "lenovo.ideatv.tvshow",
 "tv.ismar.daiup",
 "tv.ismar.speedtester",
-
 "a5game.fruit_dianxin_5a",  
 "acan.yueqiu.migongtafang2",
 "air.A17vee.d9.kart",
@@ -1551,11 +1550,11 @@ sql_e_format = """select count(distinct sn), code, device
 "zl.Louis.PushRedBlock",
 "zy.g20130619174140"
 )
-                  group by code, device
+                  group by code, mediaip, device
 """
 
 # 游戏用户数, group by (code, device)
-sql_f_format = """select count(distinct sn), code, device
+sql_f_format = """select count(distinct sn), code, mediaip, device
                  from daily_logs where parsets >= "%s" and parsets <= "%s"
                  and event in ("app_start")
                  and code in (
@@ -2903,5 +2902,5 @@ sql_f_format = """select count(distinct sn), code, device
 "zl.Louis.FitItQuick",
 "zl.Louis.PushRedBlock",
 "zy.g20130619174140")
-                 group by code, device
+                 group by code, mediaip, device
               """

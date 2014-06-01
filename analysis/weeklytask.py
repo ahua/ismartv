@@ -87,8 +87,8 @@ class WeeklyTask:
         res = WeeklyTask.hiveinterface.execute(sql)
         lines = []
         for li in res:
-            value, code, device = li.split()
-            lines.append("%s,%s,%s,%s\n" % (self.day_str, device, code, value))
+            value, code, mediaip, device = li.split()
+            lines.append("%s,%s,%s,%s,%s\n" % (self.day_str, device, code, mediaip, value))
         with open("./result/app/%s.txt" % self.day_str, "w") as fp:
             fp.writelines(lines)
     
@@ -99,8 +99,8 @@ class WeeklyTask:
         res = WeeklyTask.hiveinterface.execute(sql)
         lines = []                 
         for li in res:
-            value, code, device = li.split()
-            lines.append("%s,%s,%s,%s\n" % (self.day_str, device, code, value))
+            value, code, mediaip, device = li.split()
+            lines.append("%s,%s,%s,%s,%s\n" % (self.day_str, device, code, mediaip, value))
         with open("./result/gameapp/%s.txt" % self.day_str, "w") as fp:
             fp.writelines(lines)
 
