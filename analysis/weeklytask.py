@@ -19,6 +19,8 @@ class WeeklyTask:
     hiveinterface.execute("SET mapred.job.tracker=hadoopns410:8021")
     hbaseinterface = HbaseInterface(HBASEHOST, "9090", "weekly_result")
 
+    gameappinterface = HbaseInterface(HBASEHOST, "9090", "app_game_weekly")
+
     # 周的定义：上周五0点-本周四24点
     def __init__(self, day):
         self.day = day
@@ -32,6 +34,16 @@ class WeeklyTask:
         self.endday = self.day - ONE_DAY
         self.startday_str = self.startday.strftime("%Y%m%d")
         self.endday_str = self.endday.strftime("%Y%m%d")
+
+
+    def read_hbase(keyprefix, colprefix="game"):
+        colkeys = ["%s:value" % colprefix]
+        rowlist = client.read_all(keyprefix, colkeys)
+        d = {}
+        for r in rowlist:
+            if colkyes[0] in r.columns:
+              d[r.row[8:]] = r.columns[colkeys[0]].value
+        return d
 
     # 周活跃用户数
     @timed
@@ -80,29 +92,48 @@ class WeeklyTask:
             key = self.day_str + device
             WeeklyTask.hbaseinterface.write(key, {"a:d": "%s" % value})
 
-    # 应用用户数(除去系统应用和游戏应用), group by code, device 
+    # 应用用户数(除去系统应用和游戏应用), group by code, title, device 
     @timed
     def _e(self):
         sql = weeklysql.sql_e_format % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
+        d = self.read_hbase((self.startday - ONE_DAY*7).strftime("%Y%m%d"), "app")
         lines = []
         for li in res:
             value, code, mediaip, device = li.split()
-            lines.append("%s,%s,%s,%s,%s\n" % (self.day_str, device, code, mediaip, value))
-        with open("./result/app/%s.txt" % self.day_str, "w") as fp:
-            fp.writelines(lines)
+            key = self.startday_str + code
+            up = 0
+            if d.has_key(code):
+                try:
+                    up = float(value) * 1.0 / float(d[code])
+                except:
+                    pass
+            WeeklyTask.gameappinterface.write(key, {"app:value": value,
+                                                    "app:title": title,
+                                                    "app:device": device,
+                                                    "app:up": up})
+
     
-    # 游戏用户数, group by (code, device)
+    # 游戏用户数, group by (code, title, device)
     @timed
     def _f(self):
         sql = weeklysql.sql_f_format % (self.startday_str, self.endday_str)
         res = WeeklyTask.hiveinterface.execute(sql)
+        d = self.read_hbase((self.startday - ONE_DAY*7).strftime("%Y%m%d"), "game")
         lines = []                 
         for li in res:
             value, code, mediaip, device = li.split()
-            lines.append("%s,%s,%s,%s,%s\n" % (self.day_str, device, code, mediaip, value))
-        with open("./result/gameapp/%s.txt" % self.day_str, "w") as fp:
-            fp.writelines(lines)
+            key = self.startday_str + code
+            up = 0
+            if d.has_key(code):
+                try:
+                    up = float(value) * 1.0 / float(d[code])
+                except:
+                    pass
+            WeeklyTask.gameappinterface.write(key, {"game:value": value,
+                                                    "game:title": title,
+                                                    "game:device": device,
+                                                    "game:up": up})
 
     def execute(self):
         self._a()
