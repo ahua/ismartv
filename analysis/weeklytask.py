@@ -36,9 +36,9 @@ class WeeklyTask:
         self.endday_str = self.endday.strftime("%Y%m%d")
 
 
-    def read_hbase(keyprefix, colprefix="game"):
+    def read_hbase(self, keyprefix, colprefix="game"):
         colkeys = ["%s:value" % colprefix]
-        rowlist = client.read_all(keyprefix, colkeys)
+        rowlist = WeeklyTask.gameappinterface.read_all(keyprefix, colkeys)
         d = {}
         for r in rowlist:
             if colkyes[0] in r.columns:
@@ -100,7 +100,7 @@ class WeeklyTask:
         d = self.read_hbase((self.startday - ONE_DAY*7).strftime("%Y%m%d"), "app")
         lines = []
         for li in res:
-            value, code, mediaip, device = li.split()
+            value, code, title, device = li.split()
             key = self.startday_str + code
             up = 0
             if d.has_key(code):
@@ -111,7 +111,7 @@ class WeeklyTask:
             WeeklyTask.gameappinterface.write(key, {"app:value": value,
                                                     "app:title": title,
                                                     "app:device": device,
-                                                    "app:up": up})
+                                                    "app:up": str(up)})
 
     
     # 游戏用户数, group by (code, title, device)
@@ -122,7 +122,7 @@ class WeeklyTask:
         d = self.read_hbase((self.startday - ONE_DAY*7).strftime("%Y%m%d"), "game")
         lines = []                 
         for li in res:
-            value, code, mediaip, device = li.split()
+            value, code, title, device = li.split()
             key = self.startday_str + code
             up = 0
             if d.has_key(code):
@@ -133,7 +133,7 @@ class WeeklyTask:
             WeeklyTask.gameappinterface.write(key, {"game:value": value,
                                                     "game:title": title,
                                                     "game:device": device,
-                                                    "game:up": up})
+                                                    "game:up": str(up)})
 
     def execute(self):
         self._a()
