@@ -41,7 +41,7 @@ class WeeklyTask:
         rowlist = WeeklyTask.gameappinterface.read_all(keyprefix, colkeys)
         d = {}
         for r in rowlist:
-            if colkyes[0] in r.columns:
+            if colkeys[0] in r.columns:
               d[r.row[8:]] = r.columns[colkeys[0]].value
         return d
 
