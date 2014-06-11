@@ -109,6 +109,7 @@ class WeeklyTask:
                 except:
                     pass
             WeeklyTask.gameappinterface.write(key, {"app:value": value,
+                                                    "app:code": code,
                                                     "app:title": title,
                                                     "app:device": device,
                                                     "app:up": str(up)})
@@ -131,6 +132,7 @@ class WeeklyTask:
                 except:
                     pass
             WeeklyTask.gameappinterface.write(key, {"game:value": value,
+                                                    "game:code": code, 
                                                     "game:title": title,
                                                     "game:device": device,
                                                     "game:up": str(up)})
