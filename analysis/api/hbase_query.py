@@ -21,10 +21,13 @@ class NotFoundTable(Exception):
         return repr(self.value)
 
 
+
 class HbaseInterface:
     def __init__(self, address, port, table):
         self.tableName = table
-        self.transport = TTransport.TBufferedTransport(TSocket.TSocket(address, port))
+        self.tsocket = TSocket.TSocket(address, port)
+        self.tsocket.setTimeout(30000)
+        self.transport = TTransport.TBufferedTransport(self.tsocket)
         self.protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
         self.client = Hbase.Client(self.protocol)
         self.transport.open()
@@ -56,16 +59,85 @@ class HbaseInterface:
         self.client.scannerClose(scannerId)
         return rowlist
 
+def get_weekly_gameapp(startdate, game_or_app):
+    client = HbaseInterface(HBASE_ADDR, "9090", "app_game_weekly")
+    colkeys = ["%s:%s" % (game_or_app, i) for i in ["value", "code", "title", "device", "up"]]
+    KEYTABLE = {}
+    for i in ["value", "code", "title", "device", "up"]:
+        v = "%s:%s" % (game_or_app, i)
+        KEYTABLE.update({i:v,v:i})
+    rowlist = client.read_all(startdate, colkeys)
+    res_top50 = {}
+    res_top10 = {}
+    res_top50_no_sharp = {}
+    res_top10_no_sharp = {}
+
+    doclist = []
+    doclist_no_sharp = []
+    for r in rowlist:
+        t = {}
+        isright = True
+        for k in colkeys:
+            if k not in r.columns:
+                isright = False
+            else:
+                t[KEYTABLE[k]] = r.columns[k].value
+        if isright:
+            doclist.append(t)
+        if t["device"] not in ["DS70A", "LX750A", "LX755A", "LX850A"]:
+            doclist_no_sharp.append(t)
+    res_top50 = sorted(doclist, key=lambda x:float(x["value"]), reverse=True)[0:50]
+    res_top10 = sorted(doclist, key=lambda x:float(x["up"]), reverse=True)[0:10]
+    res_top50_no_sharp = sorted(doclist_no_sharp, key=lambda x:float(x["value"]), reverse=True)[0:50]
+    res_top10_no_sharp = sorted(doclist_no_sharp, key=lambda x:float(x["up"]), reverse=True)[0:10]
+    return {"startday": startdate,
+            "top50": res_top50,
+            "top10": res_top10,
+            "top50_no_sharp": res_top50_no_sharp,
+            "top10_no_sharp": res_top10_no_sharp}
+
+
+def get_daily_gameapp(date):
+    client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
+    colkeys = ["a:c", "a:i", "a:j"]
+    rowlist = client.read_all(date, colkeys)
+    s = ('联网用户总数','应用活跃用户','game活跃用户')
+    res = {"date": date,
+           "a:c": 0,
+           "a:i": 0,
+           "a:j": 0}
+    res_no_sharp = {"date": date,
+                    "a:c": 0,
+                    "a:i": 0,
+                    "a:j": 0}
+    for r in rowlist:
+        device = r.row[8:]
+        for k in colkeys:
+            res[k] += int(r.columns[k].value) if k in r.columns else 0
+        if device not in ["DS70A", "LX750A", "LX755A", "LX850A"]:
+            for k in colkeys:
+                res_no_sharp[k] += int(r.columns[k].value) if k in r.columns else 0
+            
+    t = {"date": date,
+         "sn_online": res["a:c"],
+         "app_active": res["a:i"],
+         "game_active": res["a:j"],
+         "sn_online_no_sharp": res_no_sharp["a:c"],
+         "app_active_no_sharp": res_no_sharp["a:i"],
+         "game_active_no_sharp": res_no_sharp["a:j"]
+         }
+    return t
 
 def get_device_list(devices):
     #devices = devices.upper()
     if devices == "ALL":
         return ['A11', 'A21',
                 'DS70A',
-                'E31', 'E62', 'UD10A', '960A', 'LX960A',
+                'E31', 'E62', 'UD10A', 'LX960A',
                 'K72', 'K82','K91',
                 'S31', 'S51', 'S61', 
-                'LX750A', 'LX755A', 'LX850A']
+                'LX750A', 'LX755A', 'LX850A',
+                'S9', "U1", "S52", "S1"]
     #return devices.split(",")
     return [i.upper() for i in devices]
 
@@ -78,6 +150,20 @@ def format_res(res):
     for k in res:
         if type(res[k]) == float:
             res[k] = round(res[k], 2)
+
+def format_res_ary(res):
+    for k in res:
+        for m in k:
+          if type(k[m]) == float:
+             k[m] = round(k[m], 2)
+
+def format_res_list(res):
+    for k in res:
+        if type(res[k]) != dict:
+            continue
+        for m in res[k]:
+           if type(res[k][m]) == float:
+               res[k][m] = round(res[k][m], 2)
 
 HBASE_ADDR = "10.0.4.10"
 
@@ -111,13 +197,24 @@ def get_daily_prediction_data(docs):
             periods.append([i, i+6])
         i += 6
 
-    week1 = get_weekly_sum_data(docs, periods[1][0], periods[1][1])
-    week2 = get_weekly_sum_data(docs, periods[2][0], periods[2][1])
-    week3 = get_weekly_sum_data(docs, periods[3][0], periods[3][1])
-
     t = {}
-    for k in week1:
-        t[k] = (week1[k]/week2[k] + week2[k]/week3[k]) * (docs[6][k] + docs[13][k] + docs[20][k]) / 6.0
+    try:
+        week1 = get_weekly_sum_data(docs, periods[1][0], periods[1][1])
+        week2 = get_weekly_sum_data(docs, periods[2][0], periods[2][1])
+        week3 = get_weekly_sum_data(docs, periods[3][0], periods[3][1])
+
+        for k in week1:
+            t[k] = (week1[k]/week2[k] + week2[k]/week3[k]) * (docs[6][k] + docs[13][k] + docs[20][k]) / 6.0
+    except:
+        t = {"sn_new": 0,
+             "sn_active": 0,
+             "sn_vod_load": 0,
+             "sn_play_count": 0,
+             "dr_per_sn": 0,
+             "play_count_per_sn": 0,
+             "load_per_active": 0,
+             "active_per_total": 0,
+             }
     t["time"] = datetime.datetime.now().strftime("%Y%m%d")
     t["sn_total"] = docs[0]["sn_total"] + t["sn_new"]
     format_res(t)
@@ -132,16 +229,16 @@ def get_daily_prediction_data(docs):
 def get_sn_info():
     client = HbaseInterface(HBASE_ADDR, "9090", "device_size_count")    
     colkeys = ["a:size", "a:count"]
-    rowlist = client.read_all(date, colkeys)
+    rowlist = client.read_all("device", colkeys)
     devices_list = get_device_list('ALL')
     d = []
     for r in rowlist:
         t = {}
         device = r.row[7:-3]
-        if device in devices:
+        if device in devices_list:
             t["device"] = device
             for k in colkeys:
-                t[k[2:]] = r.columns[k].value
+                t["size" if k == "a:size" else "percent"] = r.columns[k].value
             d.append(t)
     return d
     
@@ -165,10 +262,10 @@ def get_daily_data(date, devices='ALL'):
     device_list = get_device_list(devices)
 
     client = HbaseInterface(HBASE_ADDR, "9090", "daily_result")    
-    colkeys = ["a:a", "a:b", "a:c", "a:d", "a:e", "a:f", "a:g", "a:h"]
+    colkeys = ["a:a", "a:b", "a:c", "a:d", "a:e", "a:f", "a:g", "a:h", "a:k"]
     rowlist = client.read_all(date, colkeys)
     s = ('日期设备', '累计用户', '新增用户', '活跃用户', 'VOD用户',\
-             'VOD播放次数', 'VOD播放总时长', '应用激活用户', '智能激活用户')
+             'VOD播放次数', 'VOD播放总时长', '应用激活用户', '智能激活用户', '户均开机时间')
     d = {}
     for dev in device_list:
         d[dev] = {}
@@ -189,19 +286,22 @@ def get_daily_data(date, devices='ALL'):
         if sn_vod_load > 0 else 0
     load_per_active = sn_vod_load / sn_active * 100 if sn_active > 0 else 0
     active_per_total = sn_active / sn_total  * 100 if sn_total > 0 else 0
-    
+
+    system_on_per_sn = math.fsum([d[dev]["a:k"] for dev in device_list])/(sn_active*60)\
+        if sn_active > 0 else 0
     sn_play_count = math.fsum([d[dev]["a:e"] for dev in device_list])
     play_count_per_sn = sn_play_count / sn_vod_load if sn_vod_load > 0 else 0
     t =  {"time": date,
-            "sn_total": sn_total,            # 累计用户
-            "sn_new": sn_new,                # 新增用户
-            "sn_active": sn_active,          # 活跃用户
-            "sn_vod_load": sn_vod_load,      # VOD用户数
-            "sn_play_count": sn_play_count,  # VOD播放次数(播放量)
-            "dr_per_sn": dr_per_sn,          # VOD户均时长(分钟)
-            "play_count_per_sn": play_count_per_sn,# VOD户均访次
-            "load_per_active": load_per_active,    # 激活率(VOD)
-            "active_per_total": active_per_total,  # 开机率(VOD)
+          "sn_total": sn_total,            # 累计用户
+          "sn_new": sn_new,                # 新增用户
+          "sn_active": sn_active,          # 活跃用户
+          "sn_vod_load": sn_vod_load,      # VOD用户数
+          "sn_play_count": sn_play_count,  # VOD播放次数(播放量)
+          "dr_per_sn": dr_per_sn,          # VOD户均时长(分钟)
+          "play_count_per_sn": play_count_per_sn,# VOD户均访次
+          "load_per_active": load_per_active,    # 激活率(VOD)
+          "active_per_total": active_per_total,  # 开机率(VOD)
+          "system_on_per_sn": system_on_per_sn,  # 户均开机时间
             }
     format_res(t)
     return t
@@ -269,6 +369,35 @@ def get_weekly_data(date, devices='ALL'):
 
     format_res(t)
     return t
+
+def get_weekly_data_by_device(date, devices='ALL'):
+    device_list = get_device_list(devices)
+
+    client = HbaseInterface(HBASE_ADDR, "9090", "weekly_result")    
+    colkeys = ["a:a", "a:b"]
+    rowlist = client.read_all(date, colkeys)
+    s = ('日期设备', '活跃用户', 'VOD用户')
+    d = {}
+    for dev in device_list:
+        d[dev] = {}
+        for k in colkeys:
+            d[dev][k] = 0
+
+    for r in rowlist:
+        device = r.row[8:]
+        if device in device_list:
+            d[device] = {}
+            for k in colkeys:
+                d[device][k] = float(r.columns[k].value) if k in r.columns else 0
+    
+    t = {"time": (datetime.datetime.strptime(date, "%Y%m%d") \
+                      - datetime.timedelta(days=7)).strftime("%Y%m%d")}
+    t.update(d)
+
+    format_res(t)
+    return t
+
+
 
 def get_monthly_data(date, devices='ALL'):
     device_list = get_device_list(devices)
@@ -426,6 +555,308 @@ def get_month_cdn(date, cdn='all', devices='all',target='all',line_type='all'):
     return t
 
 
+def get_cdn_name(id):
+    cdn_map = {'3':'奇艺','1':'视云','2':'网宿','4':'蓝汛','5':'帝联','8':'其他'}
+    if id in cdn_map:
+       return cdn_map[id]
+    else:
+       return u'其他'
+
+def get_prov_name(id):
+    pro_map = {"HE":"河北","TJ":"天津","BJ":"北京","SX":"山西","NM":"内蒙古","LN":"辽宁","JL":"吉林","HL":"黑龙江","SH":"上海","JS":"江苏","ZJ":"浙江","AH":"安徽","FJ":"福建","JX":"江西","SD":"山东","HA":"河南","HB":"湖北","HN":"湖南","GD":"广东","GX":"广西","HI":"海南","CQ":"重庆","SC":"四川","GZ":"贵州","YN":"云南","XZ":"西藏","SN":"陕西","GS":"甘肃","QH":"青海","NX":"宁夏","XJ":"新疆","TW":"台湾","HK":"香港","MO":"澳门","OTHER":"OTHER"}
+    id = id.upper()
+    if id in pro_map:
+       return pro_map[id]
+    else:
+        return "OTHER"
+
+def get_isp_name(id):
+    isp_map = {"CUC":"联通", "CTC":"电信", "CMCC":"移动", "DXT":"电信通", "FBN":"方正宽带", "GHBN":"歌华有线", "SINNET":"光环新网", "SYCATV":"广电网", "CERNET":"教育网", "CRTC":"铁通", "GDCATV":"视讯宽带", "TWSX":"天威视讯", "YTBN":"油田宽带", "OCN":"有线通", "ZXNET":"中信网络", "OTHER":"OTHER", "GWBN":"长城宽带", "KJNET":"宽捷网络", "WASU":"华数宽带", "DRPENG":"DRPENG", "BJKJ":"BJKJ", "SJHL":"SJHL", "GZEJK":"GZEJK", "PACIFIC":"PACIFIC", "BAIDU":"BAIDU", "QQ":"QQ", "WLGT":"WLGT", "ZHFD":"ZHFD", "EHOMENET":"EHOMENET", "SXKD":"SXKD"}    
+    if id in isp_map:
+       return isp_map[id]
+    else:
+       return "OTHER"
+
+
+
+def get_prov_cdn(date, cdn='ALL', devices='ALL',prov="ALL",isp="ALL"):
+    device_list = []
+    if devices == 'ALL':
+        device_list = get_device_list(devices)
+    else:
+        device_list = [i.upper() for i in devices]
+
+    cdn_list = []
+    if cdn == "ALL":
+        cdn_list = ["1","2","3","5","8"]
+    else:
+        cdn_list = [i for i in cdn]
+
+    prov_list = []
+    if prov == "ALL":
+        prov_list = ['ALL']
+    else:
+        prov_list = [i for i in prov]
+
+    isp_list = []
+    if isp == "ALL":
+        isp_list = ['ALL']
+    else:
+        isp_list = [i for i in isp]
+
+    client = HbaseInterface(HBASE_ADDR, "9090", "cdn_prov_quality")    
+
+    colkeys = ["info:bl3",
+            "info:lcvv",
+            "info:vv",
+            "info:vv0",
+            "info:total_pltms",
+            "info:total_bltms",
+            "info:sumloads",
+            "info:countloads",
+            "info:ycvv"]
+
+    key = date
+    rowlist = client.read_all(key, colkeys)
+    t = []
+    temp_map = {}
+    for r in rowlist:
+        key_ary = r.row.split(';')
+
+        if key_ary[1] not in device_list:
+           continue
+
+        if  key_ary[2] not in cdn_list: 
+            continue
+
+        str_prov =  key_ary[3].lower()
+        if prov_list[0] == 'ALL' or  str_prov  in prov_list:
+            pass
+        else:
+           continue
+
+        str_sip =  key_ary[4].lower()
+        if isp_list[0] == 'ALL' or  str_sip  in isp_list:
+            pass
+        else:
+           continue
+
+        array_d = {}
+        array_d['dev'] = key_ary[1]
+        array_d['cdn'] =  get_cdn_name(key_ary[2])
+        array_d['prov'] = get_prov_name(key_ary[3])
+        array_d['isp'] =  get_isp_name(key_ary[4])
+        array_d["time"] = date
+
+        temp_d = {}
+        colkey = 'info:vv'
+        if  'vv' in temp_map :
+            temp_map['vv'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['vv'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+        colkey = 'info:vv0'
+        if  'vv0' in temp_map :
+            temp_map['vv0'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['vv0'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+        colkey = 'info:bl3'
+        if  'bl3' in temp_map :
+            temp_map['bl3'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['bl3'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+        colkey = 'info:ycvv'
+        if  'ycvv' in temp_map :
+            temp_map['ycvv'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['ycvv'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+        colkey = 'info:lcvv'
+        if  'lcvv' in temp_map :
+            temp_map['lcvv'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['lcvv'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+        colkey = 'info:total_pltms'
+        if  'total_pltms' in temp_map :
+            temp_map['total_pltms'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['total_pltms'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+        colkey = 'info:total_bltms'
+        if  'total_bltms' in temp_map :
+            temp_map['total_bltms'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['total_bltms'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+        colkey = 'info:sumloads'
+        if  'sumloads' in temp_map :
+            temp_map['sumloads'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['sumloads'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:countloads'
+        if  'countloads' in temp_map :
+            temp_map['countloads'] += float(r.columns[colkey].value) if colkey in r.columns else 0
+        else:
+            temp_map['countloads'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+        colkey = 'info:total_pltms'
+        temp_d['total_pltms'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:total_bltms'
+        temp_d['total_bltms'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:sumloads'
+        temp_d['sumloads'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:countloads'
+        temp_d['countloads'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:vv'
+        temp_d['vv'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:vv0'
+        temp_d['vv0'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:lcvv'
+        temp_d['lcvv'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:ycvv'
+        temp_d['ycvv'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+        colkey = 'info:bl3'
+        temp_d['bl3'] = float(r.columns[colkey].value) if colkey in r.columns else 0
+
+
+        array_d['vv'] = temp_d['vv']
+        array_d['vv0'] = temp_d['vv0']/temp_d['vv'] if temp_d['vv'] >0 else 0
+        array_d['lcvv'] = temp_d['lcvv']/temp_d['vv'] if temp_d['vv'] >0 else 0
+        array_d['ycvv'] = temp_d['ycvv']/temp_d['vv'] if temp_d['vv'] >0 else 0
+        array_d['bl3']  = temp_d['bl3']/temp_d['vv'] if temp_d['vv'] >0 else 0
+        array_d['avgloads'] = temp_d['sumloads']/temp_d['countloads'] if temp_d['countloads'] >0 else 0
+        array_d['blpl'] = temp_d['total_bltms']/temp_d['total_pltms'] if temp_d['total_pltms'] >0 else 0
+        t.append(array_d)
+
+
+    
+    array_d = {}
+    array_d["time"] = date
+    array_d['dev'] = 'all'
+    array_d['cdn'] = 'all'
+    array_d['prov'] = 'all'
+    array_d['isp'] = 'all'
+    array_d['vv'] = temp_map['vv'] if 'vv' in temp_map else 0
+    
+    if  array_d['vv'] <=0:
+        array_d['vv0'] = 0 
+        array_d['lcvv'] = 0
+        array_d['ycvv'] = 0
+        array_d['bl3'] = 0
+        array_d['avgloads'] = 0
+        array_d['blpl'] = 0
+    else:
+        array_d['vv0'] = temp_map['vv0']/temp_map['vv'] if  'vv0' in temp_map else 0
+        array_d['lcvv'] = temp_map['lcvv']/temp_map['vv'] if 'lcvv' in temp_map  else 0
+        array_d['ycvv'] = temp_map['ycvv']/temp_map['vv'] if  'ycvv' in temp_map   else 0
+        array_d['bl3']  = temp_map['bl3']/temp_map['vv'] if  'bl3' in temp_map  else 0
+
+        if 'countloads' in temp_map and temp_map['countloads'] >0:
+           array_d['avgloads'] = temp_map['sumloads']/temp_map['countloads'] if  'sumloads' in temp_map else 0
+        else:
+           array_d['avgloads'] =  0
+
+        if 'total_pltms' in temp_map and temp_map['total_pltms'] >0:
+           array_d['blpl'] = temp_map['total_bltms']/temp_map['total_pltms'] if 'total_bltms' in temp_map else 0
+        else:
+           array_d['blpl'] =  0
+
+    t.append(array_d)
+    format_res_ary(t)
+    return t
+
+def get_node_cdn(date, cdn='all', devices='all',limit_vv="0"):
+    device_list = []
+    if devices == 'ALL' or devices == 'all':
+        device_list = get_device_list(devices)
+    else:
+        device_list = [i.upper() for i in devices]
+    cdn_list = []
+    if cdn == "ALL" or cdn == 'all':
+        cdn_list = ["1"]
+    else:
+        cdn_list = [i for i in cdn]
+
+    client = HbaseInterface(HBASE_ADDR, "9090", "cdn_mip_quality")    
+
+    colkeys = ["bl3",
+            "lcvv",
+            "vv",
+            "vv0",
+            "total_pltms",
+            "total_bltms",
+            "sumloads",
+            "countloads",
+            "ycvv"]
+
+    key = date + cdn_list[0]
+    rowlist = client.read_all(key, colkeys)
+    d = {}
+    for r in rowlist:
+        dev = r.row[9:]
+        if dev not in device_list:
+           continue
+        for colkey in r.columns:
+            key_tag,mip = colkey.split(':')
+            if mip in d:
+               if key_tag in  d[mip]:
+                  d[mip][key_tag] += float(r.columns[colkey].value)
+               else:
+                  d[mip][key_tag] = float(r.columns[colkey].value)
+
+            else :
+                 mip_tag = {}
+                 mip_tag[key_tag]=float(r.columns[colkey].value)
+                 d[mip]=mip_tag
+     
+    t =  {}
+    t["time"] = date
+    intlimit_vv = int(limit_vv[0])
+    for mip in  d:
+       if d[mip]['vv'] <  intlimit_vv:
+           continue
+       tag_map = {}
+       tag_map["vv"] = d[mip]["vv"]
+
+       if  d[mip].has_key("vv0") :
+           tag_map["vv0"] = d[mip]["vv0"]/d[mip]["vv"] * 100
+       else :
+           tag_map["vv0"] = 0
+           
+       if  d[mip].has_key("lcvv") :
+           tag_map["lcvv"] =  d[mip]["lcvv"]/d[mip]["vv"] * 100
+       else :
+            tag_map["lcvv"] = 0
+
+       if  d[mip].has_key("ycvv")  :
+           tag_map["ycvv"] =  d[mip]["ycvv"]/d[mip]["vv"]* 100 
+       else :
+            tag_map["ycvv"] = 0
+
+
+       if  d[mip].has_key("bl3") :
+           tag_map["bl3"] = d[mip]["bl3"]/d[mip]["vv"] * 100
+       else :
+           tag_map["bl3"] = 0
+
+       if  d[mip].has_key("total_pltms") and  d[mip]["total_pltms"]> 0:
+           tag_map["blpl"] = d[mip]["total_bltms"]/d[mip]["total_pltms"] * 100
+       else :
+           tag_map["blpl"] = 0
+
+       if  d[mip].has_key("countloads") and  d[mip]["countloads"] > 0:
+           tag_map["avgloads"] = d[mip]["sumloads"]/d[mip]["countloads"] * 100
+       else :
+           tag_map["avgloads"] = 0
+       t[mip] = tag_map
+
+    format_res_list(t)
+    return t
+
+
 
 def get_daily_cdn(date, cdn='all', devices='all'):
     device_list = []
@@ -514,15 +945,20 @@ def get_daily_channel(date, channels='ALL', devices='ALL'):
     play_count_per_sn = sn_play_count / sn_vod_load if sn_vod_load > 0 else 0
 
 
-    sn_vod_load_total = get_daily_data(date, devices)["sn_vod_load"]
+    daily_data = get_daily_data(date, devices)
+    sn_vod_load_total = daily_data["sn_vod_load"]
+    sn_active_total = daily_data["sn_active"]
+
     load_per_channel = sn_vod_load / sn_vod_load_total * 100 if sn_vod_load_total > 0 else 0
+    active_per_channel = sn_vod_load / sn_active_total * 100 if sn_active_total > 0 else 0
     
     t =  {"time": date,
           "sn_vod_load": sn_vod_load,      # VOD用户数
           "sn_play_count": sn_play_count,  # VOD播放次数(播放量)
           "dr_per_sn": dr_per_sn,          # VOD户均时长(分钟)
           "play_count_per_sn": play_count_per_sn,# VOD户均访次
-          "load_per_channel": load_per_channel,    # 频道激活率(VOD)
+          "load_per_channel": load_per_channel,  #频道热度 = 该频道VOD用户数 ÷ 总VOD用户数。
+          "active_per_channel": active_per_channel #频道活跃度 = 该频道VOD用户数 ÷ 总活跃用户数。
           }
     format_res(t)
     return t
@@ -556,6 +992,7 @@ def get_weekly_channel(date, channels='ALL', devices='ALL'):
     sn_vod_load = math.fsum([d[key]["a:a"] for key in key_list])
     sn_play_count = math.fsum([d[key]["a:b"] for key in key_list])
     
+    week_sn_vod_load = 0
     week_dr_per_sn = 0
     week_play_count_per_sn = 0
     week_load_per_channel = 0
@@ -567,6 +1004,7 @@ def get_weekly_channel(date, channels='ALL', devices='ALL'):
         week_dr_per_sn += res["dr_per_sn"]
         week_play_count_per_sn += res["play_count_per_sn"]
         week_load_per_channel += res["load_per_channel"]
+        week_sn_vod_load += res["sn_vod_load"]
         i += 1
 
     sn_vod_load_total = get_weekly_data(date, devices)["sn_vod_load"]
@@ -576,7 +1014,7 @@ def get_weekly_channel(date, channels='ALL', devices='ALL'):
          "sn_vod_load": sn_vod_load,      # 周VOD用户数
          "sn_play_count": sn_play_count, # 周VOD播放次数(播放量)
          "load_per_channel": load_per_channel,   # 周频道激活率(VOD)
-         "sn_vod_load_per_day": int(sn_vod_load/7),  # 日均vod用户数
+         "sn_vod_load_per_day": int(week_sn_vod_load/7),  # 日均vod用户数
          "play_count_per_day": sn_play_count/7,  # 日均播放量
 
          "dr_per_sn_day":  week_dr_per_sn/7,  # 日均户均时长(分钟)
